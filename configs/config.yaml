@@ -1,0 +1,101 @@
+# AI Incident Extraction Benchmark Configuration
+
+# LLM Models to benchmark
+# Start with lightweight models, add more later
+models:
+  ollama:
+    # Small models (< 4GB RAM) - good for testing
+    - name: "llama3.2:1b"      # 1.3B params, ~1.3GB
+      base_url: "http://localhost:11434"
+    - name: "llama3.2:3b"      # 3B params, ~2GB
+      base_url: "http://localhost:11434"
+    - name: "qwen2.5:1.5b"     # 1.5B params, ~1GB
+      base_url: "http://localhost:11434"
+    - name: "qwen2.5:3b"       # 3B params, ~2GB
+      base_url: "http://localhost:11434"
+    # Medium models (4-8GB RAM) - better quality
+    # - name: "llama3.2:8b"
+    # - name: "qwen2.5:7b"
+    # - name: "mistral:7b"
+  openai:
+    # Optional - requires API key
+    # - name: "gpt-4o-mini"
+    # - name: "gpt-4o"
+
+# Prompt templates to benchmark
+templates:
+  - "zero_shot"
+  - "simple_schema"
+  - "rich_ontology"
+  - "few_shot"
+  - "chain_of_verification"
+
+# Extraction schema (fields to extract)
+schema:
+  event:
+    - event_type  # malfunction, bias, privacy_breach, misuse, security, other
+    - event_date  # YYYY-MM-DD or null
+    - event_location  # country, region, specific place
+    - description  # brief description
+
+  ai_system:
+    - name  # name of the AI system
+    - system_type  # autonomous_vehicle, facial_recognition, recommendation, chatbot, other
+    - developer  # company/organization that developed it
+    - deployer  # company/organization that deployed it
+
+  harm:
+    - harm_type  # physical, psychological, financial, reputational, societal, privacy
+    - severity  # minor, moderate, severe, fatal, unknown
+    - affected_parties  # list of affected groups
+    - affected_count  # number if mentioned, null otherwise
+
+  organizations:
+    - name  # organization name
+    - role  # developer, deployer, regulator, victim, investigator
+
+# Event type categories
+event_types:
+  - malfunction
+  - bias
+  - privacy_breach
+  - misuse
+  - security_vulnerability
+  - unintended_consequence
+  - other
+
+# Harm severity levels
+severity_levels:
+  - minor
+  - moderate
+  - severe
+  - fatal
+  - unknown
+
+# AI system types
+system_types:
+  - autonomous_vehicle
+  - facial_recognition
+  - recommendation_system
+  - chatbot
+  - content_moderation
+  - predictive_system
+  - generative_ai
+  - other
+
+# Evaluation settings
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - hallucination_rate
+    - json_validity_rate
+
+# Experiment settings
+experiment:
+  output_dir: "data/results"
+  random_seed: 42
+  temperature: 0.0  # deterministic output
+  max_tokens: 2000

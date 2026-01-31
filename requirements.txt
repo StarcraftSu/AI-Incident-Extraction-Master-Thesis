@@ -1,0 +1,14 @@
+# AI Incident Extraction Benchmark Dependencies
+
+# HTTP requests for Ollama API
+requests>=2.28.0
+
+# Configuration file parsing
+pyyaml>=6.0
+
+# Data analysis and visualization (optional)
+pandas>=2.0.0
+matplotlib>=3.7.0
+
+# Progress bars (optional)
+tqdm>=4.65.0
