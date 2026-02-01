@@ -11,21 +11,26 @@ Benchmark different LLM prompting strategies for extracting structured data from
 ```
 ai_incident_extraction/
 ├── configs/
-│   └── config.yaml          # Experiment configuration
+│   └── config.yaml              # Experiment configuration
 ├── data/
-│   ├── raw/                  # Raw news articles
-│   ├── annotated/            # Human-annotated ground truth
-│   └── results/              # Experiment outputs
-├── prompts/                  # Additional prompt templates
+│   ├── raw/                     # Raw news articles (xlsx)
+│   ├── annotated/               # Human-annotated ground truth (json)
+│   └── results/                 # Experiment outputs (grouped by run)
 ├── src/
-│   ├── prompts.py           # Knowledge injection templates
-│   ├── llm_client.py        # Ollama/OpenAI client
-│   ├── data_loader.py       # Dataset handling
-│   ├── evaluation.py        # Metrics calculation
-│   └── experiment.py        # Main experiment runner
-├── notebooks/               # Analysis notebooks
+│   ├── templates/               # Knowledge injection templates
+│   │   ├── zero_shot.py         # T1: Baseline
+│   │   ├── simple_schema.py     # T2: Enumerated values
+│   │   ├── rich_ontology.py     # T3: gUFO-based
+│   │   ├── few_shot.py          # T4: Examples
+│   │   └── chain_of_verification.py  # T5: Verify against source
+│   ├── prompts.py               # Template re-exports
+│   ├── llm_client.py            # Ollama/OpenAI client
+│   ├── data_loader.py           # Dataset handling
+│   ├── evaluation.py            # Metrics calculation
+│   └── experiment.py            # Main experiment runner
+├── notebooks/                   # Analysis notebooks
 ├── requirements.txt
-├── run_test.py             # Quick setup test
+├── run_test.py                  # Quick setup test
 └── README.md
 ```
 
@@ -155,9 +160,21 @@ metrics = runner.run_benchmark(
 }
 ```
 
-## Adding Real Data
+## Data Source
 
-1. Collect news articles from [AI Incident Database](https://incidentdatabase.ai/)
+Incidents are collected from the [OECD AI Policy Observatory - AI Incidents Monitor](https://oecd.ai/en/incidents):
+
+**Query parameters used:**
+- Country: USA
+- Date range: 2026-01-01 to 2026-02-01
+- Harm level: AI incident
+- Results: 20 incidents
+
+**Direct link:** [OECD AI Incidents Query](https://oecd.ai/en/incidents?search_terms=%5B%5D&and_condition=false&countries=USA&from_date=2026-01-01&to_date=2026-02-01&properties_config=%7B%22principles%22:%5B%5D,%22industries%22:%5B%5D,%22harm_types%22:%5B%5D,%22harm_levels%22:%5B%22AI%20incident%22%5D,%22harmed_entities%22:%5B%5D,%22business_functions%22:%5B%5D,%22ai_tasks%22:%5B%5D,%22autonomy_levels%22:%5B%5D,%22languages%22:%5B%5D%7D&order_by=date&num_results=20)
+
+## Adding More Data
+
+1. Collect incidents from [OECD AI Incidents Monitor](https://oecd.ai/en/incidents)
 2. Create ground truth annotations following the schema above
 3. Save to `data/annotated/your_dataset.json`
 4. Run benchmark with your dataset
