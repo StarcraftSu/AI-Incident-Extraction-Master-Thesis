@@ -28,7 +28,6 @@ ai_incident_extraction/
 │   ├── data_loader.py           # Dataset handling
 │   ├── evaluation.py            # Metrics calculation
 │   └── experiment.py            # Main experiment runner
-├── notebooks/                   # Analysis notebooks
 ├── requirements.txt
 ├── run_test.py                  # Quick setup test
 └── README.md
