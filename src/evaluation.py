@@ -152,8 +152,17 @@ def normalize_value(value: Any) -> Any:
         return None
     if isinstance(value, str):
         return value.lower().strip()
+    if isinstance(value, dict):
+        return {k: normalize_value(v) for k, v in value.items()}
     if isinstance(value, list):
-        return sorted([normalize_value(v) for v in value])
+        normalized = [normalize_value(v) for v in value]
+        # Sort only if list contains sortable items (not dicts)
+        if normalized and isinstance(normalized[0], dict):
+            return normalized  # Don't sort list of dicts
+        try:
+            return sorted(normalized)
+        except TypeError:
+            return normalized  # Return unsorted if comparison fails
     return value
 
 
