@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-from data_loader import Dataset, create_sample_dataset
+from data_loader import Dataset
 from prompts import format_prompt, AVAILABLE_TEMPLATES
 from llm_client import OllamaClient, LLMResponse
 from evaluation import (
@@ -228,36 +228,37 @@ def main():
     print("AI Incident Extraction Benchmark")
     print("=" * 60)
 
-    # Initialize runner
-    runner = ExperimentRunner()
+    # Initialize runner (use project root for output)
+    project_root = Path(__file__).parent.parent
+    runner = ExperimentRunner(output_dir=str(project_root / "data/results"))
 
     # Check setup
     if not runner.check_setup():
         sys.exit(1)
 
-    # Load or create dataset
-    sample_path = Path("data/annotated/sample_dataset.json")
-    if sample_path.exists():
-        dataset = Dataset.load(sample_path)
+    # Load annotated dataset (resolve path relative to project root)
+    project_root = Path(__file__).parent.parent
+    dataset_path = project_root / "data/annotated/incidents_20.json"
+    if dataset_path.exists():
+        dataset = Dataset.load(dataset_path)
     else:
-        print("\nCreating sample dataset...")
-        dataset = create_sample_dataset()
-        dataset.save(sample_path)
+        print(f"\nERROR: Dataset not found at {dataset_path}")
+        print("Please ensure incidents_20.json exists in data/annotated/")
+        sys.exit(1)
 
     # Define what to test
-    # Start with lightweight models
+    # Use available models (check with: ollama list)
     models_to_test = [
-        "llama3.2:1b",   # Smallest, fastest
-        # "llama3.2:3b",   # Uncomment to add more
-        # "qwen2.5:1.5b",
+        "llama3.2:latest",   # 3B params
+        # "qwen2.5:latest",  # Disabled - too slow
     ]
 
     templates_to_test = [
         "zero_shot",
         "simple_schema",
-        # "rich_ontology",   # Uncomment to add more
-        # "few_shot",
-        # "chain_of_verification",
+        "rich_ontology",
+        "few_shot",
+        "chain_of_verification",
     ]
 
     # Run benchmark

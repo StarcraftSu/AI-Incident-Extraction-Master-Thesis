@@ -1,0 +1,949 @@
+[
+  {
+    "incident_id": "2026-01-30-9567",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | security_breach\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"OpenClaw, an open-source agentic AI assistant, has rapidly gained popularity but triggered major security incidents. Over 1,800 exposed instances leaked sensitive data, including API keys and credentials, due to inadequate security controls.\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | security_breach",
+      "event_date": null,
+      "event_location": null,
+      "description": "OpenClaw, an open-source agentic AI assistant, has rapidly gained popularity but triggered major security incidents. Over 1,800 exposed instances leaked sensitive data, including API keys and credentials, due to inadequate security controls."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "security_vulnerability",
+        "event_date": "2026-01-30",
+        "event_location": "United States",
+        "description": "OpenClaw AI assistant exposed 1,800+ instances leaking API keys and credentials"
+      },
+      "ai_system": {
+        "name": "OpenClaw",
+        "system_type": "ai_agent",
+        "developer": null,
+        "deployer": null
+      },
+      "harm": {
+        "harm_type": "privacy",
+        "severity": "severe",
+        "affected_parties": [
+          "users",
+          "organizations"
+        ],
+        "affected_count": 1800
+      },
+      "organizations": []
+    },
+    "is_valid_json": true,
+    "latency_seconds": 9.732012033462524,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-29-408a",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"Amazon discovered hundreds of thousands of child sexual abuse images in externally sourced data intended for AI model training. Although the material was removed and reported to the National Center for Missing & Exploited Children, Amazon did not provide source details, hindering law enforcement efforts to identify perpetrators and protect victims.\",\n\n  \"name\": \"null\",\n  \"system_type\": \"AI model training\",\n  \"developer\": \"Amazon\",\n  \"deployer\": \"Amazon\",\n\n  \"harm_type\": \"misuse | privacy_breach | security\",\n  \"severity\": \"unknown\",\n  \"affected_parties\": [\"victims of child sexual abuse\", \"law enforcement\"],\n  \"affected_count\": \"hundreds of thousands\",\n\n  \"name\": [\n    \"National Center for Missing & Exploited Children\"\n  ],\n  \"role\": [\n    \"reported the material to Amazon\"\n  ]\n}",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "Amazon discovered hundreds of thousands of child sexual abuse images in externally sourced data intended for AI model training. Although the material was removed and reported to the National Center for Missing & Exploited Children, Amazon did not provide source details, hindering law enforcement efforts to identify perpetrators and protect victims.",
+      "name": [
+        "National Center for Missing & Exploited Children"
+      ],
+      "system_type": "AI model training",
+      "developer": "Amazon",
+      "deployer": "Amazon",
+      "harm_type": "misuse | privacy_breach | security",
+      "severity": "unknown",
+      "affected_parties": [
+        "victims of child sexual abuse",
+        "law enforcement"
+      ],
+      "affected_count": "hundreds of thousands",
+      "role": [
+        "reported the material to Amazon"
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "privacy_breach",
+        "event_date": "2026-01-29",
+        "event_location": "United States",
+        "description": "Amazon found hundreds of thousands of child abuse images in AI training data"
+      },
+      "ai_system": {
+        "name": "Amazon AI models",
+        "system_type": "generative_ai",
+        "developer": "Amazon",
+        "deployer": "Amazon"
+      },
+      "harm": {
+        "harm_type": "societal",
+        "severity": "severe",
+        "affected_parties": [
+          "children",
+          "law enforcement"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "Amazon",
+          "role": "developer"
+        },
+        {
+          "name": "National Center for Missing & Exploited Children",
+          "role": "investigator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 25.928310871124268,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-29-aa24",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"Researchers from SentinelOne and Censys found that thousands of open-source large language models, including Meta's Llama and Google DeepMind's Gemma, are being exploited by hackers for criminal activities such as scams, phishing, disinformation, and child sexual abuse material, due to removed safety features and lack of platform security.\"\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "Researchers from SentinelOne and Censys found that thousands of open-source large language models, including Meta's Llama and Google DeepMind's Gemma, are being exploited by hackers for criminal activities such as scams, phishing, disinformation, and child sexual abuse material, due to removed safety features and lack of platform security."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "misuse",
+        "event_date": "2026-01-29",
+        "event_location": "United States",
+        "description": "Open-source LLMs exploited for scams, phishing, disinformation, and CSAM"
+      },
+      "ai_system": {
+        "name": "Meta Llama, Google Gemma",
+        "system_type": "generative_ai",
+        "developer": "Meta, Google DeepMind",
+        "deployer": null
+      },
+      "harm": {
+        "harm_type": "societal",
+        "severity": "severe",
+        "affected_parties": [
+          "public"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "Meta",
+          "role": "developer"
+        },
+        {
+          "name": "Google DeepMind",
+          "role": "developer"
+        },
+        {
+          "name": "SentinelOne",
+          "role": "investigator"
+        },
+        {
+          "name": "Censys",
+          "role": "investigator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 12.73815107345581,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-29-c56c",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"other\",\n  \"event_date\": \"null\",\n  \"event_location\": \"null\",\n  \"description\": \"null\"\n\n\n\n\n  }",
+    "parsed_output": {
+      "event_type": "other",
+      "event_date": "null",
+      "event_location": "null",
+      "description": "null"
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "unintended_consequence",
+        "event_date": "2026-01-29",
+        "event_location": "United States",
+        "description": "Dow Inc. cuts 4,500 jobs due to AI-driven restructuring"
+      },
+      "ai_system": {
+        "name": "AI automation systems",
+        "system_type": "predictive_system",
+        "developer": null,
+        "deployer": "Dow Inc."
+      },
+      "harm": {
+        "harm_type": "financial",
+        "severity": "severe",
+        "affected_parties": [
+          "employees"
+        ],
+        "affected_count": 4500
+      },
+      "organizations": [
+        {
+          "name": "Dow Inc.",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 4.448610782623291,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-29-5f44",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | privacy_breach\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"Security researchers discovered that Bondu, an AI toy company, left over 50,000 children's chat logs and personal data exposed via an unsecured web portal. Anyone with a Gmail account could access sensitive conversations and personal details, resulting in a major privacy breach before the company closed the vulnerability.\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | privacy_breach",
+      "event_date": null,
+      "event_location": null,
+      "description": "Security researchers discovered that Bondu, an AI toy company, left over 50,000 children's chat logs and personal data exposed via an unsecured web portal. Anyone with a Gmail account could access sensitive conversations and personal details, resulting in a major privacy breach before the company closed the vulnerability."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "privacy_breach",
+        "event_date": "2026-01-29",
+        "event_location": "United States",
+        "description": "AI toy company exposed 50,000+ children's chat logs via unsecured portal"
+      },
+      "ai_system": {
+        "name": "Bondu AI toy",
+        "system_type": "chatbot",
+        "developer": "Bondu",
+        "deployer": "Bondu"
+      },
+      "harm": {
+        "harm_type": "privacy",
+        "severity": "severe",
+        "affected_parties": [
+          "children"
+        ],
+        "affected_count": 50000
+      },
+      "organizations": [
+        {
+          "name": "Bondu",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 11.22135329246521,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-29-dcf7",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"Clawdbot, a locally deployed AI agent enabling fully automated 'zero-employee' companies, has rapidly gained popularity but triggered incidents of financial loss and privacy breaches due to high system privileges and security vulnerabilities. Users reported stolen funds and data leaks, highlighting significant risks despite the technology's productivity benefits.\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "Clawdbot, a locally deployed AI agent enabling fully automated 'zero-employee' companies, has rapidly gained popularity but triggered incidents of financial loss and privacy breaches due to high system privileges and security vulnerabilities. Users reported stolen funds and data leaks, highlighting significant risks despite the technology's productivity benefits."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "security_vulnerability",
+        "event_date": "2026-01-29",
+        "event_location": "United States",
+        "description": "Clawdbot AI agent caused financial losses and privacy breaches in zero-employee companies"
+      },
+      "ai_system": {
+        "name": "Clawdbot",
+        "system_type": "ai_agent",
+        "developer": null,
+        "deployer": null
+      },
+      "harm": {
+        "harm_type": "financial",
+        "severity": "moderate",
+        "affected_parties": [
+          "users",
+          "companies"
+        ],
+        "affected_count": null
+      },
+      "organizations": []
+    },
+    "is_valid_json": true,
+    "latency_seconds": 12.213637828826904,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-29-093e",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": \"Santa Monica, California (near an elementary school)\",\n  \"description\": \"A Waymo self-driving vehicle struck a child near an elementary school in Santa Monica, California. The AI system detected the child and braked, but still caused minor injuries.\"\n\n}",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": "Santa Monica, California (near an elementary school)",
+      "description": "A Waymo self-driving vehicle struck a child near an elementary school in Santa Monica, California. The AI system detected the child and braked, but still caused minor injuries."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "malfunction",
+        "event_date": "2026-01-29",
+        "event_location": "Santa Monica, California, United States",
+        "description": "Waymo robotaxi struck a child near elementary school causing minor injuries"
+      },
+      "ai_system": {
+        "name": "Waymo self-driving system",
+        "system_type": "autonomous_vehicle",
+        "developer": "Waymo",
+        "deployer": "Waymo"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "minor",
+        "affected_parties": [
+          "child"
+        ],
+        "affected_count": 1
+      },
+      "organizations": [
+        {
+          "name": "Waymo",
+          "role": "developer"
+        },
+        {
+          "name": "Federal Government",
+          "role": "investigator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 10.268890857696533,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-29-4edb",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": \"San Francisco\",\n  \"description\": \"Linwei Ding was convicted of stealing thousands of pages of confidential AI hardware and software trade secrets to benefit Chinese companies.\"\n\n}",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": "San Francisco",
+      "description": "Linwei Ding was convicted of stealing thousands of pages of confidential AI hardware and software trade secrets to benefit Chinese companies."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "security_vulnerability",
+        "event_date": "2026-01-29",
+        "event_location": "San Francisco, United States",
+        "description": "Ex-Google engineer convicted of stealing AI trade secrets for Chinese companies"
+      },
+      "ai_system": {
+        "name": "Google AI infrastructure",
+        "system_type": "other",
+        "developer": "Google",
+        "deployer": "Google"
+      },
+      "harm": {
+        "harm_type": "financial",
+        "severity": "severe",
+        "affected_parties": [
+          "Google"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "Google",
+          "role": "victim"
+        },
+        {
+          "name": "US Federal Court",
+          "role": "investigator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 8.06767201423645,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-28-d2dc",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security\",\n  \"event_date\": null,\n  \"event_location\": \"Minneapolis\",\n  \"description\": \"MS NOW broadcast and published an AI-enhanced image of Alex Pretti, who was fatally shot by federal agents without disclosure.\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security",
+      "event_date": null,
+      "event_location": "Minneapolis",
+      "description": "MS NOW broadcast and published an AI-enhanced image of Alex Pretti, who was fatally shot by federal agents without disclosure."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "misuse",
+        "event_date": "2026-01-28",
+        "event_location": "Minneapolis, United States",
+        "description": "MS NOW aired AI-enhanced image of shooting victim without disclosure"
+      },
+      "ai_system": {
+        "name": "AI image enhancement",
+        "system_type": "generative_ai",
+        "developer": null,
+        "deployer": "MS NOW"
+      },
+      "harm": {
+        "harm_type": "reputational",
+        "severity": "moderate",
+        "affected_parties": [
+          "public",
+          "victim's family"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "MS NOW",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 8.185112237930298,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-28-db51",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"The Anti-Defamation League's AI Index found that xAI's Grok chatbot performed worst among six leading AI models at detecting and countering antisemitic and extremist content, sometimes generating or failing to reject harmful narratives.\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "The Anti-Defamation League's AI Index found that xAI's Grok chatbot performed worst among six leading AI models at detecting and countering antisemitic and extremist content, sometimes generating or failing to reject harmful narratives."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "bias",
+        "event_date": "2026-01-28",
+        "event_location": "United States",
+        "description": "xAI's Grok chatbot failed to detect antisemitism and amplified harmful content"
+      },
+      "ai_system": {
+        "name": "Grok",
+        "system_type": "chatbot",
+        "developer": "xAI",
+        "deployer": "xAI"
+      },
+      "harm": {
+        "harm_type": "societal",
+        "severity": "moderate",
+        "affected_parties": [
+          "Jewish community",
+          "public"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "xAI",
+          "role": "developer"
+        },
+        {
+          "name": "Anti-Defamation League",
+          "role": "investigator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 10.644302129745483,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-28-5f03",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"Universal Music Group, Concord Music Group, and others filed a lawsuit in the U.S. against Anthropic, alleging its Claude AI models were trained on over 20,000 copyrighted songs illegally downloaded from pirate sites.\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "Universal Music Group, Concord Music Group, and others filed a lawsuit in the U.S. against Anthropic, alleging its Claude AI models were trained on over 20,000 copyrighted songs illegally downloaded from pirate sites."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "misuse",
+        "event_date": "2026-01-28",
+        "event_location": "United States",
+        "description": "Music publishers sue Anthropic for $3B over AI training on pirated songs"
+      },
+      "ai_system": {
+        "name": "Claude",
+        "system_type": "generative_ai",
+        "developer": "Anthropic",
+        "deployer": "Anthropic"
+      },
+      "harm": {
+        "harm_type": "financial",
+        "severity": "severe",
+        "affected_parties": [
+          "music publishers",
+          "artists"
+        ],
+        "affected_count": 20000
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "Universal Music Group",
+          "role": "victim"
+        },
+        {
+          "name": "Concord Music Group",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 10.22425389289856,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-0d41",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction\",\n  \"event_date\": \"2023-04-01 or null\",\n  \"event_location\": \"San Francisco\",\n  \"description\": \"A Waymo autonomous vehicle struck a child, causing minor injuries and raising concerns about AI's ability to handle unpredictable pedestrian behavior.\"\n\n}",
+    "parsed_output": {
+      "event_type": "malfunction",
+      "event_date": "2023-04-01 or null",
+      "event_location": "San Francisco",
+      "description": "A Waymo autonomous vehicle struck a child, causing minor injuries and raising concerns about AI's ability to handle unpredictable pedestrian behavior."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "malfunction",
+        "event_date": "2026-01-27",
+        "event_location": "San Francisco and Texas, United States",
+        "description": "Waymo struck child; Tesla robotaxis crash 9x more often than human drivers"
+      },
+      "ai_system": {
+        "name": "Waymo, Tesla FSD",
+        "system_type": "autonomous_vehicle",
+        "developer": "Waymo, Tesla",
+        "deployer": "Waymo, Tesla"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "moderate",
+        "affected_parties": [
+          "pedestrians",
+          "passengers"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "Waymo",
+          "role": "developer"
+        },
+        {
+          "name": "Tesla",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 7.963221073150635,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-19a0",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"Apple and Google have been criticized for hosting dozens of AI-powered 'nudify' apps on their app stores, which generate non-consensual sexualized deepfake images. Despite policies against such content, these apps have been downloaded hundreds of millions of times, causing significant privacy violations and harm to individuals.\"\n\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "Apple and Google have been criticized for hosting dozens of AI-powered 'nudify' apps on their app stores, which generate non-consensual sexualized deepfake images. Despite policies against such content, these apps have been downloaded hundreds of millions of times, causing significant privacy violations and harm to individuals."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "misuse",
+        "event_date": "2026-01-27",
+        "event_location": "United States",
+        "description": "Apple and Google hosting AI nudify apps enabling non-consensual deepfakes"
+      },
+      "ai_system": {
+        "name": "AI nudify apps",
+        "system_type": "generative_ai",
+        "developer": "Various",
+        "deployer": "Apple App Store, Google Play"
+      },
+      "harm": {
+        "harm_type": "privacy",
+        "severity": "severe",
+        "affected_parties": [
+          "women",
+          "victims of deepfakes"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "Apple",
+          "role": "deployer"
+        },
+        {
+          "name": "Google",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 12.282964944839478,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-cc55",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"These safety failures have led to direct harm to children and teens on the X platform.\"\n\n   \n   \n\n  \n\n\n  \n\n\n\n  \n\n\n\n\n\n  \n\n\n\n\n\n  \n\n\n\n\n\n  \n\n\n\n\n\n  \n\n\n\n\n\n  \n\n\n\n\n\n ",
+    "parsed_output": null,
+    "ground_truth": {
+      "event": {
+        "event_type": "unintended_consequence",
+        "event_date": "2026-01-27",
+        "event_location": "United States",
+        "description": "xAI's Grok exposes minors to sexual/violent content, fails to identify underage users"
+      },
+      "ai_system": {
+        "name": "Grok",
+        "system_type": "chatbot",
+        "developer": "xAI",
+        "deployer": "X (Twitter)"
+      },
+      "harm": {
+        "harm_type": "psychological",
+        "severity": "severe",
+        "affected_parties": [
+          "children",
+          "teenagers"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "xAI",
+          "role": "developer"
+        },
+        {
+          "name": "Common Sense Media",
+          "role": "investigator"
+        }
+      ]
+    },
+    "is_valid_json": false,
+    "latency_seconds": 10.10573697090149,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-a1eb",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"verified description\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "verified description"
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "bias",
+        "event_date": "2026-01-27",
+        "event_location": "United States",
+        "description": "TikTok AI moderation accused of censoring political content and harming mental health"
+      },
+      "ai_system": {
+        "name": "TikTok recommendation/moderation AI",
+        "system_type": "content_moderation",
+        "developer": "TikTok",
+        "deployer": "TikTok"
+      },
+      "harm": {
+        "harm_type": "psychological",
+        "severity": "moderate",
+        "affected_parties": [
+          "users",
+          "minors"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "TikTok",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 5.720818996429443,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-70c0",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"Madhu Gottumukkala, acting director of the US Cybersecurity and Infrastructure Security Agency (CISA), uploaded sensitive, non-classified government contracting documents to public ChatGPT in August 2025. The incident triggered automated security alerts and an internal review, raising concerns over potential exposure of sensitive information and violation of security protocols.\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "Madhu Gottumukkala, acting director of the US Cybersecurity and Infrastructure Security Agency (CISA), uploaded sensitive, non-classified government contracting documents to public ChatGPT in August 2025. The incident triggered automated security alerts and an internal review, raising concerns over potential exposure of sensitive information and violation of security protocols."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "privacy_breach",
+        "event_date": "2026-01-27",
+        "event_location": "United States",
+        "description": "US Cybersecurity chief uploaded sensitive government documents to public ChatGPT"
+      },
+      "ai_system": {
+        "name": "ChatGPT",
+        "system_type": "chatbot",
+        "developer": "OpenAI",
+        "deployer": "OpenAI"
+      },
+      "harm": {
+        "harm_type": "privacy",
+        "severity": "moderate",
+        "affected_parties": [
+          "US Government",
+          "CISA"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "CISA",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.179100275039673,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-1a97",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"AI start-up Anthropic secretly acquired and destructively scanned millions of books to train its AI models, including the chatbot Claude. This unauthorized use of copyrighted works led to a major lawsuit by authors, resulting in Anthropic agreeing to a $1.5 billion settlement for copyright infringement.\",\n\n  \"name\": \"Anthropic\",\n  \"system_type\": \"AI start-up\",\n  \"developer\": \"null\",\n  \"deployer\": \"null\",\n\n  \"harm_type\": \"copyright infringement\",\n  \"severity\": \"major\",\n  \"affected_parties\": [\"authors\"],\n  \"affected_count\": \"$1.5 billion settlement\",\n\n\n  \"organizations\": [\n    {\"name\": \"Anthropic\", \"role\": \"developer/deployer (acquired and used copyrighted works)\"},\n  \"]\"\n\n  ]\n\n}",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "AI start-up Anthropic secretly acquired and destructively scanned millions of books to train its AI models, including the chatbot Claude. This unauthorized use of copyrighted works led to a major lawsuit by authors, resulting in Anthropic agreeing to a $1.5 billion settlement for copyright infringement.",
+      "name": "Anthropic",
+      "system_type": "AI start-up",
+      "developer": "null",
+      "deployer": "null",
+      "harm_type": "copyright infringement",
+      "severity": "major",
+      "affected_parties": [
+        "authors"
+      ],
+      "affected_count": "$1.5 billion settlement",
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer/deployer (acquired and used copyrighted works)"
+        },
+        "]"
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "misuse",
+        "event_date": "2026-01-27",
+        "event_location": "United States",
+        "description": "Anthropic secretly scanned millions of books for AI training, settled for $1.5B"
+      },
+      "ai_system": {
+        "name": "Claude",
+        "system_type": "generative_ai",
+        "developer": "Anthropic",
+        "deployer": "Anthropic"
+      },
+      "harm": {
+        "harm_type": "financial",
+        "severity": "severe",
+        "affected_parties": [
+          "authors",
+          "publishers"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 24.270657062530518,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-5416",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n  \"event_type\": \"security\",\n  \"event_date\": \"null\",\n  \"event_location\": \"null\",\n  \"description\": \"null\"\n}",
+    "parsed_output": {
+      "event_type": "security",
+      "event_date": "null",
+      "event_location": "null",
+      "description": "null"
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "misuse",
+        "event_date": "2026-01-27",
+        "event_location": "Global",
+        "description": "AI-driven cyber attacks surged 70% since 2023, 1,968 attacks per week"
+      },
+      "ai_system": {
+        "name": "AI attack tools",
+        "system_type": "other",
+        "developer": "Various threat actors",
+        "deployer": "Hackers"
+      },
+      "harm": {
+        "harm_type": "financial",
+        "severity": "severe",
+        "affected_parties": [
+          "organizations worldwide"
+        ],
+        "affected_count": null
+      },
+      "organizations": []
+    },
+    "is_valid_json": true,
+    "latency_seconds": 4.234888315200806,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-47e4",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"OpenAI's ChatGPT Health has produced inconsistent and alarmist health assessments, raising concerns about user confusion, anxiety, and potential health risks from misleading outputs.\"\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security",
+      "event_date": null,
+      "event_location": null,
+      "description": "OpenAI's ChatGPT Health has produced inconsistent and alarmist health assessments, raising concerns about user confusion, anxiety, and potential health risks from misleading outputs."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "malfunction",
+        "event_date": "2026-01-27",
+        "event_location": "United States",
+        "description": "ChatGPT Health produced inconsistent and alarmist health assessments"
+      },
+      "ai_system": {
+        "name": "ChatGPT Health",
+        "system_type": "chatbot",
+        "developer": "OpenAI",
+        "deployer": "OpenAI"
+      },
+      "harm": {
+        "harm_type": "psychological",
+        "severity": "moderate",
+        "affected_parties": [
+          "users",
+          "patients"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "The Washington Post",
+          "role": "investigator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 8.762386322021484,
+    "error": null
+  },
+  {
+    "incident_id": "2026-01-27-babb",
+    "model": "llama3.2:latest",
+    "template": "chain_of_verification",
+    "raw_output": "{\n\n  \"event_type\": \"malfunction | bias | privacy_breach | misuse | security | other\",\n  \"event_date\": null,\n  \"event_location\": null,\n  \"description\": \"TikTok and Meta's AI-driven content moderation systems have been accused of censoring posts and videos critical of Donald Trump, US immigration enforcement (ICE), and references to Jeffrey Epstein. Users and public figures report blocked content, prompting investigations into potential violations of free expression rights in the US.\"\n\n\n  }",
+    "parsed_output": {
+      "event_type": "malfunction | bias | privacy_breach | misuse | security | other",
+      "event_date": null,
+      "event_location": null,
+      "description": "TikTok and Meta's AI-driven content moderation systems have been accused of censoring posts and videos critical of Donald Trump, US immigration enforcement (ICE), and references to Jeffrey Epstein. Users and public figures report blocked content, prompting investigations into potential violations of free expression rights in the US."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "bias",
+        "event_date": "2026-01-27",
+        "event_location": "United States",
+        "description": "TikTok and Meta AI moderation accused of censoring political criticism"
+      },
+      "ai_system": {
+        "name": "TikTok and Meta content moderation AI",
+        "system_type": "content_moderation",
+        "developer": "TikTok, Meta",
+        "deployer": "TikTok, Meta"
+      },
+      "harm": {
+        "harm_type": "societal",
+        "severity": "moderate",
+        "affected_parties": [
+          "users",
+          "public figures"
+        ],
+        "affected_count": null
+      },
+      "organizations": [
+        {
+          "name": "TikTok",
+          "role": "developer"
+        },
+        {
+          "name": "Meta",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 12.025304079055786,
+    "error": null
+  }
+]

@@ -1,0 +1,273 @@
+{
+  "model": "llama3.2:latest",
+  "template": "chain_of_verification",
+  "total_samples": 20,
+  "valid_json_count": 19,
+  "json_validity_rate": 0.95,
+  "overall_accuracy": 0.10728744939271254,
+  "overall_f1": 0.13294974952583646,
+  "avg_latency_seconds": 11.110869252681733,
+  "field_metrics": {
+    "ai_system.name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "ai_system.developer": {
+      "accuracy": 0.21052631578947367,
+      "precision": 1.0,
+      "recall": 0.21052631578947367,
+      "f1_score": 0.34782608695652173,
+      "correct": 4,
+      "incorrect": 0,
+      "missing": 15,
+      "hallucinated": 0
+    },
+    "ai_system.deployer": {
+      "accuracy": 0.15789473684210525,
+      "precision": 1.0,
+      "recall": 0.15789473684210525,
+      "f1_score": 0.2727272727272727,
+      "correct": 3,
+      "incorrect": 0,
+      "missing": 16,
+      "hallucinated": 0
+    },
+    "ai_system.system_type": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "event.description": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "event.event_type": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "event.event_date": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "event.event_location": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "harm.affected_parties": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "harm.harm_type": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "harm.affected_count": {
+      "accuracy": 0.7368421052631579,
+      "precision": 1.0,
+      "recall": 0.7368421052631579,
+      "f1_score": 0.8484848484848484,
+      "correct": 14,
+      "incorrect": 0,
+      "missing": 5,
+      "hallucinated": 0
+    },
+    "harm.severity": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 19,
+      "hallucinated": 0
+    },
+    "description": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 19
+    },
+    "event_date": {
+      "accuracy": 0.8421052631578947,
+      "precision": 0.8421052631578947,
+      "recall": 1.0,
+      "f1_score": 0.9142857142857143,
+      "correct": 16,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 3
+    },
+    "event_type": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 19
+    },
+    "organizations": {
+      "accuracy": 0.15789473684210525,
+      "precision": 0.75,
+      "recall": 0.15789473684210525,
+      "f1_score": 0.2608695652173913,
+      "correct": 3,
+      "incorrect": 1,
+      "missing": 15,
+      "hallucinated": 0
+    },
+    "event_location": {
+      "accuracy": 0.6842105263157895,
+      "precision": 0.6842105263157895,
+      "recall": 1.0,
+      "f1_score": 0.8125000000000001,
+      "correct": 13,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 6
+    },
+    "affected_count": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 2
+    },
+    "deployer": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 2
+    },
+    "system_type": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 2
+    },
+    "harm_type": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 2
+    },
+    "name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 2
+    },
+    "affected_parties": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 2
+    },
+    "developer": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 2
+    },
+    "role": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 1
+    },
+    "severity": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 2
+    }
+  },
+  "error_count": 0
+}
