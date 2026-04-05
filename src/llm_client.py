@@ -1,8 +1,9 @@
 """
-LLM Client for interacting with Ollama (and optionally OpenAI).
+LLM Client for interacting with Ollama, Anthropic, and optionally OpenAI.
 """
 
 import json
+import os
 import time
 import requests
 from dataclasses import dataclass
@@ -233,14 +234,109 @@ class OpenAIClient:
             )
 
 
-def create_client(provider: str, **kwargs) -> OllamaClient | OpenAIClient:
+class AnthropicClient:
+    """Client for Anthropic Claude API."""
+
+    def __init__(self, api_key: Optional[str] = None):
+        self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+        self.base_url = "https://api.anthropic.com/v1"
+
+    def is_available(self) -> bool:
+        """Check if Anthropic API key is configured."""
+        return self.api_key is not None and len(self.api_key) > 0
+
+    def generate(
+        self,
+        model: str,
+        prompt: str,
+        temperature: float = 0.0,
+        max_tokens: int = 2000,
+    ) -> LLMResponse:
+        """Generate a response from Anthropic Claude."""
+        if not self.is_available():
+            return LLMResponse(
+                text="",
+                model=model,
+                prompt_tokens=0,
+                completion_tokens=0,
+                total_tokens=0,
+                latency_seconds=0,
+                success=False,
+                error="Anthropic API key not configured. Set ANTHROPIC_API_KEY env var.",
+            )
+
+        start_time = time.time()
+
+        try:
+            response = requests.post(
+                f"{self.base_url}/messages",
+                headers={
+                    "x-api-key": self.api_key,
+                    "anthropic-version": "2023-06-01",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": model,
+                    "max_tokens": max_tokens,
+                    "temperature": temperature,
+                    "messages": [{"role": "user", "content": prompt}],
+                },
+                timeout=120,
+            )
+
+            latency = time.time() - start_time
+
+            if response.status_code == 200:
+                data = response.json()
+                text = ""
+                for block in data.get("content", []):
+                    if block.get("type") == "text":
+                        text += block.get("text", "")
+                usage = data.get("usage", {})
+                return LLMResponse(
+                    text=text,
+                    model=model,
+                    prompt_tokens=usage.get("input_tokens", 0),
+                    completion_tokens=usage.get("output_tokens", 0),
+                    total_tokens=usage.get("input_tokens", 0) + usage.get("output_tokens", 0),
+                    latency_seconds=latency,
+                    success=True,
+                )
+            else:
+                return LLMResponse(
+                    text="",
+                    model=model,
+                    prompt_tokens=0,
+                    completion_tokens=0,
+                    total_tokens=0,
+                    latency_seconds=latency,
+                    success=False,
+                    error=f"HTTP {response.status_code}: {response.text}",
+                )
+
+        except requests.exceptions.RequestException as e:
+            return LLMResponse(
+                text="",
+                model=model,
+                prompt_tokens=0,
+                completion_tokens=0,
+                total_tokens=0,
+                latency_seconds=time.time() - start_time,
+                success=False,
+                error=str(e),
+            )
+
+
+def create_client(provider: str, **kwargs):
     """Factory function to create the appropriate client."""
     if provider == "ollama":
         return OllamaClient(base_url=kwargs.get("base_url", "http://localhost:11434"))
     elif provider == "openai":
         return OpenAIClient(api_key=kwargs.get("api_key"))
+    elif provider == "anthropic":
+        return AnthropicClient(api_key=kwargs.get("api_key"))
     else:
-        raise ValueError(f"Unknown provider: {provider}")
+        raise ValueError(f"Unknown provider: {provider}. Available: ollama, openai, anthropic")
 
 
 # Quick test function

@@ -58,7 +58,7 @@ class Dataset:
     def add(self, incident: AIIncident):
         self.incidents.append(incident)
 
-    def save(self, filepath: str | Path):
+    def save(self, filepath: str):
         """Save dataset to JSON file."""
         filepath = Path(filepath)
         filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -75,7 +75,7 @@ class Dataset:
         print(f"Saved {len(self.incidents)} incidents to {filepath}")
 
     @classmethod
-    def load(cls, filepath: str | Path) -> "Dataset":
+    def load(cls, filepath: str) -> "Dataset":
         """Load dataset from JSON file."""
         filepath = Path(filepath)
 

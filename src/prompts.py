@@ -1,13 +1,20 @@
 """
 Prompt templates for AI incident extraction benchmark.
 
-Each template is defined in its own file under src/templates/.
-This module re-exports them for backward compatibility.
+This module re-exports from templates/ for convenience.
+Supports both legacy templates and new PS × KI modular design.
 """
 
 # Handle imports whether running as package or directly
 try:
     from .templates import (
+        # New PS × KI design
+        build_condition_prompt,
+        ALL_CONDITIONS,
+        KI_COMPONENTS,
+        KI_LABELS,
+        PS_LABELS,
+        # Legacy templates
         ZERO_SHOT_TEMPLATE,
         SIMPLE_SCHEMA_TEMPLATE,
         RICH_ONTOLOGY_TEMPLATE,
@@ -20,6 +27,11 @@ try:
     )
 except ImportError:
     from templates import (
+        build_condition_prompt,
+        ALL_CONDITIONS,
+        KI_COMPONENTS,
+        KI_LABELS,
+        PS_LABELS,
         ZERO_SHOT_TEMPLATE,
         SIMPLE_SCHEMA_TEMPLATE,
         RICH_ONTOLOGY_TEMPLATE,
@@ -32,6 +44,13 @@ except ImportError:
     )
 
 __all__ = [
+    # New design
+    "build_condition_prompt",
+    "ALL_CONDITIONS",
+    "KI_COMPONENTS",
+    "KI_LABELS",
+    "PS_LABELS",
+    # Legacy
     "ZERO_SHOT_TEMPLATE",
     "SIMPLE_SCHEMA_TEMPLATE",
     "RICH_ONTOLOGY_TEMPLATE",

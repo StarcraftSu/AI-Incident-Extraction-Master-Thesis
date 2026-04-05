@@ -1,99 +1,110 @@
 # AI Incident Extraction Benchmark Configuration
+# Design: 3 PS × 4 KI × 3 Models = 36 experimental runs
 
-# LLM Models to benchmark
-# Start with lightweight models, add more later
+# ---------------------------------------------------------------------------
+# Models (3 tiers)
+# ---------------------------------------------------------------------------
 models:
-  ollama:
-    # Small models (< 4GB RAM) - good for testing
-    - name: "llama3.2:1b"      # 1.3B params, ~1.3GB
-      base_url: "http://localhost:11434"
-    - name: "llama3.2:3b"      # 3B params, ~2GB
-      base_url: "http://localhost:11434"
-    - name: "qwen2.5:1.5b"     # 1.5B params, ~1GB
-      base_url: "http://localhost:11434"
-    - name: "qwen2.5:3b"       # 3B params, ~2GB
-      base_url: "http://localhost:11434"
-    # Medium models (4-8GB RAM) - better quality
-    # - name: "llama3.2:8b"
-    # - name: "qwen2.5:7b"
-    # - name: "mistral:7b"
-  openai:
-    # Optional - requires API key
-    # - name: "gpt-4o-mini"
-    # - name: "gpt-4o"
+  # Low tier: open-source, local
+  - key: "llama3.1:8b"
+    provider: ollama
+    model_id: "llama3.1:8b"
+    label: "Llama 3.1 8B (local, 4-bit)"
+    tier: low
 
-# Prompt templates to benchmark
-templates:
-  - "zero_shot"
-  - "simple_schema"
-  - "rich_ontology"
-  - "few_shot"
-  - "chain_of_verification"
+  # Mid tier: commercial API
+  - key: "claude-haiku-4-5-20251001"
+    provider: anthropic
+    model_id: "claude-haiku-4-5-20251001"
+    label: "Claude Haiku 4.5"
+    tier: mid
 
-# Extraction schema (fields to extract)
+  # High tier: frontier model
+  - key: "claude-opus-4-6-20250918"
+    provider: anthropic
+    model_id: "claude-opus-4-6-20250918"
+    label: "Claude Opus 4.6"
+    tier: high
+
+# ---------------------------------------------------------------------------
+# Prompting Strategies (PS)
+# ---------------------------------------------------------------------------
+prompting_strategies:
+  - id: PS1
+    label: "Zero-shot"
+    description: "Task instruction + KI + article. No examples."
+    calls: 1
+
+  - id: PS2
+    label: "Few-shot"
+    description: "Two worked examples prepended to the prompt."
+    calls: 1
+
+  - id: PS3
+    label: "Verification (CoVe)"
+    description: "Two-step: extract then verify each field against source."
+    calls: 2
+
+# ---------------------------------------------------------------------------
+# Knowledge Injection (KI)
+# ---------------------------------------------------------------------------
+knowledge_injection:
+  - id: KI1
+    label: "No injection"
+    description: "Field names and JSON format only."
+
+  - id: KI2
+    label: "Schema-guided"
+    description: "Field names + data types + enumerated value options."
+    sources:
+      - "OECD Common Reporting Framework (Perset et al., 2025)"
+      - "AIID submission schema (Paeth & McGregor, 2025)"
+
+  - id: KI3
+    label: "Taxonomy-guided"
+    description: "Schema + hierarchically organized category labels."
+    sources:
+      - "OECD harm classification (Perset et al., 2025, criterion 11)"
+      - "CSET AI Harm Taxonomy (Hoffman & Frase, 2023)"
+      - "OECD AI task classification (Perset et al., 2025, criterion 25)"
+      - "GMF taxonomy (Pittaras & McGregor, 2022)"
+
+  - id: KI4
+    label: "Ontology-guided"
+    description: "Taxonomy + explicit relational constraints between entities."
+    sources:
+      - "gUFO / gOCED ontology (Hooshyar et al., 2025)"
+      - "ODKE+ approach (Khorshidi et al., 2025)"
+
+# ---------------------------------------------------------------------------
+# Extraction schema (ground truth fields)
+# ---------------------------------------------------------------------------
 schema:
   event:
-    - event_type  # see event_types below
-    - event_date  # YYYY-MM-DD or null
-    - event_location  # country, region, specific place
-    - description  # brief description
+    - event_type       # "AI incident" or "AI hazard"
+    - event_date       # YYYY-MM-DD or "not stated"
+    - event_location   # country/city
+    - description      # one-sentence summary
 
   ai_system:
-    - name  # name of the AI system
-    - system_type  # see system_types below
-    - developer  # company/organization that developed it
-    - deployer  # company/organization that deployed it
+    - name             # system name if mentioned
+    - system_type      # from taxonomy
+    - developer        # organization that built it
+    - deployer         # organization that deployed it
 
   harm:
-    - harm_type  # see harm_types below
-    - severity  # see severity_levels below
-    - affected_parties  # list of affected groups
-    - affected_count  # number if mentioned, null otherwise
+    - harm_type        # from taxonomy
+    - severity         # from taxonomy
+    - affected_parties # who was harmed
+    - affected_count   # number if stated
 
-  organizations:
-    - name  # organization name
-    - role  # developer, deployer, regulator, victim, investigator
+  organizations:       # array of objects
+    - name             # organization name
+    - role             # developer, deployer, regulator, victim, other
 
-# Event type categories
-event_types:
-  - malfunction
-  - bias
-  - privacy_breach
-  - misuse
-  - security_vulnerability
-  - unintended_consequence
-  - other
-
-# Harm type categories
-harm_types:
-  - physical        # bodily injury, death
-  - psychological   # mental health, emotional distress
-  - financial       # monetary loss, economic damage
-  - reputational    # damage to reputation, credibility
-  - societal        # broad social impact, democratic harm
-  - privacy         # data exposure, surveillance
-  - other
-
-# Harm severity levels
-severity_levels:
-  - minor
-  - moderate
-  - severe
-  - fatal
-  - unknown
-
-# AI system types
-system_types:
-  - autonomous_vehicle
-  - facial_recognition
-  - recommendation_system
-  - chatbot
-  - content_moderation
-  - predictive_system
-  - generative_ai
-  - other
-
-# Evaluation settings
+# ---------------------------------------------------------------------------
+# Evaluation
+# ---------------------------------------------------------------------------
 evaluation:
   metrics:
     - accuracy
@@ -102,10 +113,15 @@ evaluation:
     - f1_score
     - hallucination_rate
     - json_validity_rate
+  comparison: field_level
+  normalization: case_insensitive
 
+# ---------------------------------------------------------------------------
 # Experiment settings
+# ---------------------------------------------------------------------------
 experiment:
   output_dir: "data/results"
   random_seed: 42
-  temperature: 0.0  # deterministic output
+  temperature: 0.0
   max_tokens: 2000
+  dataset: "data/annotated/incidents_20.json"
