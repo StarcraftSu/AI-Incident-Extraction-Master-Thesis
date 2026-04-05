@@ -147,11 +147,21 @@ def parse_json_output(raw_output: str) -> tuple[Optional[dict], bool]:
 
 
 def normalize_value(value: Any) -> Any:
-    """Normalize a value for comparison."""
+    """Normalize a value for comparison.
+
+    Treats null, None, "null", "not stated", "n/a", and empty string
+    as equivalent empty values.
+    """
     if value is None:
         return None
     if isinstance(value, str):
-        return value.lower().strip()
+        stripped = value.lower().strip()
+        # Treat these as equivalent to None (empty/unknown)
+        if stripped in ("null", "not stated", "n/a", "none", "unknown", ""):
+            return None
+        return stripped
+    if isinstance(value, (int, float)):
+        return str(value).lower().strip()
     if isinstance(value, dict):
         return {k: normalize_value(v) for k, v in value.items()}
     if isinstance(value, list):

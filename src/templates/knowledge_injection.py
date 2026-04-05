@@ -39,7 +39,7 @@ Fields:
 - event_location (string): country or city name
 - description (string): one-sentence summary of what happened
 - ai_system_name (string): name of the AI system, if mentioned
-- system_type (string): one of ["facial recognition", "recommendation system", "generative AI", "autonomous vehicle", "decision support", "chatbot", "content moderation", "predictive system", "other"]
+- system_type (string): one of ["facial recognition", "recommendation system", "generative AI", "autonomous vehicle", "decision support", "chatbot", "content moderation", "predictive system", "ai agent", "other"]
 - developer (string): organization that built the AI system
 - deployer (string): organization that used/deployed the AI system
 - harm_type (string): one of ["physical", "psychological", "reputational", "economic", "environmental", "rights violation", "other"]

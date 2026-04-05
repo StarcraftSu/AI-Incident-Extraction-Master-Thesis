@@ -1,8 +1,8 @@
 {
   "name": "ai_incidents_20",
-  "description": "20 AI incident news articles with ground truth annotations",
+  "description": "20 AI incident news articles with ground truth annotations. Values aligned with KI2 schema vocabulary.",
   "count": 20,
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "incidents": [
     {
       "id": "2026-01-30-9567",
@@ -12,25 +12,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "security_vulnerability",
+          "event_type": "AI incident",
           "event_date": "2026-01-30",
           "event_location": "United States",
           "description": "OpenClaw AI assistant exposed 1,800+ instances leaking API keys and credentials"
         },
         "ai_system": {
           "name": "OpenClaw",
-          "system_type": "ai_agent",
-          "developer": null,
-          "deployer": null
+          "system_type": "ai agent",
+          "developer": "not stated",
+          "deployer": "not stated"
         },
         "harm": {
-          "harm_type": "privacy",
+          "harm_type": "rights violation",
           "severity": "severe",
-          "affected_parties": [
-            "users",
-            "organizations"
-          ],
-          "affected_count": 1800
+          "affected_parties": "users, organizations",
+          "affected_count": "1800"
         },
         "organizations": []
       }
@@ -43,25 +40,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "privacy_breach",
+          "event_type": "AI incident",
           "event_date": "2026-01-29",
           "event_location": "United States",
           "description": "Amazon found hundreds of thousands of child abuse images in AI training data"
         },
         "ai_system": {
           "name": "Amazon AI models",
-          "system_type": "generative_ai",
+          "system_type": "generative AI",
           "developer": "Amazon",
           "deployer": "Amazon"
         },
         "harm": {
-          "harm_type": "societal",
+          "harm_type": "rights violation",
           "severity": "severe",
-          "affected_parties": [
-            "children",
-            "law enforcement"
-          ],
-          "affected_count": null
+          "affected_parties": "children, law enforcement",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -70,7 +64,7 @@
           },
           {
             "name": "National Center for Missing & Exploited Children",
-            "role": "investigator"
+            "role": "regulator"
           }
         ]
       }
@@ -83,24 +77,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "misuse",
+          "event_type": "AI incident",
           "event_date": "2026-01-29",
           "event_location": "United States",
           "description": "Open-source LLMs exploited for scams, phishing, disinformation, and CSAM"
         },
         "ai_system": {
           "name": "Meta Llama, Google Gemma",
-          "system_type": "generative_ai",
+          "system_type": "generative AI",
           "developer": "Meta, Google DeepMind",
-          "deployer": null
+          "deployer": "not stated"
         },
         "harm": {
-          "harm_type": "societal",
+          "harm_type": "rights violation",
           "severity": "severe",
-          "affected_parties": [
-            "public"
-          ],
-          "affected_count": null
+          "affected_parties": "public",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -113,11 +105,11 @@
           },
           {
             "name": "SentinelOne",
-            "role": "investigator"
+            "role": "regulator"
           },
           {
             "name": "Censys",
-            "role": "investigator"
+            "role": "regulator"
           }
         ]
       }
@@ -130,24 +122,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "unintended_consequence",
+          "event_type": "AI incident",
           "event_date": "2026-01-29",
           "event_location": "United States",
           "description": "Dow Inc. cuts 4,500 jobs due to AI-driven restructuring"
         },
         "ai_system": {
           "name": "AI automation systems",
-          "system_type": "predictive_system",
-          "developer": null,
+          "system_type": "predictive system",
+          "developer": "not stated",
           "deployer": "Dow Inc."
         },
         "harm": {
-          "harm_type": "financial",
+          "harm_type": "economic",
           "severity": "severe",
-          "affected_parties": [
-            "employees"
-          ],
-          "affected_count": 4500
+          "affected_parties": "employees",
+          "affected_count": "4500"
         },
         "organizations": [
           {
@@ -165,7 +155,7 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "privacy_breach",
+          "event_type": "AI incident",
           "event_date": "2026-01-29",
           "event_location": "United States",
           "description": "AI toy company exposed 50,000+ children's chat logs via unsecured portal"
@@ -177,12 +167,10 @@
           "deployer": "Bondu"
         },
         "harm": {
-          "harm_type": "privacy",
+          "harm_type": "rights violation",
           "severity": "severe",
-          "affected_parties": [
-            "children"
-          ],
-          "affected_count": 50000
+          "affected_parties": "children",
+          "affected_count": "50000"
         },
         "organizations": [
           {
@@ -200,25 +188,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "security_vulnerability",
+          "event_type": "AI incident",
           "event_date": "2026-01-29",
           "event_location": "United States",
           "description": "Clawdbot AI agent caused financial losses and privacy breaches in zero-employee companies"
         },
         "ai_system": {
           "name": "Clawdbot",
-          "system_type": "ai_agent",
-          "developer": null,
-          "deployer": null
+          "system_type": "ai agent",
+          "developer": "not stated",
+          "deployer": "not stated"
         },
         "harm": {
-          "harm_type": "financial",
+          "harm_type": "economic",
           "severity": "moderate",
-          "affected_parties": [
-            "users",
-            "companies"
-          ],
-          "affected_count": null
+          "affected_parties": "users, companies",
+          "affected_count": "not stated"
         },
         "organizations": []
       }
@@ -231,24 +216,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "malfunction",
+          "event_type": "AI incident",
           "event_date": "2026-01-29",
           "event_location": "Santa Monica, California, United States",
           "description": "Waymo robotaxi struck a child near elementary school causing minor injuries"
         },
         "ai_system": {
           "name": "Waymo self-driving system",
-          "system_type": "autonomous_vehicle",
+          "system_type": "autonomous vehicle",
           "developer": "Waymo",
           "deployer": "Waymo"
         },
         "harm": {
           "harm_type": "physical",
           "severity": "minor",
-          "affected_parties": [
-            "child"
-          ],
-          "affected_count": 1
+          "affected_parties": "child",
+          "affected_count": "1"
         },
         "organizations": [
           {
@@ -257,7 +240,7 @@
           },
           {
             "name": "Federal Government",
-            "role": "investigator"
+            "role": "regulator"
           }
         ]
       }
@@ -270,7 +253,7 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "security_vulnerability",
+          "event_type": "AI incident",
           "event_date": "2026-01-29",
           "event_location": "San Francisco, United States",
           "description": "Ex-Google engineer convicted of stealing AI trade secrets for Chinese companies"
@@ -282,12 +265,10 @@
           "deployer": "Google"
         },
         "harm": {
-          "harm_type": "financial",
+          "harm_type": "economic",
           "severity": "severe",
-          "affected_parties": [
-            "Google"
-          ],
-          "affected_count": null
+          "affected_parties": "Google",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -296,7 +277,7 @@
           },
           {
             "name": "US Federal Court",
-            "role": "investigator"
+            "role": "regulator"
           }
         ]
       }
@@ -309,25 +290,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "misuse",
+          "event_type": "AI incident",
           "event_date": "2026-01-28",
           "event_location": "Minneapolis, United States",
           "description": "MS NOW aired AI-enhanced image of shooting victim without disclosure"
         },
         "ai_system": {
           "name": "AI image enhancement",
-          "system_type": "generative_ai",
-          "developer": null,
+          "system_type": "generative AI",
+          "developer": "not stated",
           "deployer": "MS NOW"
         },
         "harm": {
           "harm_type": "reputational",
           "severity": "moderate",
-          "affected_parties": [
-            "public",
-            "victim's family"
-          ],
-          "affected_count": null
+          "affected_parties": "public, victim's family",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -345,7 +323,7 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "bias",
+          "event_type": "AI incident",
           "event_date": "2026-01-28",
           "event_location": "United States",
           "description": "xAI's Grok chatbot failed to detect antisemitism and amplified harmful content"
@@ -357,13 +335,10 @@
           "deployer": "xAI"
         },
         "harm": {
-          "harm_type": "societal",
+          "harm_type": "rights violation",
           "severity": "moderate",
-          "affected_parties": [
-            "Jewish community",
-            "public"
-          ],
-          "affected_count": null
+          "affected_parties": "Jewish community, public",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -372,7 +347,7 @@
           },
           {
             "name": "Anti-Defamation League",
-            "role": "investigator"
+            "role": "regulator"
           }
         ]
       }
@@ -385,25 +360,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "misuse",
+          "event_type": "AI incident",
           "event_date": "2026-01-28",
           "event_location": "United States",
           "description": "Music publishers sue Anthropic for $3B over AI training on pirated songs"
         },
         "ai_system": {
           "name": "Claude",
-          "system_type": "generative_ai",
+          "system_type": "generative AI",
           "developer": "Anthropic",
           "deployer": "Anthropic"
         },
         "harm": {
-          "harm_type": "financial",
+          "harm_type": "economic",
           "severity": "severe",
-          "affected_parties": [
-            "music publishers",
-            "artists"
-          ],
-          "affected_count": 20000
+          "affected_parties": "music publishers, artists",
+          "affected_count": "20000"
         },
         "organizations": [
           {
@@ -429,25 +401,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "malfunction",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "San Francisco and Texas, United States",
           "description": "Waymo struck child; Tesla robotaxis crash 9x more often than human drivers"
         },
         "ai_system": {
           "name": "Waymo, Tesla FSD",
-          "system_type": "autonomous_vehicle",
+          "system_type": "autonomous vehicle",
           "developer": "Waymo, Tesla",
           "deployer": "Waymo, Tesla"
         },
         "harm": {
           "harm_type": "physical",
           "severity": "moderate",
-          "affected_parties": [
-            "pedestrians",
-            "passengers"
-          ],
-          "affected_count": null
+          "affected_parties": "pedestrians, passengers",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -469,25 +438,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "misuse",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "United States",
           "description": "Apple and Google hosting AI nudify apps enabling non-consensual deepfakes"
         },
         "ai_system": {
           "name": "AI nudify apps",
-          "system_type": "generative_ai",
+          "system_type": "generative AI",
           "developer": "Various",
           "deployer": "Apple App Store, Google Play"
         },
         "harm": {
-          "harm_type": "privacy",
+          "harm_type": "rights violation",
           "severity": "severe",
-          "affected_parties": [
-            "women",
-            "victims of deepfakes"
-          ],
-          "affected_count": null
+          "affected_parties": "women, victims of deepfakes",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -509,7 +475,7 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "unintended_consequence",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "United States",
           "description": "xAI's Grok exposes minors to sexual/violent content, fails to identify underage users"
@@ -523,11 +489,8 @@
         "harm": {
           "harm_type": "psychological",
           "severity": "severe",
-          "affected_parties": [
-            "children",
-            "teenagers"
-          ],
-          "affected_count": null
+          "affected_parties": "children, teenagers",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -536,7 +499,7 @@
           },
           {
             "name": "Common Sense Media",
-            "role": "investigator"
+            "role": "regulator"
           }
         ]
       }
@@ -549,25 +512,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "bias",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "United States",
           "description": "TikTok AI moderation accused of censoring political content and harming mental health"
         },
         "ai_system": {
           "name": "TikTok recommendation/moderation AI",
-          "system_type": "content_moderation",
+          "system_type": "content moderation",
           "developer": "TikTok",
           "deployer": "TikTok"
         },
         "harm": {
           "harm_type": "psychological",
           "severity": "moderate",
-          "affected_parties": [
-            "users",
-            "minors"
-          ],
-          "affected_count": null
+          "affected_parties": "users, minors",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -585,7 +545,7 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "privacy_breach",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "United States",
           "description": "US Cybersecurity chief uploaded sensitive government documents to public ChatGPT"
@@ -597,13 +557,10 @@
           "deployer": "OpenAI"
         },
         "harm": {
-          "harm_type": "privacy",
+          "harm_type": "rights violation",
           "severity": "moderate",
-          "affected_parties": [
-            "US Government",
-            "CISA"
-          ],
-          "affected_count": null
+          "affected_parties": "US Government, CISA",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -625,25 +582,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "misuse",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "United States",
           "description": "Anthropic secretly scanned millions of books for AI training, settled for $1.5B"
         },
         "ai_system": {
           "name": "Claude",
-          "system_type": "generative_ai",
+          "system_type": "generative AI",
           "developer": "Anthropic",
           "deployer": "Anthropic"
         },
         "harm": {
-          "harm_type": "financial",
+          "harm_type": "economic",
           "severity": "severe",
-          "affected_parties": [
-            "authors",
-            "publishers"
-          ],
-          "affected_count": null
+          "affected_parties": "authors, publishers",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -661,7 +615,7 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "misuse",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "Global",
           "description": "AI-driven cyber attacks surged 70% since 2023, 1,968 attacks per week"
@@ -673,12 +627,10 @@
           "deployer": "Hackers"
         },
         "harm": {
-          "harm_type": "financial",
+          "harm_type": "economic",
           "severity": "severe",
-          "affected_parties": [
-            "organizations worldwide"
-          ],
-          "affected_count": null
+          "affected_parties": "organizations worldwide",
+          "affected_count": "not stated"
         },
         "organizations": []
       }
@@ -691,7 +643,7 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "malfunction",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "United States",
           "description": "ChatGPT Health produced inconsistent and alarmist health assessments"
@@ -705,11 +657,8 @@
         "harm": {
           "harm_type": "psychological",
           "severity": "moderate",
-          "affected_parties": [
-            "users",
-            "patients"
-          ],
-          "affected_count": null
+          "affected_parties": "users, patients",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
@@ -718,7 +667,7 @@
           },
           {
             "name": "The Washington Post",
-            "role": "investigator"
+            "role": "regulator"
           }
         ]
       }
@@ -731,25 +680,22 @@
       "country": "United States",
       "ground_truth": {
         "event": {
-          "event_type": "bias",
+          "event_type": "AI incident",
           "event_date": "2026-01-27",
           "event_location": "United States",
           "description": "TikTok and Meta AI moderation accused of censoring political criticism"
         },
         "ai_system": {
           "name": "TikTok and Meta content moderation AI",
-          "system_type": "content_moderation",
+          "system_type": "content moderation",
           "developer": "TikTok, Meta",
           "deployer": "TikTok, Meta"
         },
         "harm": {
-          "harm_type": "societal",
+          "harm_type": "rights violation",
           "severity": "moderate",
-          "affected_parties": [
-            "users",
-            "public figures"
-          ],
-          "affected_count": null
+          "affected_parties": "users, public figures",
+          "affected_count": "not stated"
         },
         "organizations": [
           {
