@@ -1,110 +1,90 @@
 #!/usr/bin/env python3
 """
-Quick test script to verify the setup and run a minimal benchmark.
+Quick test script to verify the setup and run a minimal extraction.
 
 Usage:
     cd ai_incident_extraction
     python run_test.py
 """
 
+import json
 import sys
 from pathlib import Path
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from llm_client import OllamaClient
-from data_loader import create_sample_dataset
-from prompts import format_prompt, AVAILABLE_TEMPLATES
+from llm_client import OllamaClient, AnthropicClient
+from templates import build_condition_prompt, ALL_CONDITIONS, KI_LABELS, PS_LABELS
 from evaluation import parse_json_output
 
 
 def main():
     print("=" * 60)
     print("AI Incident Extraction - Quick Test")
+    print("Design: 3 PS × 4 KI = 12 conditions")
     print("=" * 60)
 
     # Step 1: Check Ollama
     print("\n1. Checking Ollama connection...")
-    client = OllamaClient()
+    ollama = OllamaClient()
 
-    if not client.is_available():
+    if not ollama.is_available():
         print("   ERROR: Ollama is not running!")
-        print("   Please start Ollama with: ollama serve")
-        print("   Then pull a model: ollama pull llama3.2:1b")
+        print("   Start with: ollama serve")
         return False
 
-    print("   OK - Ollama is running")
+    models = ollama.list_models()
+    print(f"   OK - Models: {models}")
 
-    # Step 2: List models
-    print("\n2. Checking available models...")
-    models = client.list_models()
+    # Step 2: Check Anthropic
+    print("\n2. Checking Anthropic API...")
+    anthropic = AnthropicClient()
+    print(f"   Available: {anthropic.is_available()}")
 
-    if not models:
-        print("   No models found. Pulling llama3.2:1b...")
-        if not client.pull_model("llama3.2:1b"):
-            print("   ERROR: Failed to pull model")
-            return False
-        models = ["llama3.2:1b"]
+    # Step 3: Test prompt generation for all 12 conditions
+    print("\n3. Testing all 12 prompt conditions...")
+    test_article = """Title: AI Chatbot Gives Harmful Medical Advice
+Summary: A popular AI chatbot provided incorrect medical advice to a user, leading to a hospital visit. The chatbot recommended a dangerous drug interaction that could have been fatal.
+Concepts: AI chatbot, medical advice, harmful, drug interaction"""
 
-    print(f"   Available models: {models}")
+    for ps in ["PS1", "PS2", "PS3"]:
+        for ki in ["KI1", "KI2", "KI3", "KI4"]:
+            prompt = build_condition_prompt(ps, ki, test_article)
+            print(f"   {ps}_{ki} ({PS_LABELS[ps]} × {KI_LABELS[ki]}): {len(prompt)} chars")
 
-    # Step 3: Create test data
-    print("\n3. Creating test dataset...")
-    dataset = create_sample_dataset()
-    print(f"   Created {len(dataset)} sample incidents")
+    # Step 4: Run a single extraction with Ollama
+    print("\n4. Running test extraction (PS1_KI2 on Ollama)...")
+    model = models[0] if models else "llama3.1:8b"
+    print(f"   Model: {model}")
 
-    # Save dataset
-    dataset.save("data/annotated/sample_dataset.json")
-
-    # Step 4: Test prompt formatting
-    print("\n4. Testing prompt templates...")
-    test_article = dataset[0].article_text
-    for template in AVAILABLE_TEMPLATES:
-        prompt = format_prompt(template, test_article)
-        print(f"   {template}: {len(prompt)} chars")
-
-    # Step 5: Test a single extraction
-    print("\n5. Running test extraction...")
-    model = models[0] if models else "llama3.2:1b"
-    print(f"   Using model: {model}")
-
-    # Use simple template for speed
-    prompt = format_prompt("zero_shot", dataset[0].article_text)
-
-    print("   Sending request to Ollama...")
-    response = client.generate(
+    prompt = build_condition_prompt("PS1", "KI2", test_article)
+    response = ollama.generate(
         model=model,
         prompt=prompt,
         temperature=0.0,
-        max_tokens=1000,
+        max_tokens=2000,
+        format="json",
     )
 
     if response.success:
-        print(f"   OK - Response received in {response.latency_seconds:.1f}s")
-        print(f"   Tokens: {response.total_tokens}")
-
-        # Try to parse JSON
+        print(f"   OK - Response in {response.latency_seconds:.1f}s")
         parsed, valid = parse_json_output(response.text)
         if valid:
-            print("   OK - Valid JSON output")
-            print(f"\n   Extracted data preview:")
-            import json
-            print(json.dumps(parsed, indent=2)[:500] + "...")
+            print(f"   OK - Valid JSON")
+            print(json.dumps(parsed, indent=2)[:500])
         else:
-            print("   WARNING: Output is not valid JSON")
-            print(f"   Raw output preview: {response.text[:300]}...")
+            print(f"   WARNING: Invalid JSON")
+            print(f"   Raw: {response.text[:300]}...")
     else:
         print(f"   ERROR: {response.error}")
         return False
 
     print("\n" + "=" * 60)
-    print("TEST COMPLETE - Setup is working!")
+    print("TEST COMPLETE")
     print("=" * 60)
     print("\nNext steps:")
-    print("  1. Run full benchmark: python src/experiment.py")
-    print("  2. Add more models: ollama pull qwen2.5:1.5b")
-    print("  3. Add real data to: data/annotated/")
+    print("  python src/experiment.py    # Run full benchmark")
 
     return True
 

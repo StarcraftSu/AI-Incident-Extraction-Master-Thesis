@@ -354,7 +354,7 @@ def test_ollama_connection():
     if models:
         print(f"Available models: {models}")
     else:
-        print("No models installed. Pull one with: ollama pull llama3.2:1b")
+        print("No models installed. Pull one with: ollama pull llama3.1:8b")
 
     return True
 

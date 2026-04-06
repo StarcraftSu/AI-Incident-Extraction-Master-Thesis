@@ -1,59 +1,76 @@
 # AI Incident Extraction Benchmark
 
-Benchmark different LLM prompting strategies for extracting structured data from AI incident news articles.
+Benchmark LLM-based structured extraction from AI incident news using a factorial design: 3 Prompting Strategies × 4 Knowledge Injection levels × 3 Models = 36 experimental runs.
 
 ## Research Question
 
-> How to inject knowledge (prompting) into LLMs to improve their accuracy in extracting risk information from AI incident news?
+> How do prompting strategies and knowledge injection affect the accuracy and reliability of structured extraction from AI incident news?
+
+## Experimental Design
+
+**Factor A: Prompting Strategy (PS)**
+
+| Condition | Strategy | Description |
+|-----------|----------|-------------|
+| PS1 | Zero-shot | Task instruction + KI + article |
+| PS2 | Few-shot | Two worked examples + KI + article |
+| PS3 | Verification (CoVe) | Two-step: extract then verify each field |
+
+**Factor B: Knowledge Injection (KI)**
+
+| Condition | Form | What is added |
+|-----------|------|---------------|
+| KI1 | No injection | Field names only |
+| KI2 | Schema-guided | Field definitions + enumerated values |
+| KI3 | Taxonomy-guided | Schema + hierarchical category labels |
+| KI4 | Ontology-guided | Taxonomy + relational constraints |
+
+**Models (3 tiers)**
+
+| Tier | Model | Run via |
+|------|-------|---------|
+| Low | Llama 3.1 8B | Ollama (local, 4-bit) |
+| Mid | Claude Haiku 4.5 | Anthropic API |
+| High | Claude Opus 4.6 | Anthropic API |
 
 ## Project Structure
 
 ```
 ai_incident_extraction/
 ├── configs/
-│   └── config.yaml              # Experiment configuration
+│   └── config.yaml                    # Experiment configuration
 ├── data/
-│   ├── raw/                     # Raw news articles (xlsx)
-│   ├── annotated/               # Human-annotated ground truth (json)
-│   └── results/                 # Experiment outputs (grouped by run)
+│   ├── annotated/
+│   │   └── incidents_20.json          # 20 annotated incidents (ground truth)
+│   └── results/                       # Experiment outputs
 ├── src/
-│   ├── templates/               # Knowledge injection templates
-│   │   ├── zero_shot.py         # T1: Baseline
-│   │   ├── simple_schema.py     # T2: Enumerated values
-│   │   ├── rich_ontology.py     # T3: gUFO-based
-│   │   ├── few_shot.py          # T4: Examples
-│   │   └── chain_of_verification.py  # T5: Verify against source
-│   ├── prompts.py               # Template re-exports
-│   ├── llm_client.py            # Ollama/OpenAI client
-│   ├── data_loader.py           # Dataset handling
-│   ├── evaluation.py            # Metrics calculation
-│   └── experiment.py            # Main experiment runner
-├── requirements.txt
-├── run_test.py                  # Quick setup test
+│   ├── templates/
+│   │   ├── knowledge_injection.py     # KI1-KI4 prompt components
+│   │   ├── prompting_strategy.py      # PS1-PS3 prompt builders
+│   │   └── __init__.py                # Condition builder
+│   ├── llm_client.py                  # Ollama + Anthropic clients
+│   ├── data_loader.py                 # Dataset handling
+│   ├── evaluation.py                  # Metrics calculation
+│   ├── experiment.py                  # Main experiment runner
+│   └── prompts.py                     # Re-exports
+├── run_test.py                        # Quick setup test
 └── README.md
 ```
 
 ## Setup
 
-### 1. Install Ollama
+### 1. Install Ollama and pull model
 
 ```bash
-# macOS
 brew install ollama
-
-# Or download from https://ollama.ai
+ollama serve
+ollama pull llama3.1:8b
 ```
 
-### 2. Start Ollama and pull models
+### 2. Set Anthropic API key (for Haiku/Opus)
 
 ```bash
-# Start the server
-ollama serve
-
-# Pull lightweight models (in another terminal)
-ollama pull llama3.2:1b      # 1.3GB, fastest
-ollama pull llama3.2:3b      # 2GB, better quality
-ollama pull qwen2.5:1.5b     # 1GB, good for testing
+export ANTHROPIC_API_KEY="your-key-here"
 ```
 
 ### 3. Install Python dependencies
@@ -71,116 +88,35 @@ python run_test.py
 
 ## Usage
 
-### Quick Test
-
-```bash
-python run_test.py
-```
-
-### Full Benchmark
+### Full Benchmark (all 12 conditions on Llama 3.1 8B)
 
 ```bash
 cd src
 python experiment.py
 ```
 
-### Custom Experiment
+### Custom Run
+
+Edit `experiment.py::main()` to select specific models and conditions:
 
 ```python
-from data_loader import Dataset
-from experiment import ExperimentRunner
-
-# Load your dataset
-dataset = Dataset.load("data/annotated/my_dataset.json")
-
-# Run benchmark
-runner = ExperimentRunner()
-metrics = runner.run_benchmark(
-    dataset=dataset,
-    models=["llama3.2:1b", "qwen2.5:1.5b"],
-    templates=["zero_shot", "simple_schema", "rich_ontology"],
-)
+model_keys = ["llama3.1:8b"]
+conditions = [("PS1", "KI1"), ("PS1", "KI2"), ("PS1", "KI3"), ("PS1", "KI4")]
 ```
-
-## Knowledge Injection Templates
-
-| Template | Description |
-|----------|-------------|
-| `zero_shot` | Minimal instruction, no schema |
-| `simple_schema` | Flat category definitions |
-| `rich_ontology` | gUFO-based ontological framework |
-| `few_shot` | Examples of correct extractions |
-| `chain_of_verification` | Extract then verify against source |
 
 ## Evaluation Metrics
 
-- **Accuracy**: % of correctly extracted fields
-- **Precision**: Correct / (Correct + Incorrect + Hallucinated)
-- **Recall**: Correct / (Correct + Incorrect + Missing)
-- **F1 Score**: Harmonic mean of precision and recall
-- **JSON Validity Rate**: % of valid JSON outputs
-- **Hallucination Rate**: % of fabricated information
-
-## Dataset Format
-
-```json
-{
-  "name": "dataset_name",
-  "incidents": [
-    {
-      "id": "incident_001",
-      "article_text": "Full news article text...",
-      "source_url": "https://...",
-      "ground_truth": {
-        "event": {
-          "event_type": "malfunction",
-          "event_date": "2024-03-15",
-          "event_location": "USA",
-          "description": "..."
-        },
-        "ai_system": {
-          "name": "System Name",
-          "system_type": "autonomous_vehicle",
-          "developer": "Company",
-          "deployer": "Company"
-        },
-        "harm": {
-          "harm_type": "physical",
-          "severity": "fatal",
-          "affected_parties": ["driver"],
-          "affected_count": 1
-        },
-        "organizations": [
-          {"name": "Company", "role": "developer"}
-        ]
-      }
-    }
-  ]
-}
-```
+- **Accuracy**: correct / total fields
+- **Precision**: correct / (correct + incorrect + hallucinated)
+- **Recall**: correct / (correct + missing)
+- **F1 Score**: harmonic mean of precision and recall
+- **Hallucination Rate**: hallucinated / total extracted
+- **JSON Validity Rate**: % of parseable JSON outputs
 
 ## Data Source
 
-Incidents are collected from the [OECD AI Policy Observatory - AI Incidents Monitor](https://oecd.ai/en/incidents):
-
-**Query parameters used:**
+Incidents sourced from the [OECD AI Incidents Monitor](https://oecd.ai/en/incidents):
 - Country: USA
-- Date range: 2026-01-01 to 2026-02-01
-- Harm level: AI incident
-- Results: 20 incidents
-
-**Direct link:** [OECD AI Incidents Query](https://oecd.ai/en/incidents?search_terms=%5B%5D&and_condition=false&countries=USA&from_date=2026-01-01&to_date=2026-02-01&properties_config=%7B%22principles%22:%5B%5D,%22industries%22:%5B%5D,%22harm_types%22:%5B%5D,%22harm_levels%22:%5B%22AI%20incident%22%5D,%22harmed_entities%22:%5B%5D,%22business_functions%22:%5B%5D,%22ai_tasks%22:%5B%5D,%22autonomy_levels%22:%5B%5D,%22languages%22:%5B%5D%7D&order_by=date&num_results=20)
-
-## Adding More Data
-
-1. Collect incidents from [OECD AI Incidents Monitor](https://oecd.ai/en/incidents)
-2. Create ground truth annotations following the schema above
-3. Save to `data/annotated/your_dataset.json`
-4. Run benchmark with your dataset
-
-## Results
-
-Results are saved to `data/results/`:
-- `{model}_{template}_{timestamp}_results.json` - Detailed extraction outputs
-- `{model}_{template}_{timestamp}_metrics.json` - Aggregated metrics
-- `summary_{timestamp}.md` - Comparison report
+- Date: January 2026
+- 20 incidents with ground truth annotations
+- Ground truth vocabulary aligned with KI2 schema (v2.0)
