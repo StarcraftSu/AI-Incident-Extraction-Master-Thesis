@@ -6,15 +6,30 @@ Three strategies that wrap around any KI component:
   PS2: Few-shot — two worked examples + KI + article
   PS3: Verification (CoVe) — two-step: extract then verify
 
+All prompts share a common structure following prompt engineering
+best practices (Anthropic, 2025):
+  - Role assignment ("You are an expert AI incident analyst")
+  - XML tags separating <instructions>, <article>, <examples>
+  - Article text placed before instructions (long context first)
+  - Quote-grounding in CoVe verification step
+
 Sources:
   - Brown et al. (2020) — few-shot prompting
   - Dhuliawala et al. (2023) — Chain-of-Verification
+  - Chen et al. (2025) — role prompting +20% on AI incidents
   - Grothey et al. (2025) — extraction benchmark
 """
 
 # ---------------------------------------------------------------------------
+# Shared role prefix (applied to ALL conditions)
+# Justified by Chen et al. (2025): role prompting improves AI incident
+# processing by ~20%. This is a fixed component, not an experimental variable.
+# ---------------------------------------------------------------------------
+ROLE_PREFIX = """You are an expert AI incident analyst. Your task is to extract structured information from AI incident news articles. Extract only what is explicitly stated in the article. If information is not mentioned, write "not stated"."""
+
+# ---------------------------------------------------------------------------
 # Few-shot examples (used by PS2)
-# These are fixed across all KI levels and models to avoid confounding.
+# Fixed across all KI levels and models to avoid confounding.
 # Example 1: physical harm (autonomous vehicle)
 # Example 2: rights violation (facial recognition bias)
 # ---------------------------------------------------------------------------
@@ -71,11 +86,16 @@ Concepts: Amazon, Rekognition, facial recognition, bias, ACLU, Congress, racial 
 # PS1: Zero-shot
 # ---------------------------------------------------------------------------
 def build_ps1_prompt(ki_component: str, article_text: str) -> str:
-    """Zero-shot: task instruction + KI component + article."""
-    return f"""{ki_component}
+    """Zero-shot: role + article (top) + KI instructions (bottom)."""
+    return f"""{ROLE_PREFIX}
 
-Article:
+<article>
 {article_text}
+</article>
+
+<instructions>
+{ki_component}
+</instructions>
 
 Return ONLY valid JSON. Do not include any other text."""
 
@@ -84,36 +104,45 @@ Return ONLY valid JSON. Do not include any other text."""
 # PS2: Few-shot
 # ---------------------------------------------------------------------------
 def build_ps2_prompt(ki_component: str, article_text: str) -> str:
-    """Few-shot: two worked examples + KI component + article."""
-    return f"""{ki_component}
+    """Few-shot: role + article (top) + examples + KI instructions."""
+    return f"""{ROLE_PREFIX}
 
-Here are two examples of the expected extraction:
-
-EXAMPLE 1:
-Article:
-{FEW_SHOT_EXAMPLE_1["article"]}
-
-Output:
-{FEW_SHOT_EXAMPLE_1["output"]}
-
-EXAMPLE 2:
-Article:
-{FEW_SHOT_EXAMPLE_2["article"]}
-
-Output:
-{FEW_SHOT_EXAMPLE_2["output"]}
-
-Now extract from this article:
+<article>
 {article_text}
+</article>
 
-Return ONLY valid JSON in the same format as the examples above."""
+<examples>
+<example index="1">
+<example_article>
+{FEW_SHOT_EXAMPLE_1["article"]}
+</example_article>
+<example_output>
+{FEW_SHOT_EXAMPLE_1["output"]}
+</example_output>
+</example>
+
+<example index="2">
+<example_article>
+{FEW_SHOT_EXAMPLE_2["article"]}
+</example_article>
+<example_output>
+{FEW_SHOT_EXAMPLE_2["output"]}
+</example_output>
+</example>
+</examples>
+
+<instructions>
+{ki_component}
+</instructions>
+
+Now extract from the article above. Return ONLY valid JSON in the same format as the examples."""
 
 
 # ---------------------------------------------------------------------------
 # PS3: Verification (CoVe) — returns TWO prompts
 # ---------------------------------------------------------------------------
 def build_ps3_extraction_prompt(ki_component: str, article_text: str) -> str:
-    """PS3 step 1: Extract using the KI component (same as PS1)."""
+    """PS3 step 1: Extract using the KI component (same structure as PS1)."""
     return build_ps1_prompt(ki_component, article_text)
 
 
@@ -121,36 +150,46 @@ def build_ps3_verification_prompt(article_text: str, extracted_json: dict) -> st
     """
     PS3 step 2: Verify each field against the source text.
 
+    Uses quote-grounding: the model must cite the relevant passage
+    before confirming or rejecting each field. This prevents the model
+    from simply rubber-stamping its own prior output.
+
     IMPORTANT: This prompt does NOT include the original extraction,
     only the article and the fields to verify. This independence is
     the key mechanism by which CoVe reduces hallucination.
     (Dhuliawala et al., 2023)
     """
-    # Build verification questions for each field
     questions = []
     for key, value in _flatten_dict(extracted_json).items():
         if value and value != "not stated" and value != "null":
             questions.append(
                 f'- Field "{key}" = "{value}": '
-                f'Does the article explicitly state or directly support this? '
-                f'Answer YES (with a brief quote) or NO.'
+                f'First quote the relevant sentence from the article, '
+                f'then answer YES or NO.'
             )
 
     questions_text = "\n".join(questions)
 
-    return f"""You are verifying extracted information against a source article.
-For each field below, determine whether the article explicitly states or directly supports the extracted value.
+    return f"""{ROLE_PREFIX}
 
-Article:
+You are now verifying previously extracted information against the source article.
+
+<article>
 {article_text}
+</article>
 
-Fields to verify:
+<verification_tasks>
+For each field below, find and quote the relevant sentence from the article, then determine whether the article explicitly states or directly supports the extracted value.
+
 {questions_text}
+</verification_tasks>
 
-After verifying all fields, output the corrected JSON.
+<instructions>
+After verifying all fields, output the corrected JSON:
 - Keep fields verified as YES with their original values.
 - Change fields verified as NO to "not stated".
 - Keep the same JSON structure.
+</instructions>
 
 Return ONLY valid JSON."""
 
