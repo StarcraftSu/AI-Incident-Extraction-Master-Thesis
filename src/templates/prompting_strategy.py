@@ -32,6 +32,7 @@ ROLE_PREFIX = """You are an expert AI incident analyst. Your task is to extract 
 # Fixed across all KI levels and models to avoid confounding.
 # Example 1: physical harm (autonomous vehicle)
 # Example 2: rights violation (facial recognition bias)
+# Example 3: economic harm (AI-generated fraud)
 # ---------------------------------------------------------------------------
 FEW_SHOT_EXAMPLE_1 = {
     "article": """Title: Tesla Autopilot Involved in Fatal Highway Crash
@@ -81,6 +82,30 @@ Concepts: Amazon, Rekognition, facial recognition, bias, ACLU, Congress, racial 
 }""",
 }
 
+FEW_SHOT_EXAMPLE_3 = {
+    "article": """Title: AI-Powered Trading Bot Causes $20 Million Loss for Investors
+Summary: An AI-powered trading algorithm deployed by QuantFund Capital malfunctioned during volatile market conditions, executing thousands of unauthorized trades within minutes. The system, developed by AlgoTech Solutions, caused approximately $20 million in losses for retail investors before manual intervention shut it down.
+Concepts: AI trading, algorithm, financial loss, malfunction, QuantFund Capital, AlgoTech Solutions, investors""",
+    "output": """{
+  "event_type": "AI incident",
+  "event_date": "not stated",
+  "event_location": "not stated",
+  "description": "AI trading algorithm malfunctioned during volatile conditions, executing unauthorized trades causing $20 million losses",
+  "ai_system_name": "not stated",
+  "system_type": "predictive system",
+  "developer": "AlgoTech Solutions",
+  "deployer": "QuantFund Capital",
+  "harm_type": "economic",
+  "severity": "severe",
+  "affected_parties": "retail investors",
+  "affected_count": "not stated",
+  "organizations": [
+    {"name": "AlgoTech Solutions", "role": "developer"},
+    {"name": "QuantFund Capital", "role": "deployer"}
+  ]
+}""",
+}
+
 
 # ---------------------------------------------------------------------------
 # PS1: Zero-shot
@@ -104,7 +129,7 @@ Return ONLY valid JSON. Do not include any other text."""
 # PS2: Few-shot
 # ---------------------------------------------------------------------------
 def build_ps2_prompt(ki_component: str, article_text: str) -> str:
-    """Few-shot: role + article (top) + examples + KI instructions."""
+    """Few-shot: role + article (top) + 3 examples + KI instructions."""
     return f"""{ROLE_PREFIX}
 
 <article>
@@ -127,6 +152,15 @@ def build_ps2_prompt(ki_component: str, article_text: str) -> str:
 </example_article>
 <example_output>
 {FEW_SHOT_EXAMPLE_2["output"]}
+</example_output>
+</example>
+
+<example index="3">
+<example_article>
+{FEW_SHOT_EXAMPLE_3["article"]}
+</example_article>
+<example_output>
+{FEW_SHOT_EXAMPLE_3["output"]}
 </example_output>
 </example>
 </examples>
