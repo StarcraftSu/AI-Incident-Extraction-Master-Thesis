@@ -96,7 +96,6 @@ schema:
     - harm_type        # from taxonomy
     - severity         # from taxonomy
     - affected_parties # who was harmed
-    - affected_count   # number if stated
 
   organizations:       # array of objects
     - name             # organization name
@@ -124,4 +123,4 @@ experiment:
   random_seed: 42
   temperature: 0.0
   max_tokens: 2000
-  dataset: "data/annotated/incidents_20.json"
+  dataset: "data/raw/experimental_incidents_50.xlsx"

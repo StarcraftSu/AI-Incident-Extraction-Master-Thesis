@@ -50,7 +50,6 @@ Concepts: Tesla, Autopilot, autonomous driving, fatal crash, NHTSA, investigatio
   "harm_type": "physical",
   "severity": "severe",
   "affected_parties": "driver",
-  "affected_count": "1",
   "organizations": [
     {"name": "Tesla", "role": "developer"},
     {"name": "NHTSA", "role": "regulator"}
@@ -74,7 +73,6 @@ Concepts: Amazon, Rekognition, facial recognition, bias, ACLU, Congress, racial 
   "harm_type": "rights violation",
   "severity": "significant",
   "affected_parties": "Congress members, people of color",
-  "affected_count": "28",
   "organizations": [
     {"name": "Amazon", "role": "developer"},
     {"name": "ACLU", "role": "other"}
@@ -98,7 +96,6 @@ Concepts: AI trading, algorithm, financial loss, malfunction, QuantFund Capital,
   "harm_type": "economic",
   "severity": "severe",
   "affected_parties": "retail investors",
-  "affected_count": "not stated",
   "organizations": [
     {"name": "AlgoTech Solutions", "role": "developer"},
     {"name": "QuantFund Capital", "role": "deployer"}

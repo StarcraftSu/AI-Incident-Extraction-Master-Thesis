@@ -392,12 +392,13 @@ def main():
     runner = ExperimentRunner(output_dir=str(project_root / "data/results"))
 
     # Load dataset
-    dataset_path = project_root / "data/annotated/incidents_20.json"
+    dataset_path = project_root / "data/raw/experimental_incidents_50.xlsx"
     if not dataset_path.exists():
         print(f"\nERROR: Dataset not found at {dataset_path}")
         sys.exit(1)
 
-    dataset = Dataset.load(dataset_path)
+    from data_loader import load_dataset
+    dataset = load_dataset(str(dataset_path))
     print(f"\nDataset: {len(dataset)} incidents")
 
     # --- Configure what to run ---

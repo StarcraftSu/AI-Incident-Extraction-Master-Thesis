@@ -21,10 +21,10 @@ Sources:
 KI1_NO_INJECTION = """Extract the following fields from the AI incident article below and return valid JSON:
 event_type, event_date, event_location, description,
 ai_system_name, system_type, developer, deployer,
-harm_type, severity, affected_parties, affected_count,
+harm_type, severity, affected_parties,
 organizations (name and role for each).
 
-If information is not mentioned in the article, use null."""
+If information is not mentioned in the article, write "not stated"."""
 
 
 # ---------------------------------------------------------------------------
@@ -45,7 +45,6 @@ Fields:
 - harm_type (string): one of ["physical", "psychological", "reputational", "economic", "environmental", "rights violation", "other"]
 - severity (string): one of ["minor", "moderate", "significant", "severe"]
 - affected_parties (string): who was harmed
-- affected_count (string): number of people affected, if stated
 - organizations (array of objects): each with "name" (string) and "role" (string, one of ["developer", "deployer", "regulator", "victim", "other"])"""
 
 

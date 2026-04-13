@@ -146,6 +146,27 @@ def parse_json_output(raw_output: str) -> tuple[Optional[dict], bool]:
     return None, False
 
 
+# ---------------------------------------------------------------------------
+# Constrained fields: these have a fixed set of allowed values.
+# For constrained fields, evaluation uses ONLY exact match (case-insensitive).
+# For open fields (description, name, etc.), partial/fuzzy matching is allowed.
+# ---------------------------------------------------------------------------
+CONSTRAINED_FIELDS = {
+    "event_type": ["ai incident", "ai hazard"],
+    "system_type": [
+        "facial recognition", "recommendation system", "generative ai",
+        "autonomous vehicle", "decision support", "chatbot",
+        "content moderation", "predictive system", "ai agent", "other",
+    ],
+    "harm_type": [
+        "physical", "psychological", "reputational", "economic",
+        "environmental", "rights violation", "other",
+    ],
+    "severity": ["minor", "moderate", "significant", "severe"],
+    "role": ["developer", "deployer", "regulator", "victim", "other"],
+}
+
+
 def normalize_value(value: Any) -> Any:
     """Normalize a value for comparison.
 
@@ -176,10 +197,28 @@ def normalize_value(value: Any) -> Any:
     return value
 
 
-def compare_values(extracted: Any, ground_truth: Any) -> str:
+def _is_constrained_field(field_path: str) -> Optional[str]:
+    """Check if a field path ends with a constrained field name.
+
+    Returns the field name if constrained, None otherwise.
+    E.g., "event.event_type" -> "event_type", "organizations[0].role" -> "role"
+    """
+    # Extract the last segment of the field path
+    last_segment = field_path.rsplit(".", 1)[-1]
+    # Strip array indices like [0]
+    last_segment = re.sub(r"\[\d+\]$", "", last_segment)
+    if last_segment in CONSTRAINED_FIELDS:
+        return last_segment
+    return None
+
+
+def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> str:
     """
     Compare extracted value with ground truth.
     Returns: 'correct', 'incorrect', 'missing', or 'hallucinated'
+
+    For constrained fields (event_type, system_type, harm_type, severity, role),
+    uses exact match only (case-insensitive). For open fields, allows partial match.
     """
     ext_norm = normalize_value(extracted)
     gt_norm = normalize_value(ground_truth)
@@ -200,7 +239,13 @@ def compare_values(extracted: Any, ground_truth: Any) -> str:
     if ext_norm == gt_norm:
         return "correct"
 
-    # For strings, check partial match
+    # Check if this is a constrained field — if so, exact match only
+    constrained_name = _is_constrained_field(field_path) if field_path else None
+    if constrained_name is not None:
+        # Constrained field: exact match only (already case-insensitive via normalize)
+        return "incorrect"
+
+    # Open field: allow partial match for strings
     if isinstance(ext_norm, str) and isinstance(gt_norm, str):
         if ext_norm in gt_norm or gt_norm in ext_norm:
             return "correct"  # Partial match is acceptable
@@ -244,7 +289,7 @@ def evaluate_extraction(
             results.update(nested_results)
         else:
             # Compare leaf values
-            results[field_path] = compare_values(ext_value, gt_value)
+            results[field_path] = compare_values(ext_value, gt_value, field_path)
 
     return results
 

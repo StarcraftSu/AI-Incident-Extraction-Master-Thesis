@@ -1,5 +1,8 @@
 """
 Data loading utilities for AI incident news articles and annotations.
+
+Reads experimental incidents from an Excel file (experimental_incidents_50.xlsx)
+with columns: id, title, date, summary, concepts, companies, country.
 """
 
 import json
@@ -7,24 +10,30 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
 
+import openpyxl
+
 
 @dataclass
 class AIIncident:
-    """Represents a single AI incident with article and ground truth."""
+    """Represents a single AI incident with article text and metadata."""
     id: str
     article_text: str
-    source_url: Optional[str] = None
-    source_name: Optional[str] = None
-    publish_date: Optional[str] = None
+    title: Optional[str] = None
+    summary: Optional[str] = None
+    concepts: Optional[str] = None
+    date: Optional[str] = None
+    country: Optional[str] = None
     ground_truth: Optional[dict] = None  # Human-annotated extraction
 
     def to_dict(self) -> dict:
         return {
             "id": self.id,
             "article_text": self.article_text,
-            "source_url": self.source_url,
-            "source_name": self.source_name,
-            "publish_date": self.publish_date,
+            "title": self.title,
+            "summary": self.summary,
+            "concepts": self.concepts,
+            "date": self.date,
+            "country": self.country,
             "ground_truth": self.ground_truth,
         }
 
@@ -33,9 +42,11 @@ class AIIncident:
         return cls(
             id=data["id"],
             article_text=data["article_text"],
-            source_url=data.get("source_url"),
-            source_name=data.get("source_name"),
-            publish_date=data.get("publish_date"),
+            title=data.get("title"),
+            summary=data.get("summary"),
+            concepts=data.get("concepts"),
+            date=data.get("date"),
+            country=data.get("country"),
             ground_truth=data.get("ground_truth"),
         )
 
@@ -97,69 +108,138 @@ class Dataset:
         return train, test
 
 
+def load_dataset(path: str) -> Dataset:
+    """
+    Load incidents from an Excel file (.xlsx).
+
+    Expected columns: A=id, B=title, C=date, D=summary, E=concepts, F=companies, G=country.
+    Constructs article_text by combining: "Title: {title}\\nSummary: {summary}\\nConcepts: {concepts}"
+
+    Args:
+        path: Path to the Excel file.
+
+    Returns:
+        A Dataset containing AIIncident objects.
+    """
+    filepath = Path(path)
+    wb = openpyxl.load_workbook(filepath, read_only=True, data_only=True)
+    ws = wb.active
+
+    dataset = Dataset(name=filepath.stem)
+
+    rows = list(ws.iter_rows(min_row=2, values_only=True))  # skip header
+    for row in rows:
+        if not row or not row[0]:
+            continue
+
+        inc_id = str(row[0]).strip()
+        title = str(row[1]).strip() if row[1] else ""
+        date = str(row[2]).strip() if row[2] else ""
+        summary = str(row[3]).strip() if row[3] else ""
+        concepts = str(row[4]).strip() if row[4] else ""
+        # companies = row[5]  # available but not used in article_text
+        country = str(row[6]).strip() if row[6] else ""
+
+        article_text = f"Title: {title}\nSummary: {summary}\nConcepts: {concepts}"
+
+        dataset.add(AIIncident(
+            id=inc_id,
+            article_text=article_text,
+            title=title,
+            summary=summary,
+            concepts=concepts,
+            date=date,
+            country=country,
+            ground_truth=None,
+        ))
+
+    wb.close()
+    print(f"Loaded {len(dataset)} incidents from {filepath}")
+    return dataset
+
+
 def create_empty_ground_truth() -> dict:
-    """Create an empty ground truth template for annotation."""
+    """Create an empty ground truth template for annotation.
+
+    Allowed values:
+      - event_type: "AI incident" or "AI hazard"
+      - system_type: facial recognition, recommendation system, generative AI,
+            autonomous vehicle, decision support, chatbot, content moderation,
+            predictive system, ai agent, other
+      - harm_type: physical, psychological, reputational, economic,
+            environmental, rights violation, other
+      - severity: minor, moderate, significant, severe
+      - org role: developer, deployer, regulator, victim, other
+    """
     return {
         "event": {
-            "event_type": None,  # malfunction, bias, privacy_breach, misuse, security, other
-            "event_date": None,  # YYYY-MM-DD
+            "event_type": None,      # "AI incident" or "AI hazard"
+            "event_date": None,      # YYYY-MM-DD
             "event_location": None,
             "description": None,
         },
         "ai_system": {
             "name": None,
-            "system_type": None,  # autonomous_vehicle, facial_recognition, etc.
+            "system_type": None,     # from allowed values above
             "developer": None,
             "deployer": None,
         },
         "harm": {
-            "harm_type": None,  # physical, psychological, financial, reputational, societal, privacy
-            "severity": None,  # minor, moderate, severe, fatal, unknown
+            "harm_type": None,       # from allowed values above
+            "severity": None,        # minor, moderate, significant, severe
             "affected_parties": [],
-            "affected_count": None,
         },
-        "organizations": [],  # List of {"name": "", "role": ""}
+        "organizations": [],         # List of {"name": "", "role": ""}
     }
 
 
 def create_sample_dataset() -> Dataset:
-    """Create a sample dataset with a few AI incidents for testing."""
+    """Create a sample dataset with a few AI incidents for testing.
+
+    All annotation values use ONLY allowed constrained values:
+      - event_type: "AI incident" | "AI hazard"
+      - system_type: facial recognition | recommendation system | generative AI |
+            autonomous vehicle | decision support | chatbot | content moderation |
+            predictive system | ai agent | other
+      - harm_type: physical | psychological | reputational | economic |
+            environmental | rights violation | other
+      - severity: minor | moderate | significant | severe
+      - org role: developer | deployer | regulator | victim | other
+    """
     dataset = Dataset(name="sample_ai_incidents")
 
     # Sample 1: Tesla Autopilot crash
     dataset.add(AIIncident(
         id="sample_001",
-        article_text="""Tesla's Autopilot system was involved in a fatal crash on Highway 101
-        on March 15, 2024. The 38-year-old driver, John Smith, died when his Model S collided
-        with a concrete barrier while the semi-autonomous driving feature was engaged.
-        The National Highway Traffic Safety Administration (NHTSA) has opened an investigation.
-        Tesla stated that the driver had received multiple warnings to keep hands on the wheel.
-        This marks the third fatal incident involving Tesla's Autopilot this year.""",
-        source_url="https://example.com/tesla-crash",
-        source_name="Tech News Daily",
-        publish_date="2024-03-16",
+        article_text="""Title: Tesla Autopilot Involved in Fatal Highway Crash
+Summary: A Tesla Model S crashed into a concrete barrier on Highway 101 while the Autopilot semi-autonomous driving feature was engaged. The 38-year-old driver died in the collision. NHTSA has opened a formal investigation into the incident.
+Concepts: Tesla, Autopilot, autonomous driving, fatal crash, NHTSA, investigation""",
+        title="Tesla Autopilot Involved in Fatal Highway Crash",
+        summary="A Tesla Model S crashed into a concrete barrier on Highway 101 while the Autopilot semi-autonomous driving feature was engaged.",
+        concepts="Tesla, Autopilot, autonomous driving, fatal crash, NHTSA, investigation",
+        date="2024-03-16",
+        country="United States",
         ground_truth={
             "event": {
-                "event_type": "malfunction",
-                "event_date": "2024-03-15",
-                "event_location": "Highway 101, USA",
-                "description": "Tesla Model S with Autopilot crashed into concrete barrier",
+                "event_type": "AI incident",
+                "event_date": "not stated",
+                "event_location": "Highway 101, United States",
+                "description": "Tesla Model S with Autopilot crashed into concrete barrier, killing the driver",
             },
             "ai_system": {
                 "name": "Tesla Autopilot",
-                "system_type": "autonomous_vehicle",
+                "system_type": "autonomous vehicle",
                 "developer": "Tesla",
                 "deployer": "Tesla",
             },
             "harm": {
                 "harm_type": "physical",
-                "severity": "fatal",
-                "affected_parties": ["driver"],
-                "affected_count": 1,
+                "severity": "severe",
+                "affected_parties": "driver",
             },
             "organizations": [
                 {"name": "Tesla", "role": "developer"},
-                {"name": "NHTSA", "role": "investigator"},
+                {"name": "NHTSA", "role": "regulator"},
             ],
         },
     ))
@@ -167,36 +247,35 @@ def create_sample_dataset() -> Dataset:
     # Sample 2: Facial recognition bias
     dataset.add(AIIncident(
         id="sample_002",
-        article_text="""Amazon's facial recognition software, Rekognition, incorrectly matched
-        28 members of Congress to criminal mugshots in a test conducted by the ACLU in July 2018.
-        The false matches disproportionately affected people of color, with nearly 40% of the
-        incorrect matches being minorities despite making up only 20% of Congress. The ACLU
-        called for a moratorium on the use of facial recognition by law enforcement.""",
-        source_url="https://example.com/amazon-rekognition",
-        source_name="Civil Liberties Watch",
-        publish_date="2018-07-26",
+        article_text="""Title: Facial Recognition Software Misidentifies Congress Members as Criminals
+Summary: Amazon's Rekognition facial recognition software incorrectly matched 28 members of Congress to criminal mugshots in a test conducted by the ACLU. The false matches disproportionately affected people of color, raising concerns about racial bias in AI systems used by law enforcement.
+Concepts: Amazon, Rekognition, facial recognition, bias, ACLU, Congress, racial bias, law enforcement""",
+        title="Facial Recognition Software Misidentifies Congress Members as Criminals",
+        summary="Amazon's Rekognition facial recognition software incorrectly matched 28 members of Congress to criminal mugshots.",
+        concepts="Amazon, Rekognition, facial recognition, bias, ACLU, Congress, racial bias, law enforcement",
+        date="2018-07-26",
+        country="United States",
         ground_truth={
             "event": {
-                "event_type": "bias",
-                "event_date": "2018-07-01",
-                "event_location": "USA",
-                "description": "Facial recognition falsely matched Congress members to mugshots with racial bias",
+                "event_type": "AI incident",
+                "event_date": "not stated",
+                "event_location": "United States",
+                "description": "Facial recognition incorrectly matched 28 Congress members to criminal mugshots with racial bias",
             },
             "ai_system": {
                 "name": "Amazon Rekognition",
-                "system_type": "facial_recognition",
+                "system_type": "facial recognition",
                 "developer": "Amazon",
-                "deployer": None,
+                "deployer": "not stated",
             },
             "harm": {
-                "harm_type": "reputational",
-                "severity": "moderate",
-                "affected_parties": ["Congress members", "people of color"],
-                "affected_count": 28,
+                "harm_type": "rights violation",
+                "severity": "significant",
+                "affected_parties": "Congress members, people of color",
             },
             "organizations": [
                 {"name": "Amazon", "role": "developer"},
-                {"name": "ACLU", "role": "investigator"},
+                {"name": "ACLU", "role": "other"},
             ],
         },
     ))
@@ -204,20 +283,19 @@ def create_sample_dataset() -> Dataset:
     # Sample 3: ChatGPT data leak
     dataset.add(AIIncident(
         id="sample_003",
-        article_text="""OpenAI disclosed a data breach on March 20, 2023, where a bug in
-        ChatGPT's Redis client library caused some users to see chat history titles belonging
-        to other users. The company also found that during a 9-hour window, payment information
-        of about 1.2% of ChatGPT Plus subscribers may have been exposed, including names,
-        email addresses, payment addresses, and the last four digits of credit card numbers.
-        OpenAI took ChatGPT offline to fix the issue.""",
-        source_url="https://example.com/chatgpt-breach",
-        source_name="Security Weekly",
-        publish_date="2023-03-24",
+        article_text="""Title: ChatGPT Bug Exposes User Data
+Summary: OpenAI disclosed a data breach where a bug in ChatGPT's Redis client library caused some users to see chat history titles belonging to other users. Payment information of about 1.2% of ChatGPT Plus subscribers may have been exposed, including names, email addresses, and partial credit card numbers. OpenAI took ChatGPT offline to fix the issue.
+Concepts: OpenAI, ChatGPT, data breach, privacy, payment information""",
+        title="ChatGPT Bug Exposes User Data",
+        summary="OpenAI disclosed a data breach where a bug in ChatGPT exposed user data.",
+        concepts="OpenAI, ChatGPT, data breach, privacy, payment information",
+        date="2023-03-24",
+        country="not stated",
         ground_truth={
             "event": {
-                "event_type": "privacy_breach",
+                "event_type": "AI incident",
                 "event_date": "2023-03-20",
-                "event_location": None,
+                "event_location": "not stated",
                 "description": "Bug exposed users' chat histories and payment information",
             },
             "ai_system": {
@@ -227,10 +305,9 @@ def create_sample_dataset() -> Dataset:
                 "deployer": "OpenAI",
             },
             "harm": {
-                "harm_type": "privacy",
+                "harm_type": "rights violation",
                 "severity": "moderate",
-                "affected_parties": ["ChatGPT Plus subscribers"],
-                "affected_count": None,  # 1.2% mentioned but not absolute number
+                "affected_parties": "ChatGPT Plus subscribers",
             },
             "organizations": [
                 {"name": "OpenAI", "role": "developer"},
@@ -238,40 +315,38 @@ def create_sample_dataset() -> Dataset:
         },
     ))
 
-    # Sample 4: Content moderation failure
+    # Sample 4: YouTube recommendation algorithm
     dataset.add(AIIncident(
         id="sample_004",
-        article_text="""YouTube's recommendation algorithm was found to be promoting
-        conspiracy theory videos and extremist content to users in a study published by
-        researchers at UC Berkeley in January 2020. The study analyzed over 300,000 videos
-        and found that the algorithm consistently recommended increasingly extreme content
-        to users who watched political videos. YouTube responded by saying they had made
-        changes to reduce recommendations of borderline content by 70%.""",
-        source_url="https://example.com/youtube-algorithm",
-        source_name="Research Digest",
-        publish_date="2020-01-15",
+        article_text="""Title: YouTube Algorithm Promotes Extremist Content
+Summary: YouTube's recommendation algorithm was found to be promoting conspiracy theory videos and extremist content to users in a study published by researchers at UC Berkeley. The study analyzed over 300,000 videos and found that the algorithm consistently recommended increasingly extreme content to users who watched political videos.
+Concepts: YouTube, recommendation algorithm, extremist content, conspiracy theories, UC Berkeley""",
+        title="YouTube Algorithm Promotes Extremist Content",
+        summary="YouTube's recommendation algorithm was found to be promoting extremist content.",
+        concepts="YouTube, recommendation algorithm, extremist content, conspiracy theories, UC Berkeley",
+        date="2020-01-15",
+        country="not stated",
         ground_truth={
             "event": {
-                "event_type": "unintended_consequence",
-                "event_date": "2020-01-01",
-                "event_location": None,
+                "event_type": "AI hazard",
+                "event_date": "not stated",
+                "event_location": "not stated",
                 "description": "YouTube algorithm promoted extremist and conspiracy content",
             },
             "ai_system": {
                 "name": "YouTube recommendation algorithm",
-                "system_type": "recommendation_system",
+                "system_type": "recommendation system",
                 "developer": "YouTube",
                 "deployer": "YouTube",
             },
             "harm": {
-                "harm_type": "societal",
+                "harm_type": "psychological",
                 "severity": "moderate",
-                "affected_parties": ["YouTube users"],
-                "affected_count": None,
+                "affected_parties": "YouTube users",
             },
             "organizations": [
                 {"name": "YouTube", "role": "developer"},
-                {"name": "UC Berkeley", "role": "investigator"},
+                {"name": "UC Berkeley", "role": "other"},
             ],
         },
     ))
@@ -279,33 +354,31 @@ def create_sample_dataset() -> Dataset:
     # Sample 5: Hiring algorithm bias
     dataset.add(AIIncident(
         id="sample_005",
-        article_text="""Amazon scrapped a secret AI recruiting tool in 2018 after discovering
-        it showed bias against women. The system, developed since 2014, was designed to review
-        resumes and rate candidates. However, it penalized resumes containing words like
-        "women's" and downgraded graduates of all-women's colleges. Amazon edited the program
-        but couldn't guarantee it wouldn't find other discriminatory patterns, leading to its
-        abandonment. The tool was never used as the sole basis for hiring decisions.""",
-        source_url="https://example.com/amazon-hiring",
-        source_name="Reuters",
-        publish_date="2018-10-10",
+        article_text="""Title: Amazon Scraps AI Recruiting Tool Over Gender Bias
+Summary: Amazon scrapped a secret AI recruiting tool after discovering it showed bias against women. The system was designed to review resumes and rate candidates, but it penalized resumes containing words like "women's" and downgraded graduates of all-women's colleges. The tool was never used as the sole basis for hiring decisions.
+Concepts: Amazon, AI recruiting, gender bias, hiring, discrimination""",
+        title="Amazon Scraps AI Recruiting Tool Over Gender Bias",
+        summary="Amazon scrapped a secret AI recruiting tool after discovering it showed bias against women.",
+        concepts="Amazon, AI recruiting, gender bias, hiring, discrimination",
+        date="2018-10-10",
+        country="not stated",
         ground_truth={
             "event": {
-                "event_type": "bias",
-                "event_date": "2018-10-01",
-                "event_location": None,
+                "event_type": "AI incident",
+                "event_date": "not stated",
+                "event_location": "not stated",
                 "description": "AI recruiting tool showed bias against women in resume screening",
             },
             "ai_system": {
                 "name": "Amazon AI recruiting tool",
-                "system_type": "predictive_system",
+                "system_type": "predictive system",
                 "developer": "Amazon",
                 "deployer": "Amazon",
             },
             "harm": {
-                "harm_type": "societal",
+                "harm_type": "rights violation",
                 "severity": "moderate",
-                "affected_parties": ["women job applicants", "graduates of women's colleges"],
-                "affected_count": None,
+                "affected_parties": "women job applicants, graduates of women's colleges",
             },
             "organizations": [
                 {"name": "Amazon", "role": "developer"},
@@ -317,11 +390,14 @@ def create_sample_dataset() -> Dataset:
 
 
 if __name__ == "__main__":
-    # Create and save sample dataset
-    sample = create_sample_dataset()
-    sample.save("data/annotated/sample_dataset.json")
+    import sys
 
-    # Test loading
-    loaded = Dataset.load("data/annotated/sample_dataset.json")
-    print(f"\nFirst incident: {loaded[0].id}")
-    print(f"Article preview: {loaded[0].article_text[:100]}...")
+    # If an Excel path is provided, load from it; otherwise use sample dataset
+    if len(sys.argv) > 1:
+        ds = load_dataset(sys.argv[1])
+    else:
+        ds = create_sample_dataset()
+        ds.save("data/annotated/sample_dataset.json")
+
+    print(f"\nFirst incident: {ds[0].id}")
+    print(f"Article preview: {ds[0].article_text[:100]}...")
