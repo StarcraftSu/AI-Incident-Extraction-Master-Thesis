@@ -582,9 +582,9 @@
     },
     "ai_system": {
       "name": "not stated",
-      "system_type": "chatbot",
+      "system_type": "ai agent",
       "developer": "Google",
-      "deployer": "Target"
+      "deployer": "Google"
     },
     "harm": {
       "harm_type": "economic",
@@ -592,8 +592,9 @@
       "affected_parties": "Target customers"
     },
     "organizations": [
-      {"name": "Target", "role": "deployer"},
-      {"name": "Google", "role": "developer"}
+      {"name": "Google", "role": "deployer"},
+      {"name": "Google", "role": "developer"},
+      {"name": "user", "role": "victim"}
     ]
   },
   {
@@ -611,12 +612,14 @@
       "deployer": "Anthropic"
     },
     "harm": {
-      "harm_type": "economic",
+      "harm_type": "economic, rights violation",
       "severity": "significant",
       "affected_parties": "developers, organizations using Claude Code"
     },
     "organizations": [
-      {"name": "Anthropic", "role": "developer"}
+      {"name": "Anthropic", "role": "developer"},
+      {"name": "Anthropic", "role": "deployer"},
+      {"name": "User", "role": "victim"}
     ]
   },
   {
@@ -666,7 +669,8 @@
       "affected_parties": "general public, US airman"
     },
     "organizations": [
-      {"name": "not stated", "role": "not stated"}
+      {"name": "Republican", "role": "not stated"},
+      {"name": "Greg Abbott", "role": "not stated"}
     ]
   },
   {
