@@ -1,11 +1,45 @@
 """
 Evaluation metrics for comparing LLM extractions against ground truth.
+
+Evaluation strategy:
+- Constrained fields (event_type, system_type, harm_type, severity, org role):
+  case-insensitive exact match. Comma-separated ground truth values: match any one.
+- Open fields - structured (event_date, ai_system name, developer, deployer):
+  case-insensitive exact match with normalization.
+- Open fields - free text (event_location, affected_parties):
+  BERTScore similarity with threshold.
+- description: EXCLUDED from evaluation (summarization, not extraction).
+- organizations: array comparison — name uses BERTScore, role uses exact match.
 """
 
 import json
 import re
 from dataclasses import dataclass, field
 from typing import Any, Optional
+
+# Lazy-load BERTScore to avoid import overhead when not needed
+_bert_scorer = None
+
+def _get_bert_scorer():
+    """Lazy-load BERTScorer on first use."""
+    global _bert_scorer
+    if _bert_scorer is None:
+        from bert_score import BERTScorer
+        _bert_scorer = BERTScorer(model_type="distilbert-base-uncased", lang="en", rescale_with_baseline=True)
+    return _bert_scorer
+
+
+def compute_bert_score(candidate: str, reference: str) -> float:
+    """Compute BERTScore F1 between candidate and reference strings."""
+    if not candidate or not reference:
+        return 0.0
+    scorer = _get_bert_scorer()
+    P, R, F1 = scorer.score([candidate], [reference])
+    return F1.item()
+
+
+# BERTScore threshold: above this = correct, below = incorrect
+BERT_SCORE_THRESHOLD = 0.5
 
 
 @dataclass
@@ -28,8 +62,8 @@ class FieldMetrics:
     field_name: str
     correct: int = 0
     incorrect: int = 0
-    missing_in_extraction: int = 0  # In ground truth but not extracted
-    hallucinated: int = 0  # In extraction but not in ground truth
+    missing_in_extraction: int = 0
+    hallucinated: int = 0
     total: int = 0
 
     @property
@@ -59,9 +93,9 @@ class BenchmarkMetrics:
     template: str
     total_samples: int = 0
     valid_json_count: int = 0
-    field_metrics: dict[str, FieldMetrics] = field(default_factory=dict)
+    field_metrics: dict = field(default_factory=dict)
     total_latency: float = 0.0
-    errors: list[str] = field(default_factory=list)
+    errors: list = field(default_factory=list)
 
     @property
     def json_validity_rate(self) -> float:
@@ -83,6 +117,27 @@ class BenchmarkMetrics:
             return 0.0
         return sum(m.f1_score for m in self.field_metrics.values()) / len(self.field_metrics)
 
+    @property
+    def overall_precision(self) -> float:
+        if not self.field_metrics:
+            return 0.0
+        return sum(m.precision for m in self.field_metrics.values()) / len(self.field_metrics)
+
+    @property
+    def overall_recall(self) -> float:
+        if not self.field_metrics:
+            return 0.0
+        return sum(m.recall for m in self.field_metrics.values()) / len(self.field_metrics)
+
+    @property
+    def overall_hallucination_rate(self) -> float:
+        total_extracted = sum(
+            m.correct + m.incorrect + m.hallucinated
+            for m in self.field_metrics.values()
+        )
+        total_hallucinated = sum(m.hallucinated for m in self.field_metrics.values())
+        return total_hallucinated / total_extracted if total_extracted > 0 else 0.0
+
     def to_dict(self) -> dict:
         return {
             "model": self.model,
@@ -91,7 +146,10 @@ class BenchmarkMetrics:
             "valid_json_count": self.valid_json_count,
             "json_validity_rate": self.json_validity_rate,
             "overall_accuracy": self.overall_accuracy,
+            "overall_precision": self.overall_precision,
+            "overall_recall": self.overall_recall,
             "overall_f1": self.overall_f1,
+            "overall_hallucination_rate": self.overall_hallucination_rate,
             "avg_latency_seconds": self.avg_latency,
             "field_metrics": {
                 name: {
@@ -110,7 +168,7 @@ class BenchmarkMetrics:
         }
 
 
-def parse_json_output(raw_output: str) -> tuple[Optional[dict], bool]:
+def parse_json_output(raw_output: str) -> tuple:
     """
     Parse JSON from LLM output, handling common issues.
     Returns (parsed_dict, is_valid).
@@ -128,10 +186,10 @@ def parse_json_output(raw_output: str) -> tuple[Optional[dict], bool]:
 
     # Try to extract JSON from markdown code blocks
     json_patterns = [
-        r"```json\s*([\s\S]*?)\s*```",  # ```json ... ```
-        r"```\s*([\s\S]*?)\s*```",       # ``` ... ```
-        r"FINAL JSON:\s*([\s\S]*?)$",    # For chain-of-verification
-        r"\{[\s\S]*\}",                   # Raw JSON object
+        r"```json\s*([\s\S]*?)\s*```",
+        r"```\s*([\s\S]*?)\s*```",
+        r"FINAL JSON:\s*([\s\S]*?)$",
+        r"\{[\s\S]*\}",
     ]
 
     for pattern in json_patterns:
@@ -147,10 +205,9 @@ def parse_json_output(raw_output: str) -> tuple[Optional[dict], bool]:
 
 
 # ---------------------------------------------------------------------------
-# Constrained fields: these have a fixed set of allowed values.
-# For constrained fields, evaluation uses ONLY exact match (case-insensitive).
-# For open fields (description, name, etc.), partial/fuzzy matching is allowed.
+# Field classification
 # ---------------------------------------------------------------------------
+
 CONSTRAINED_FIELDS = {
     "event_type": ["ai incident", "ai hazard"],
     "system_type": [
@@ -166,116 +223,127 @@ CONSTRAINED_FIELDS = {
     "role": ["developer", "deployer", "regulator", "victim", "other"],
 }
 
+# Fields evaluated with BERTScore (free text, semantic comparison)
+BERTSCORE_FIELDS = {"event_location", "affected_parties"}
 
-def normalize_value(value: Any) -> Any:
-    """Normalize a value for comparison.
+# Fields evaluated with exact match (structured open fields)
+EXACT_MATCH_OPEN_FIELDS = {"event_date", "name", "developer", "deployer"}
 
-    Treats null, None, "null", "not stated", "n/a", and empty string
-    as equivalent empty values.
-    """
+# Fields excluded from evaluation
+EXCLUDED_FIELDS = {"description"}
+
+
+def _normalize_str(value: str) -> str:
+    """Normalize a string for comparison: lowercase, strip, remove common suffixes."""
+    s = value.lower().strip()
+    # Remove common corporate suffixes
+    for suffix in [", inc.", ", inc", " inc.", " inc", ", corp.", ", corp",
+                   " corp.", " corp", ", ltd.", ", ltd", " ltd.", " ltd",
+                   " llc", ", llc", " co.", ", co."]:
+        if s.endswith(suffix):
+            s = s[:-len(suffix)].strip()
+    return s
+
+
+def _is_empty(value: Any) -> bool:
+    """Check if a value represents empty/missing."""
     if value is None:
-        return None
+        return True
     if isinstance(value, str):
         stripped = value.lower().strip()
-        # Treat these as equivalent to None (empty/unknown)
-        if stripped in ("null", "not stated", "n/a", "none", "unknown", ""):
-            return None
-        return stripped
-    if isinstance(value, (int, float)):
-        return str(value).lower().strip()
-    if isinstance(value, dict):
-        return {k: normalize_value(v) for k, v in value.items()}
-    if isinstance(value, list):
-        normalized = [normalize_value(v) for v in value]
-        # Sort only if list contains sortable items (not dicts)
-        if normalized and isinstance(normalized[0], dict):
-            return normalized  # Don't sort list of dicts
-        try:
-            return sorted(normalized)
-        except TypeError:
-            return normalized  # Return unsorted if comparison fails
-    return value
+        return stripped in ("null", "not stated", "n/a", "none", "unknown", "not_stated", "")
+    if isinstance(value, list) and len(value) == 0:
+        return True
+    return False
 
 
-def _is_constrained_field(field_path: str) -> Optional[str]:
-    """Check if a field path ends with a constrained field name.
+def _get_field_type(field_path: str) -> str:
+    """Determine the evaluation type for a field path.
 
-    Returns the field name if constrained, None otherwise.
-    E.g., "event.event_type" -> "event_type", "organizations[0].role" -> "role"
+    Returns: 'constrained', 'bertscore', 'exact', or 'excluded'
     """
-    # Extract the last segment of the field path
     last_segment = field_path.rsplit(".", 1)[-1]
-    # Strip array indices like [0]
     last_segment = re.sub(r"\[\d+\]$", "", last_segment)
+
+    if last_segment in EXCLUDED_FIELDS:
+        return "excluded"
     if last_segment in CONSTRAINED_FIELDS:
-        return last_segment
-    return None
+        return "constrained"
+    if last_segment in BERTSCORE_FIELDS:
+        return "bertscore"
+    return "exact"
 
 
 def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> str:
     """
     Compare extracted value with ground truth.
-    Returns: 'correct', 'incorrect', 'missing', or 'hallucinated'
-
-    For constrained fields (event_type, system_type, harm_type, severity, role),
-    uses exact match only (case-insensitive). For open fields, allows partial match.
+    Returns: 'correct', 'incorrect', 'missing', 'hallucinated', or 'excluded'
     """
-    ext_norm = normalize_value(extracted)
-    gt_norm = normalize_value(ground_truth)
+    field_type = _get_field_type(field_path)
 
-    # Both null/empty
-    if ext_norm in (None, "", []) and gt_norm in (None, "", []):
+    # Skip excluded fields
+    if field_type == "excluded":
+        return "excluded"
+
+    ext_empty = _is_empty(extracted)
+    gt_empty = _is_empty(ground_truth)
+
+    # Both empty = correct (both agree info is not stated)
+    if ext_empty and gt_empty:
         return "correct"
 
-    # Ground truth exists but extraction is missing
-    if ext_norm in (None, "", []) and gt_norm not in (None, "", []):
+    # Ground truth has value but extraction is empty = missing
+    if ext_empty and not gt_empty:
         return "missing"
 
-    # Extraction exists but ground truth is missing (hallucination)
-    if ext_norm not in (None, "", []) and gt_norm in (None, "", []):
+    # Extraction has value but ground truth is empty = hallucinated
+    if not ext_empty and gt_empty:
         return "hallucinated"
 
-    # Both exist - compare
-    if ext_norm == gt_norm:
-        return "correct"
+    # Both have values — compare based on field type
+    ext_str = _normalize_str(str(extracted)) if not isinstance(extracted, (dict, list)) else extracted
+    gt_str = _normalize_str(str(ground_truth)) if not isinstance(ground_truth, (dict, list)) else ground_truth
 
-    # Check if this is a constrained field — if so, exact match only
-    constrained_name = _is_constrained_field(field_path) if field_path else None
-    if constrained_name is not None:
-        # Constrained field: exact match only (already case-insensitive via normalize)
-        return "incorrect"
+    if field_type == "constrained":
+        # Constrained field: comma-separated ground truth, match any one
+        if isinstance(gt_str, str) and "," in gt_str:
+            gt_options = [opt.strip() for opt in gt_str.split(",")]
+            return "correct" if ext_str in gt_options else "incorrect"
+        return "correct" if ext_str == gt_str else "incorrect"
 
-    # Open field: allow partial match for strings
-    if isinstance(ext_norm, str) and isinstance(gt_norm, str):
-        if ext_norm in gt_norm or gt_norm in ext_norm:
-            return "correct"  # Partial match is acceptable
+    elif field_type == "bertscore":
+        # Free text field: use BERTScore
+        score = compute_bert_score(str(extracted), str(ground_truth))
+        return "correct" if score >= BERT_SCORE_THRESHOLD else "incorrect"
 
-    # For lists, check overlap
-    if isinstance(ext_norm, list) and isinstance(gt_norm, list):
-        ext_set = set(str(x) for x in ext_norm)
-        gt_set = set(str(x) for x in gt_norm)
-        if ext_set & gt_set:  # Any overlap
+    else:
+        # Exact match open field (names, dates)
+        if ext_str == gt_str:
             return "correct"
-
-    return "incorrect"
+        # Also try substring for organization names
+        if isinstance(ext_str, str) and isinstance(gt_str, str):
+            if ext_str in gt_str or gt_str in ext_str:
+                return "correct"
+        return "incorrect"
 
 
 def evaluate_extraction(
     extracted: dict,
     ground_truth: dict,
     prefix: str = ""
-) -> dict[str, str]:
+) -> dict:
     """
     Recursively evaluate extraction against ground truth.
     Returns dict mapping field paths to comparison results.
+    Excludes 'description' field.
     """
     results = {}
 
-    # Get all keys from both dicts
     all_keys = set(ground_truth.keys()) | set(extracted.keys() if extracted else [])
 
     for key in all_keys:
         field_path = f"{prefix}.{key}" if prefix else key
+
         gt_value = ground_truth.get(key)
         ext_value = extracted.get(key) if extracted else None
 
@@ -287,14 +355,90 @@ def evaluate_extraction(
                 field_path
             )
             results.update(nested_results)
+        elif isinstance(gt_value, list) and isinstance(gt_value[0] if gt_value else None, dict):
+            # Organizations array: compare lists of {name, role} dicts
+            ext_list = ext_value if isinstance(ext_value, list) else []
+            gt_list = gt_value
+
+            # For each ground truth org, find best match in extracted
+            for i, gt_org in enumerate(gt_list):
+                org_path = f"{field_path}[{i}]"
+
+                if not ext_list:
+                    # All orgs missing
+                    for org_key in gt_org:
+                        full_path = f"{org_path}.{org_key}"
+                        result = compare_values(None, gt_org[org_key], full_path)
+                        if result != "excluded":
+                            results[full_path] = result
+                    continue
+
+                # Find best matching extracted org (by name similarity)
+                best_match = None
+                best_score = -1
+                for ext_org in ext_list:
+                    if isinstance(ext_org, dict):
+                        ext_name = str(ext_org.get("name", "")).lower()
+                        gt_name = str(gt_org.get("name", "")).lower()
+                        if ext_name == gt_name:
+                            best_match = ext_org
+                            best_score = 1.0
+                            break
+                        # Try BERTScore for fuzzy name matching
+                        if not _is_empty(ext_org.get("name")) and not _is_empty(gt_org.get("name")):
+                            score = compute_bert_score(ext_name, gt_name)
+                            if score > best_score:
+                                best_score = score
+                                best_match = ext_org
+
+                if best_match and best_score >= BERT_SCORE_THRESHOLD:
+                    # Compare each field in the org
+                    for org_key in gt_org:
+                        full_path = f"{org_path}.{org_key}"
+                        result = compare_values(
+                            best_match.get(org_key),
+                            gt_org[org_key],
+                            full_path
+                        )
+                        if result != "excluded":
+                            results[full_path] = result
+                else:
+                    # No match found — all fields missing
+                    for org_key in gt_org:
+                        full_path = f"{org_path}.{org_key}"
+                        result = compare_values(None, gt_org[org_key], full_path)
+                        if result != "excluded":
+                            results[full_path] = result
+
+            # Check for hallucinated orgs (in extraction but not in ground truth)
+            for j, ext_org in enumerate(ext_list):
+                if not isinstance(ext_org, dict):
+                    continue
+                matched = False
+                for gt_org in gt_list:
+                    ext_name = str(ext_org.get("name", "")).lower()
+                    gt_name = str(gt_org.get("name", "")).lower()
+                    if ext_name == gt_name or (
+                        not _is_empty(ext_org.get("name")) and
+                        not _is_empty(gt_org.get("name")) and
+                        compute_bert_score(ext_name, gt_name) >= BERT_SCORE_THRESHOLD
+                    ):
+                        matched = True
+                        break
+                if not matched and not _is_empty(ext_org.get("name")):
+                    hall_path = f"{field_path}[h{j}]"
+                    results[f"{hall_path}.name"] = "hallucinated"
+                    results[f"{hall_path}.role"] = "hallucinated"
         else:
-            # Compare leaf values
-            results[field_path] = compare_values(ext_value, gt_value, field_path)
+            # Leaf value comparison
+            result = compare_values(ext_value, gt_value, field_path)
+            if result != "excluded":
+                results[field_path] = result
 
     return results
 
 
-def calculate_metrics(results: list[ExtractionResult]) -> BenchmarkMetrics:
+def calculate_metrics(results: list) -> BenchmarkMetrics:
     """Calculate aggregated metrics from a list of extraction results."""
     if not results:
         return BenchmarkMetrics(model="", template="")
@@ -306,18 +450,14 @@ def calculate_metrics(results: list[ExtractionResult]) -> BenchmarkMetrics:
     )
 
     for result in results:
-        # Count valid JSON
         if result.is_valid_json:
             metrics.valid_json_count += 1
 
-        # Add latency
         metrics.total_latency += result.latency_seconds
 
-        # Track errors
         if result.error:
             metrics.errors.append(f"{result.incident_id}: {result.error}")
 
-        # Evaluate fields if we have valid output
         if result.parsed_output and result.ground_truth:
             field_results = evaluate_extraction(result.parsed_output, result.ground_truth)
 
@@ -342,42 +482,64 @@ def calculate_metrics(results: list[ExtractionResult]) -> BenchmarkMetrics:
 
 def print_metrics_report(metrics: BenchmarkMetrics):
     """Print a formatted metrics report."""
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 70)
     print(f"BENCHMARK RESULTS: {metrics.model} + {metrics.template}")
-    print("=" * 60)
+    print("=" * 70)
 
     print(f"\nOverall Statistics:")
-    print(f"  Samples:          {metrics.total_samples}")
-    print(f"  JSON Validity:    {metrics.json_validity_rate:.1%}")
-    print(f"  Overall Accuracy: {metrics.overall_accuracy:.1%}")
-    print(f"  Overall F1:       {metrics.overall_f1:.3f}")
-    print(f"  Avg Latency:      {metrics.avg_latency:.2f}s")
+    print(f"  Samples:            {metrics.total_samples}")
+    print(f"  JSON Validity:      {metrics.json_validity_rate:.1%}")
+    print(f"  Overall Accuracy:   {metrics.overall_accuracy:.1%}")
+    print(f"  Overall Precision:  {metrics.overall_precision:.1%}")
+    print(f"  Overall Recall:     {metrics.overall_recall:.1%}")
+    print(f"  Overall F1:         {metrics.overall_f1:.3f}")
+    print(f"  Hallucination Rate: {metrics.overall_hallucination_rate:.1%}")
+    print(f"  Avg Latency:        {metrics.avg_latency:.2f}s")
 
     print(f"\nField-Level Metrics:")
-    print(f"  {'Field':<30} {'Acc':>6} {'Prec':>6} {'Rec':>6} {'F1':>6}")
-    print(f"  {'-'*30} {'-'*6} {'-'*6} {'-'*6} {'-'*6}")
+    print(f"  {'Field':<35} {'Acc':>6} {'Prec':>6} {'Rec':>6} {'F1':>6} {'Type':>12}")
+    print(f"  {'-'*35} {'-'*6} {'-'*6} {'-'*6} {'-'*6} {'-'*12}")
 
     for name, fm in sorted(metrics.field_metrics.items()):
-        print(f"  {name:<30} {fm.accuracy:>5.1%} {fm.precision:>5.1%} {fm.recall:>5.1%} {fm.f1_score:>5.3f}")
+        ftype = _get_field_type(name)
+        print(f"  {name:<35} {fm.accuracy:>5.1%} {fm.precision:>5.1%} {fm.recall:>5.1%} {fm.f1_score:>5.3f} {ftype:>12}")
 
     if metrics.errors:
         print(f"\nErrors ({len(metrics.errors)}):")
-        for err in metrics.errors[:5]:  # Show first 5
+        for err in metrics.errors[:5]:
             print(f"  - {err[:80]}...")
 
 
 # Quick test
 if __name__ == "__main__":
-    # Test JSON parsing
-    test_outputs = [
-        '{"event": {"type": "malfunction"}}',
-        '```json\n{"event": {"type": "bias"}}\n```',
-        'Here is the extraction:\n\n{"event": {"type": "test"}}',
-        'FINAL JSON:\n{"event": {"type": "verified"}}',
-        'invalid json {{{',
-    ]
+    print("Testing evaluation logic...")
 
-    print("Testing JSON parsing:")
-    for output in test_outputs:
-        parsed, valid = parse_json_output(output)
-        print(f"  Valid: {valid}, Parsed: {parsed}")
+    # Test constrained field with comma-separated values
+    assert compare_values("physical", "physical, psychological", "harm.harm_type") == "correct"
+    assert compare_values("psychological", "physical, psychological", "harm.harm_type") == "correct"
+    assert compare_values("economic", "physical, psychological", "harm.harm_type") == "incorrect"
+    print("  Comma-separated constrained: OK")
+
+    # Test exact match
+    assert compare_values("AI incident", "AI incident", "event.event_type") == "correct"
+    assert compare_values("ai incident", "AI incident", "event.event_type") == "correct"
+    assert compare_values("AI hazard", "AI incident", "event.event_type") == "incorrect"
+    print("  Constrained exact match: OK")
+
+    # Test not stated
+    assert compare_values("not stated", "not stated", "ai_system.deployer") == "correct"
+    assert compare_values(None, "not stated", "ai_system.deployer") == "correct"
+    assert compare_values("not stated", "OpenAI", "ai_system.deployer") == "missing"
+    assert compare_values("OpenAI", "not stated", "ai_system.deployer") == "hallucinated"
+    print("  Not stated handling: OK")
+
+    # Test excluded field
+    assert compare_values("some text", "other text", "event.description") == "excluded"
+    print("  Description excluded: OK")
+
+    # Test open field substring match
+    assert compare_values("OpenAI", "OpenAI", "ai_system.developer") == "correct"
+    assert compare_values("Reno Police", "Reno Police Department", "ai_system.deployer") == "correct"
+    print("  Open field substring: OK")
+
+    print("\nAll tests passed!")
