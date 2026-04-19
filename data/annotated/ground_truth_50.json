@@ -1176,5 +1176,29 @@
       {"name": "Ford", "role": "deployer"},
       {"name": "NTSB", "role": "regulator"}
     ]
+  },
+  {
+    "id": "2026-04-17-f5bd",
+    "event": {
+      "event_type": "AI hazard",
+      "event_date": "2026-04-17",
+      "event_location": "United States",
+      "description": "Cal.com closed its source code and switched to proprietary license due to AI systems like Claude Mythos that can rapidly identify and exploit software vulnerabilities"
+    },
+    "ai_system": {
+      "name": "Claude Mythos",
+      "system_type": "generative AI",
+      "developer": "Anthropic",
+      "deployer": "not stated"
+    },
+    "harm": {
+      "harm_type": "economic",
+      "severity": "significant",
+      "affected_parties": "open-source software community"
+    },
+    "organizations": [
+      {"name": "Cal.com", "role": "other"},
+      {"name": "Anthropic", "role": "developer"}
+    ]
   }
 ]
