@@ -72,13 +72,15 @@ class FieldMetrics:
 
     @property
     def precision(self) -> float:
-        extracted = self.correct + self.incorrect + self.hallucinated
-        return self.correct / extracted if extracted > 0 else 0.0
+        """Precision = TP / (TP + FP). TP = correct, FP = incorrect + hallucinated."""
+        tp_fp = self.correct + self.incorrect + self.hallucinated
+        return self.correct / tp_fp if tp_fp > 0 else 0.0
 
     @property
     def recall(self) -> float:
-        relevant = self.correct + self.incorrect + self.missing_in_extraction
-        return self.correct / relevant if relevant > 0 else 0.0
+        """Recall = TP / (TP + FN). TP = correct, FN = missing."""
+        tp_fn = self.correct + self.missing_in_extraction
+        return self.correct / tp_fn if tp_fn > 0 else 0.0
 
     @property
     def f1_score(self) -> float:

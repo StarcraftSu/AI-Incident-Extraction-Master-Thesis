@@ -391,15 +391,19 @@ def main():
     project_root = Path(__file__).parent.parent
     runner = ExperimentRunner(output_dir=str(project_root / "data/results"))
 
-    # Load dataset
+    # Load dataset with ground truth
     dataset_path = project_root / "data/raw/experimental_incidents_50.xlsx"
+    gt_path = project_root / "data/annotated/ground_truth_50.json"
     if not dataset_path.exists():
         print(f"\nERROR: Dataset not found at {dataset_path}")
         sys.exit(1)
+    if not gt_path.exists():
+        print(f"\nERROR: Ground truth not found at {gt_path}")
+        sys.exit(1)
 
-    from data_loader import load_dataset
-    dataset = load_dataset(str(dataset_path))
-    print(f"\nDataset: {len(dataset)} incidents")
+    from data_loader import load_dataset_with_ground_truth
+    dataset = load_dataset_with_ground_truth(str(dataset_path), str(gt_path))
+    print(f"\nDataset: {len(dataset)} incidents with ground truth")
 
     # --- Configure what to run ---
     # Uncomment/modify as needed:

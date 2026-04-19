@@ -1,3 +1,5 @@
+import re
+
 """
 Prompting Strategy (PS) wrappers for prompt construction.
 
@@ -39,17 +41,23 @@ FEW_SHOT_EXAMPLE_1 = {
 Summary: A Tesla Model S crashed into a concrete barrier on Highway 101 while the Autopilot semi-autonomous driving feature was engaged. The 38-year-old driver died in the collision. NHTSA has opened a formal investigation into the incident.
 Concepts: Tesla, Autopilot, autonomous driving, fatal crash, NHTSA, investigation""",
     "output": """{
-  "event_type": "AI incident",
-  "event_date": "not stated",
-  "event_location": "Highway 101, United States",
-  "description": "Tesla Model S with Autopilot engaged crashed into concrete barrier, killing the driver",
-  "ai_system_name": "Tesla Autopilot",
-  "system_type": "autonomous vehicle",
-  "developer": "Tesla",
-  "deployer": "Tesla",
-  "harm_type": "physical",
-  "severity": "severe",
-  "affected_parties": "driver",
+  "event": {
+    "event_type": "AI incident",
+    "event_date": "not stated",
+    "event_location": "Highway 101, United States",
+    "description": "Tesla Model S with Autopilot engaged crashed into concrete barrier, killing the driver"
+  },
+  "ai_system": {
+    "name": "Tesla Autopilot",
+    "system_type": "autonomous vehicle",
+    "developer": "Tesla",
+    "deployer": "Tesla"
+  },
+  "harm": {
+    "harm_type": "physical",
+    "severity": "severe",
+    "affected_parties": "driver"
+  },
   "organizations": [
     {"name": "Tesla", "role": "developer"},
     {"name": "NHTSA", "role": "regulator"}
@@ -62,17 +70,23 @@ FEW_SHOT_EXAMPLE_2 = {
 Summary: Amazon's Rekognition facial recognition software incorrectly matched 28 members of Congress to criminal mugshots in a test conducted by the ACLU. The false matches disproportionately affected people of color, raising concerns about racial bias in AI systems used by law enforcement.
 Concepts: Amazon, Rekognition, facial recognition, bias, ACLU, Congress, racial bias, law enforcement""",
     "output": """{
-  "event_type": "AI incident",
-  "event_date": "not stated",
-  "event_location": "United States",
-  "description": "Facial recognition incorrectly matched 28 Congress members to criminal mugshots with racial bias",
-  "ai_system_name": "Amazon Rekognition",
-  "system_type": "facial recognition",
-  "developer": "Amazon",
-  "deployer": "not stated",
-  "harm_type": "rights violation",
-  "severity": "significant",
-  "affected_parties": "Congress members, people of color",
+  "event": {
+    "event_type": "AI incident",
+    "event_date": "not stated",
+    "event_location": "United States",
+    "description": "Facial recognition incorrectly matched 28 Congress members to criminal mugshots with racial bias"
+  },
+  "ai_system": {
+    "name": "Amazon Rekognition",
+    "system_type": "facial recognition",
+    "developer": "Amazon",
+    "deployer": "not stated"
+  },
+  "harm": {
+    "harm_type": "rights violation",
+    "severity": "significant",
+    "affected_parties": "Congress members, people of color"
+  },
   "organizations": [
     {"name": "Amazon", "role": "developer"},
     {"name": "ACLU", "role": "other"}
@@ -85,17 +99,23 @@ FEW_SHOT_EXAMPLE_3 = {
 Summary: An AI-powered trading algorithm deployed by QuantFund Capital malfunctioned during volatile market conditions, executing thousands of unauthorized trades within minutes. The system, developed by AlgoTech Solutions, caused approximately $20 million in losses for retail investors before manual intervention shut it down.
 Concepts: AI trading, algorithm, financial loss, malfunction, QuantFund Capital, AlgoTech Solutions, investors""",
     "output": """{
-  "event_type": "AI incident",
-  "event_date": "not stated",
-  "event_location": "not stated",
-  "description": "AI trading algorithm malfunctioned during volatile conditions, executing unauthorized trades causing $20 million losses",
-  "ai_system_name": "not stated",
-  "system_type": "predictive system",
-  "developer": "AlgoTech Solutions",
-  "deployer": "QuantFund Capital",
-  "harm_type": "economic",
-  "severity": "severe",
-  "affected_parties": "retail investors",
+  "event": {
+    "event_type": "AI incident",
+    "event_date": "not stated",
+    "event_location": "not stated",
+    "description": "AI trading algorithm malfunctioned during volatile conditions, executing unauthorized trades causing $20 million losses"
+  },
+  "ai_system": {
+    "name": "not stated",
+    "system_type": "predictive system",
+    "developer": "AlgoTech Solutions",
+    "deployer": "QuantFund Capital"
+  },
+  "harm": {
+    "harm_type": "economic",
+    "severity": "severe",
+    "affected_parties": "retail investors"
+  },
   "organizations": [
     {"name": "AlgoTech Solutions", "role": "developer"},
     {"name": "QuantFund Capital", "role": "deployer"}
@@ -185,41 +205,50 @@ def build_ps3_verification_prompt(article_text: str, extracted_json: dict) -> st
     before confirming or rejecting each field. This prevents the model
     from simply rubber-stamping its own prior output.
 
-    IMPORTANT: This prompt does NOT include the original extraction,
-    only the article and the fields to verify. This independence is
-    the key mechanism by which CoVe reduces hallucination.
-    (Dhuliawala et al., 2023)
+    IMPORTANT: This prompt does NOT include the extracted values.
+    It only asks the model to independently find each field's value
+    from the article. This independence is the key mechanism by which
+    CoVe reduces hallucination. (Dhuliawala et al., 2023)
     """
+    # Collect field names only — NOT their values
+    field_names = []
+    for key in _flatten_dict(extracted_json).keys():
+        # Skip organizations array indices for cleaner questions
+        clean_key = re.sub(r'\[\d+\]\.', '.', key)
+        if clean_key not in field_names:
+            field_names.append(clean_key)
+
     questions = []
-    for key, value in _flatten_dict(extracted_json).items():
-        if value and value != "not stated" and value != "null":
-            questions.append(
-                f'- Field "{key}" = "{value}": '
-                f'First quote the relevant sentence from the article, '
-                f'then answer YES or NO.'
-            )
+    for field_name in field_names:
+        questions.append(
+            f'- "{field_name}": Does the article explicitly state this? '
+            f'If YES, quote the relevant sentence and provide the value. '
+            f'If NO, write "not stated".'
+        )
 
     questions_text = "\n".join(questions)
 
     return f"""{ROLE_PREFIX}
 
-You are now verifying previously extracted information against the source article.
+You are independently extracting information from the source article below.
+For each field listed, determine whether the article explicitly states the information.
 
 <article>
 {article_text}
 </article>
 
 <verification_tasks>
-For each field below, find and quote the relevant sentence from the article, then determine whether the article explicitly states or directly supports the extracted value.
+For each field below, search the article for relevant information.
+Do NOT guess or infer — only extract what is explicitly stated.
 
 {questions_text}
 </verification_tasks>
 
 <instructions>
-After verifying all fields, output the corrected JSON:
-- Keep fields verified as YES with their original values.
-- Change fields verified as NO to "not stated".
-- Keep the same JSON structure.
+Based on your verification above, output a complete JSON with the same structure.
+- For fields where the article provides the information, write the value.
+- For fields where the article does NOT provide the information, write "not stated".
+- Use the nested JSON structure: event, ai_system, harm, organizations.
 </instructions>
 
 Return ONLY valid JSON."""

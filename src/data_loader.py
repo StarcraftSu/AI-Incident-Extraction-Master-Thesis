@@ -158,6 +158,58 @@ def load_dataset(path: str) -> Dataset:
     return dataset
 
 
+def load_ground_truth(gt_path: str) -> dict:
+    """Load ground truth annotations from a JSON file.
+
+    Args:
+        gt_path: Path to the ground truth JSON file.
+
+    Returns:
+        Dict mapping incident id to ground truth annotation dict.
+    """
+    filepath = Path(gt_path)
+    with open(filepath, "r", encoding="utf-8") as f:
+        annotations = json.load(f)
+
+    gt_by_id = {}
+    for ann in annotations:
+        inc_id = ann.get("id", "")
+        gt_by_id[inc_id] = {k: v for k, v in ann.items() if k != "id"}
+
+    print(f"Loaded {len(gt_by_id)} ground truth annotations from {filepath}")
+    return gt_by_id
+
+
+def load_dataset_with_ground_truth(
+    data_path: str,
+    gt_path: str,
+) -> Dataset:
+    """Load incidents from Excel and merge ground truth annotations.
+
+    Args:
+        data_path: Path to the Excel file with incident records.
+        gt_path: Path to the ground truth JSON file.
+
+    Returns:
+        Dataset with ground_truth populated for each incident.
+    """
+    dataset = load_dataset(data_path)
+    gt_by_id = load_ground_truth(gt_path)
+
+    matched = 0
+    for incident in dataset:
+        if incident.id in gt_by_id:
+            incident.ground_truth = gt_by_id[incident.id]
+            matched += 1
+
+    print(f"Matched {matched}/{len(dataset)} incidents with ground truth")
+    if matched < len(dataset):
+        missing = [inc.id for inc in dataset if inc.ground_truth is None]
+        print(f"  Missing GT for: {missing[:5]}...")
+
+    return dataset
+
+
 def create_empty_ground_truth() -> dict:
     """Create an empty ground truth template for annotation.
 
