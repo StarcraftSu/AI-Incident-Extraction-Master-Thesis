@@ -706,12 +706,12 @@
     },
     "ai_system": {
       "name": "AI Overviews",
-      "system_type": "generative AI",
+      "system_type": "chatbot",
       "developer": "Google",
       "deployer": "Google"
     },
     "harm": {
-      "harm_type": "other",
+      "harm_type": "reputational, other",
       "severity": "significant",
       "affected_parties": "Google search users"
     },
@@ -740,7 +740,7 @@
       "affected_parties": "Murphy Campbell"
     },
     "organizations": [
-      {"name": "not stated", "role": "not stated"}
+      {"name": "Murphy Campbell", "role": "victim"}
     ]
   },
   {
@@ -755,7 +755,7 @@
       "name": "Claude Sonnet 4.5",
       "system_type": "generative AI",
       "developer": "Anthropic",
-      "deployer": "not stated"
+      "deployer": "Anthropic"
     },
     "harm": {
       "harm_type": "other",
@@ -786,7 +786,9 @@
       "affected_parties": "developers, organizations"
     },
     "organizations": [
-      {"name": "Anthropic", "role": "developer"}
+      {"name": "Anthropic", "role": "developer"},
+      {"name": "Developer", "role": "victim"},
+      {"name": "Organization", "role": "victim"}
     ]
   },
   {
@@ -804,7 +806,7 @@
       "deployer": "not stated"
     },
     "harm": {
-      "harm_type": "economic",
+      "harm_type": "economic, reputational",
       "severity": "severe",
       "affected_parties": "government agencies, general public"
     },
@@ -852,7 +854,7 @@
       "deployer": "Legion Health"
     },
     "harm": {
-      "harm_type": "physical",
+      "harm_type": "physical, psychological",
       "severity": "moderate",
       "affected_parties": "psychiatric patients"
     },
@@ -881,7 +883,6 @@
       "affected_parties": "students"
     },
     "organizations": [
-      {"name": "Alpha Schools", "role": "developer"},
       {"name": "Alpha Schools", "role": "deployer"}
     ]
   },
@@ -925,12 +926,13 @@
     },
     "harm": {
       "harm_type": "rights violation",
-      "severity": "moderate",
+      "severity": "significant",
       "affected_parties": "local journalists"
     },
     "organizations": [
       {"name": "Nota", "role": "developer"},
-      {"name": "Nota", "role": "deployer"}
+      {"name": "Nota", "role": "deployer"},
+      {"name": "local journalists", "role": "victim"}
     ]
   },
   {
@@ -949,7 +951,7 @@
     },
     "harm": {
       "harm_type": "physical",
-      "severity": "moderate",
+      "severity": "minor",
       "affected_parties": "patients"
     },
     "organizations": [
@@ -972,13 +974,11 @@
     },
     "harm": {
       "harm_type": "other",
-      "severity": "moderate",
+      "severity": "severe",
       "affected_parties": "not stated"
     },
     "organizations": [
-      {"name": "US Congress", "role": "regulator"},
-      {"name": "ASML", "role": "other"},
-      {"name": "Nvidia", "role": "other"}
+      {"name": "US lawmakers", "role": "regulator"}
     ]
   },
   {
@@ -992,17 +992,16 @@
     "ai_system": {
       "name": "not stated",
       "system_type": "autonomous vehicle",
-      "developer": "Tesla, Waymo",
-      "deployer": "Tesla, Waymo"
+      "developer": "Tesla",
+      "deployer": "Tesla"
     },
     "harm": {
       "harm_type": "physical",
-      "severity": "moderate",
+      "severity": "minor",
       "affected_parties": "passengers, pedestrians"
     },
     "organizations": [
       {"name": "Tesla", "role": "developer"},
-      {"name": "Waymo", "role": "developer"},
       {"name": "Ed Markey", "role": "regulator"}
     ]
   },
@@ -1050,7 +1049,8 @@
     },
     "organizations": [
       {"name": "The New York Times", "role": "other"},
-      {"name": "The Guardian", "role": "victim"}
+      {"name": "The Guardian", "role": "victim"},
+      {"name": "Alex Preston", "role": "other"}
     ]
   },
   {
@@ -1075,7 +1075,7 @@
     "organizations": [
       {"name": "Google", "role": "developer"},
       {"name": "Google Cloud", "role": "deployer"},
-      {"name": "Palo Alto Networks", "role": "other"}
+      {"name": "Attacker", "role": "other"}
     ]
   },
   {
@@ -1093,7 +1093,7 @@
       "deployer": "US Army"
     },
     "harm": {
-      "harm_type": "other",
+      "harm_type": "physical",
       "severity": "moderate",
       "affected_parties": "not stated"
     },
@@ -1118,7 +1118,7 @@
     },
     "harm": {
       "harm_type": "economic",
-      "severity": "significant",
+      "severity": "moderate",
       "affected_parties": "Anthropic"
     },
     "organizations": [
