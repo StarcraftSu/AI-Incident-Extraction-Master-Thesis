@@ -53,7 +53,7 @@ Fields:
 # ---------------------------------------------------------------------------
 KI3_TAXONOMY = KI2_SCHEMA + """
 
-TAXONOMIES — select the most specific applicable category:
+TAXONOMIES — use these to understand the categories. In the JSON output, always use the TOP-LEVEL category name (e.g., "physical" not "Injury", "economic" not "Financial loss"):
 
 harm_type taxonomy:
   Physical harm

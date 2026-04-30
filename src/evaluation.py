@@ -307,11 +307,13 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
     gt_str = _normalize_str(str(ground_truth)) if not isinstance(ground_truth, (dict, list)) else ground_truth
 
     if field_type == "constrained":
-        # Constrained field: comma-separated ground truth, match any one
-        if isinstance(gt_str, str) and "," in gt_str:
-            gt_options = [opt.strip() for opt in gt_str.split(",")]
-            return "correct" if ext_str in gt_options else "incorrect"
-        return "correct" if ext_str == gt_str else "incorrect"
+        # Constrained field: handle comma-separated values in both GT and extraction
+        gt_options = {opt.strip() for opt in gt_str.split(",")} if isinstance(gt_str, str) else {gt_str}
+        ext_options = {opt.strip() for opt in ext_str.split(",")} if isinstance(ext_str, str) else {ext_str}
+        # Correct if any extracted value matches any ground truth value
+        if gt_options & ext_options:
+            return "correct"
+        return "incorrect"
 
     elif field_type == "bertscore":
         # Free text field: use BERTScore
@@ -329,6 +331,61 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
         return "incorrect"
 
 
+def _normalize_to_nested(extracted: dict) -> dict:
+    """Normalize a flat extraction output to the nested ground truth structure.
+
+    Maps flat keys like 'event_type', 'ai_system_name' to nested paths like
+    'event.event_type', 'ai_system.name'. If the output is already nested
+    (has 'event', 'ai_system', 'harm' keys), it is returned as-is.
+    """
+    if not extracted or not isinstance(extracted, dict):
+        return extracted or {}
+
+    # If already nested (has the group dict keys), return as-is
+    # Check for 'event' or 'ai_system' or 'harm' as dict values — these only
+    # exist in nested format. 'organizations' exists in both flat and nested.
+    for group_key in ("event", "ai_system", "harm"):
+        val = extracted.get(group_key)
+        if isinstance(val, dict):
+            return extracted
+
+    # Mapping from flat key → (group, nested_key)
+    FLAT_TO_NESTED = {
+        "event_type": ("event", "event_type"),
+        "event_date": ("event", "event_date"),
+        "event_location": ("event", "event_location"),
+        "description": ("event", "description"),
+        "ai_system_name": ("ai_system", "name"),
+        "name": ("ai_system", "name"),
+        "system_type": ("ai_system", "system_type"),
+        "developer": ("ai_system", "developer"),
+        "deployer": ("ai_system", "deployer"),
+        "harm_type": ("harm", "harm_type"),
+        "severity": ("harm", "severity"),
+        "affected_parties": ("harm", "affected_parties"),
+    }
+
+    nested = {
+        "event": {},
+        "ai_system": {},
+        "harm": {},
+    }
+
+    for key, value in extracted.items():
+        if key == "organizations":
+            nested["organizations"] = value
+        elif key in FLAT_TO_NESTED:
+            group, nested_key = FLAT_TO_NESTED[key]
+            nested[group][nested_key] = value
+        # Ignore unmapped keys (they would be hallucinated structure)
+
+    # Preserve organizations if present
+    if "organizations" not in nested:
+        nested["organizations"] = []
+
+    return nested
+
+
 def evaluate_extraction(
     extracted: dict,
     ground_truth: dict,
@@ -338,7 +395,15 @@ def evaluate_extraction(
     Recursively evaluate extraction against ground truth.
     Returns dict mapping field paths to comparison results.
     Excludes 'description' field.
+
+    Before comparison, normalizes flat extraction outputs to the nested
+    ground truth structure to avoid false hallucination/missing counts
+    caused by structural mismatch.
     """
+    # Normalize flat output to nested structure (only at top level)
+    if not prefix:
+        extracted = _normalize_to_nested(extracted)
+
     results = {}
 
     all_keys = set(ground_truth.keys()) | set(extracted.keys() if extracted else [])

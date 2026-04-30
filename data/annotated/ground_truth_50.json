@@ -43,9 +43,7 @@
       "severity": "significant",
       "affected_parties": "marginalized communities near coal facilities"
     },
-    "organizations": [
-      {"name": "not stated", "role": "not stated"}
-    ]
+    "organizations": []
   },
   {
     "id": "2026-04-10-2b35",
@@ -163,9 +161,7 @@
       "severity": "significant",
       "affected_parties": "law enforcement, general public"
     },
-    "organizations": [
-      {"name": "not stated", "role": "not stated"}
-    ]
+    "organizations": []
   },
   {
     "id": "2026-04-08-99e2",
@@ -186,9 +182,7 @@
       "severity": "significant",
       "affected_parties": "organizations using AI agents"
     },
-    "organizations": [
-      {"name": "not stated", "role": "not stated"}
-    ]
+    "organizations": []
   },
   {
     "id": "2026-04-07-8e86",
@@ -539,7 +533,7 @@
       "deployer": "not stated"
     },
     "harm": {
-      "harm_type": "economic, right violation",
+      "harm_type": "economic, rights violation",
       "severity": "moderate",
       "affected_parties": "US AI companies"
     },
