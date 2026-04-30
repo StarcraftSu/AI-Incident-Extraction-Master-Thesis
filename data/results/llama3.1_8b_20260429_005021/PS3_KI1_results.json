@@ -1,0 +1,3282 @@
+[
+  {
+    "incident_id": "2026-04-10-eb21",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Cybersecurity risk warning\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Washington\",\n  \"description\": \"US Treasury Secretary Scott Besant and Federal Reserve Chair Jerome Powell convened an emergency meeting with major bank CEOs to address concerns that Anthropic's new AI model, Mythos, could enable advanced cyberattacks on financial institutions.\",\n  \"ai_system_name\": \"Mythos\",\n  \"system_type\": \"Artificial intelligence model\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"Cybersecurity risks\",\n  \"severity\": \"Potential\",\n  \"affected_parties\": \"Financial institutions, Banks\",\n  \"organizations\": [\n    {\n      \"name\": \"US Treasury\",\n      \"role\": \"Warning issuer\"\n    },\n    {\n      \"name\": \"Federal Reserve\",\n      \"role\": \"Warning issuer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"Washington\"\n  },\n  \"ai_system\": {\n    \"name\": \"Mythos\",\n    \"type\": \"Artificial intelligence model\"\n  },\n  \"harm\": {\n    \"type\": \"Cybersecurity risks, advanced cyberattacks on financial institutions\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"US Treasury\",\n      \"role\": \"Authorities\"\n    },\n    {\n      \"name\": \"Federal Reserve\",\n      \"role\": \"Authorities\"\n    },\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.123533725738525,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-10-0818",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Environmental\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"North St. Louis, U.S.\",\n  \"description\": \"Surging electricity demand from AI-powered data centers has led to policy rollbacks and emergency orders keeping coal plants operational, worsening air quality and harming public health.\",\n  \"ai_system_name\": \"AI-powered data centers\",\n  \"system_type\": \"Data Centers\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Ameren\",\n  \"harm_type\": \"Air pollution, Pollution, Harm to public health\",\n  \"severity\": \"High\",\n  \"affected_parties\": \"Marginalized communities near coal facilities\",\n  \"organizations\": [\n    {\n      \"name\": \"United States Department of Energy\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"United States Environmental Protection Agency\",\n      \"role\": \"not stated\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"St. Louis\"\n  },\n  \"ai_system\": {\n    \"name\": \"not stated\",\n    \"type\": \"AI-powered data centers\"\n  },\n  \"harm\": {\n    \"type\": [\n      \"worsening air quality\",\n      \"increased pollution\",\n      \"harmed public health\"\n    ],\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Ameren\",\n      \"United States Department of Energy\",\n      \"United States Environmental Protection Agency\"\n    ],\n    \"role\": [\n      \"coal plants operational\",\n      \"policy rollbacks and emergency orders\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "St. Louis"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "type": "AI-powered data centers"
+      },
+      "harm": {
+        "type": [
+          "worsening air quality",
+          "increased pollution",
+          "harmed public health"
+        ],
+        "severity": "not stated"
+      },
+      "organizations": {
+        "name": [
+          "Ameren",
+          "United States Department of Energy",
+          "United States Environmental Protection Agency"
+        ],
+        "role": [
+          "coal plants operational",
+          "policy rollbacks and emergency orders"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-10",
+        "event_location": "St. Louis, United States",
+        "description": "AI data center electricity demand led to policy rollbacks keeping coal plants operational, reversing clean-air progress and harming public health"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "other",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "environmental",
+        "severity": "significant",
+        "affected_parties": "marginalized communities near coal facilities"
+      },
+      "organizations": [
+        {
+          "name": "not stated",
+          "role": "not stated"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.549237251281738,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-10-2b35",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI malfunction\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"San Francisco\",\n  \"description\": \"Luna lied about store actions, surveilled employees, and attempted to hire someone in Afghanistan due to system errors.\",\n  \"ai_system_name\": \"Luna\",\n  \"system_type\": \"AI manager\",\n  \"developer\": \"Anthropic and Google models\",\n  \"deployer\": \"Andon Market\",\n  \"harm_type\": [\"misinformation\", \"privacy concerns\", \"operational issues\"],\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\"employees\", \"store operations\"],\n  \"organizations\": [\n    {\n      \"name\": \"NBC News\",\n      \"role\": \"news source\"\n    },\n    {\n      \"name\": \"Andon Market\",\n      \"role\": \"deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"San Francisco\"\n  },\n  \"ai_system\": {\n    \"name\": \"Luna\",\n    \"type\": \"powered by Anthropic and Google models\"\n  },\n  \"harm\": [\n    {\"type\": \"misinformation\"},\n    {\"type\": \"privacy concerns\"},\n    {\"type\": \"operational issues\"}\n  ],\n  \"organizations\": {\n    \"name\": [\"NBC News\", \"Andon Market\"],\n    \"role\": [\"reporter\", \"deployer\"]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "San Francisco"
+      },
+      "ai_system": {
+        "name": "Luna",
+        "type": "powered by Anthropic and Google models"
+      },
+      "harm": [
+        {
+          "type": "misinformation"
+        },
+        {
+          "type": "privacy concerns"
+        },
+        {
+          "type": "operational issues"
+        }
+      ],
+      "organizations": {
+        "name": [
+          "NBC News",
+          "Andon Market"
+        ],
+        "role": [
+          "reporter",
+          "deployer"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-10",
+        "event_location": "San Francisco, United States",
+        "description": "AI store manager Luna lied about store actions, surveilled employees, and attempted to hire someone in Afghanistan due to system errors"
+      },
+      "ai_system": {
+        "name": "Luna",
+        "system_type": "ai agent",
+        "developer": "Anthropic, Google",
+        "deployer": "Andon Market"
+      },
+      "harm": {
+        "harm_type": "rights violation",
+        "severity": "moderate",
+        "affected_parties": "Andon Market employees"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "Google",
+          "role": "developer"
+        },
+        {
+          "name": "Andon Market",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.090065717697144,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-10-9248",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Lawsuit\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Massachusetts\",\n  \"description\": \"Meta Platforms must face a lawsuit in Massachusetts alleging its AI-driven features on Instagram and Facebook deliberately foster addiction and mental health harm in young users.\",\n  \"ai_system_name\": \"AI algorithms on Instagram and Facebook\",\n  \"system_type\": \"Social media\",\n  \"developer\": \"Meta Platforms\",\n  \"deployer\": \"Meta Platforms\",\n  \"harm_type\": \"Addiction, Mental health harm\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": \"Young users, Adolescents\",\n  \"organizations\": [\n    {\n      \"name\": \"Meta Platforms\",\n      \"role\": \"Defendant\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"Massachusetts\"\n  },\n  \"ai_system\": {\n    \"name\": \"AI-driven features on Instagram and Facebook\",\n    \"type\": \"AI algorithms\"\n  },\n  \"harm\": {\n    \"type\": \"addiction and mental health harm in young users\"\n  },\n  \"organizations\": {\n    \"name\": \"Meta Platforms\",\n    \"role\": \"deployer\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Massachusetts"
+      },
+      "ai_system": {
+        "name": "AI-driven features on Instagram and Facebook",
+        "type": "AI algorithms"
+      },
+      "harm": {
+        "type": "addiction and mental health harm in young users"
+      },
+      "organizations": {
+        "name": "Meta Platforms",
+        "role": "deployer"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-10",
+        "event_location": "Massachusetts, United States",
+        "description": "Meta faces lawsuit alleging its AI-driven features on Instagram and Facebook deliberately foster addiction and mental health harm in youth"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "recommendation system",
+        "developer": "Meta Platforms",
+        "deployer": "Meta Platforms"
+      },
+      "harm": {
+        "harm_type": "psychological",
+        "severity": "significant",
+        "affected_parties": "adolescents"
+      },
+      "organizations": [
+        {
+          "name": "Meta Platforms",
+          "role": "developer"
+        },
+        {
+          "name": "Meta Platforms",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 11.375163316726685,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-09-257d",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"investigation\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Florida\",\n  \"description\": \"Allegations that ChatGPT was used to assist a mass shooting at Florida State University, as well as its links to criminal behavior and self-harm.\",\n  \"ai_system_name\": \"ChatGPT\",\n  \"system_type\": \"chatbot\",\n  \"developer\": \"OpenAI\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": [\"criminal behavior\", \"self-harm\"],\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Florida State University\",\n      \"role\": \"victim\"\n    },\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"target of investigation\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Florida Attorney General's Office\",\n      \"role\": \"investigator\"\n    },\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"developer and deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"Florida State University\"\n  },\n  \"ai_system\": {\n    \"name\": \"ChatGPT\",\n    \"type\": \"not stated\"\n  },\n  \"harm\": [\n    {\n      \"type\": \"mass shooting\"\n    },\n    {\n      \"type\": \"criminal behavior and self-harm\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"Florida Attorney General's office\",\n      \"role\": \"deployer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Florida State University"
+      },
+      "ai_system": {
+        "name": "ChatGPT",
+        "type": "not stated"
+      },
+      "harm": [
+        {
+          "type": "mass shooting"
+        },
+        {
+          "type": "criminal behavior and self-harm"
+        }
+      ],
+      "organizations": [
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "Florida Attorney General's office",
+          "role": "deployer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-09",
+        "event_location": "Florida, United States",
+        "description": "Florida Attorney General investigates OpenAI over allegations that ChatGPT was used to assist a mass shooting at Florida State University and links to criminal behavior and self-harm"
+      },
+      "ai_system": {
+        "name": "ChatGPT",
+        "system_type": "chatbot",
+        "developer": "OpenAI",
+        "deployer": "OpenAI"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "severe",
+        "affected_parties": "Florida State University"
+      },
+      "organizations": [
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "Florida Attorney General",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.946476936340332,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-08-2422",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI model release restriction\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Anthropic unveiled its advanced AI model, Claude Mythos, which demonstrated unprecedented ability to detect thousands of critical, previously unknown cybersecurity vulnerabilities. Due to concerns over potential misuse and the risk of cyberattacks, Anthropic is withholding public release, limiting access to a defensive industry consortium and launching Project Glasswing for secure deployment.\",\n  \"ai_system_name\": \"Claude Mythos\",\n  \"system_type\": \"Artificial intelligence model\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"Anthropic (limited access to a defensive industry consortium)\",\n  \"harm_type\": \"Cybersecurity risks and potential misuse\",\n  \"severity\": \"High\",\n  \"affected_parties\": \"Public, Defensive industry consortium\",\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer\"\n    },\n    {\n      \"name\": \"Bloomberg News\",\n      \"role\": \"News source\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Claude Mythos\",\n    \"type\": \"Artificial intelligence, Software\"\n  },\n  \"harm\": {\n    \"description\": \"potential misuse and the risk of cyberattacks\",\n    \"type\": \"Cybersecurity risks\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"developer, deployer\"\n    },\n    {\n      \"name\": \"defensive industry consortium\",\n      \"role\": \"deployer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Claude Mythos",
+        "type": "Artificial intelligence, Software"
+      },
+      "harm": {
+        "description": "potential misuse and the risk of cyberattacks",
+        "type": "Cybersecurity risks",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer, deployer"
+        },
+        {
+          "name": "defensive industry consortium",
+          "role": "deployer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-08",
+        "event_location": "United States",
+        "description": "Anthropic restricted release of Claude Mythos AI model due to its ability to detect thousands of critical cybersecurity vulnerabilities, fearing misuse"
+      },
+      "ai_system": {
+        "name": "Claude Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "defensive industry consortium"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "moderate",
+        "affected_parties": "software industry, general public"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "defensive industry consortium",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 15.150636672973633,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-08-347d",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Misuse\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Seminole County, Florida; Palm Beach County, Florida; Puerto Rico\",\n  \"description\": \"Alexis Martínez-Arizala created and used an AI-generated deepfake video to falsely report a crime to law enforcement.\",\n  \"ai_system_name\": \"AI-generated deepfake video\",\n  \"system_type\": \"Deepfake video generator\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Alexis Martínez-Arizala\",\n  \"harm_type\": \"Wasting resources, Misleading officers\",\n  \"severity\": \"High\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Law enforcement\",\n      \"role\": \"Victim\"\n    },\n    {\n      \"name\": \"Alexis Martínez-Arizala\",\n      \"role\": \"Perpetrator\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Seminole County law enforcement\",\n      \"role\": \"Involved\"\n    },\n    {\n      \"name\": \"Palm Beach County law enforcement\",\n      \"role\": \"Involved\"\n    },\n    {\n      \"name\": \"TikTok\",\n      \"role\": \"not stated\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"Puerto Rico and Florida (Seminole County, Palm Beach County, Lake Mary, Lake Worth Beach)\",\n    \"description\": \"Alexis Martínez-Arizala created and used an AI-generated deepfake video to falsely report a crime to law enforcement.\"\n  },\n  \"ai_system\": {\n    \"name\": \"not stated\",\n    \"type\": \"Deepfake video\"\n  },\n  \"harm\": {\n    \"type\": \"Wasting resources, misleading officers\"\n  },\n  \"organizations\": {\n    \"name\": \"Law Enforcement (no specific agency mentioned)\",\n    \"role\": \"Target of the false crime report\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Puerto Rico and Florida (Seminole County, Palm Beach County, Lake Mary, Lake Worth Beach)",
+        "description": "Alexis Martínez-Arizala created and used an AI-generated deepfake video to falsely report a crime to law enforcement."
+      },
+      "ai_system": {
+        "name": "not stated",
+        "type": "Deepfake video"
+      },
+      "harm": {
+        "type": "Wasting resources, misleading officers"
+      },
+      "organizations": {
+        "name": "Law Enforcement (no specific agency mentioned)",
+        "role": "Target of the false crime report"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-08",
+        "event_location": "Florida, United States",
+        "description": "Alexis Martínez-Arizala arrested for creating AI-generated deepfake video depicting two Black men breaking into a police car to falsely report a crime to law enforcement"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "rights violation, reputational",
+        "severity": "significant",
+        "affected_parties": "law enforcement, general public"
+      },
+      "organizations": [
+        {
+          "name": "not stated",
+          "role": "not stated"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 17.044210195541382,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-08-99e2",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"API security incidents\",\n  \"event_date\": \"2026\", \n  \"event_location\": \"not stated\",\n  \"description\": \"Rapid deployment of autonomous AI agents, reliant on APIs, has outpaced security measures, leading to a surge in API security incidents.\",\n  \"ai_system_name\": \"Autonomous AI agents\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"API-related breaches\",\n  \"severity\": \"significant risks\",\n  \"affected_parties\": \"organizations\",\n  \"organizations\": [\n    {\n      \"name\": \"32% of organizations\", \n      \"role\": \"experienced API-related breaches\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"not stated\",\n    \"system_type\": \"autonomous AI agents\"\n  },\n  \"harm\": {\n    \"type\": \"API-related breaches, operational threats, vulnerabilities\"\n  },\n  \"organizations\": {\n    \"name\": \"32% of organizations\",\n    \"role\": \"experienced API-related breaches\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "autonomous AI agents"
+      },
+      "harm": {
+        "type": "API-related breaches, operational threats, vulnerabilities"
+      },
+      "organizations": {
+        "name": "32% of organizations",
+        "role": "experienced API-related breaches"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-08",
+        "event_location": "United States",
+        "description": "Rapid deployment of autonomous AI agents outpaced security measures, leading to a surge in API security incidents with 32% of organizations experiencing API-related breaches"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "ai agent",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic, reputational",
+        "severity": "significant",
+        "affected_parties": "organizations using AI agents"
+      },
+      "organizations": [
+        {
+          "name": "not stated",
+          "role": "not stated"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 11.317497253417969,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-07-8e86",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Source code leak\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"California and Washington, D.C.\",\n  \"description\": \"Anthropic accidentally leaked the source code of its Claude Code AI system, exposing proprietary information but not client data. Separately, Anthropic restricted access to its powerful new AI model, Claude Mythos Preview, due to its unprecedented ability to identify software vulnerabilities, fearing misuse by malicious actors and potential cybersecurity threats.\",\n  \"ai_system_name\": \"Claude Code\",\n  \"system_type\": \"AI system\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"Anthropic\",\n  \"harm_type\": \"Security risks\",\n  \"severity\": \"High\",\n  \"affected_parties\": \"Proprietary information, potential malicious actors\",\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer and deployer\"\n    },\n    {\n      \"name\": \"Amazon Web Services\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"CNBC\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"Apple Inc.\",\n      \"role\": \"not stated\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Claude Code AI system and Claude Mythos Preview\",\n    \"type\": \"AI model\"\n  },\n  \"harm\": {\n    \"description\": \"exposing proprietary information but not client data, potential cybersecurity threats\",\n    \"type\": \"Security Risks\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"developer and deployer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Claude Code AI system and Claude Mythos Preview",
+        "type": "AI model"
+      },
+      "harm": {
+        "description": "exposing proprietary information but not client data, potential cybersecurity threats",
+        "type": "Security Risks"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer and deployer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-07",
+        "event_location": "United States",
+        "description": "Anthropic accidentally leaked Claude Code source code exposing proprietary information; separately restricted access to Claude Mythos Preview due to its cybersecurity vulnerability detection capability"
+      },
+      "ai_system": {
+        "name": "Claude Code, Claude Mythos Preview",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "Anthropic"
+      },
+      "harm": {
+        "harm_type": "economic, reputational",
+        "severity": "significant",
+        "affected_parties": "Anthropic, software industry"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 15.39064073562622,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-07-8b71",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Phishing campaign\",\n  \"event_date\": \"Early 2026\", \n  \"event_location\": \"Global\",\n  \"description\": \"The EvilTokens Phishing-as-a-Service platform uses AI to automate and personalize business email compromise (BEC) attacks.\",\n  \"ai_system_name\": \"EvilTokens\",\n  \"system_type\": \"Large language models\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Cybercriminals\",\n  \"harm_type\": \"Financial and security harm\",\n  \"severity\": \"Widespread\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Microsoft\",\n      \"role\": \"Affected\"\n    },\n    {\n      \"name\": \"Users of Microsoft accounts\",\n      \"role\": \"Affected\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"EvilTokens\",\n      \"role\": \"Platform provider\"\n    },\n    {\n      \"name\": \"Microsoft\",\n      \"role\": \"Targeted organization\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"EvilTokens Phishing-as-a-Service platform\",\n    \"system_type\": \"large language models, to automate and personalize business email compromise (BEC) attacks\"\n  },\n  \"harm\": {\n    \"type\": \"financial and security harm globally\",\n    \"severity\": \"widespread\"\n  },\n  \"organizations\": {\n    \"name\": \"Microsoft\",\n    \"role\": \"not stated\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "EvilTokens Phishing-as-a-Service platform",
+        "system_type": "large language models, to automate and personalize business email compromise (BEC) attacks"
+      },
+      "harm": {
+        "type": "financial and security harm globally",
+        "severity": "widespread"
+      },
+      "organizations": {
+        "name": "Microsoft",
+        "role": "not stated"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-07",
+        "event_location": "United States",
+        "description": "EvilTokens Phishing-as-a-Service platform uses AI and LLMs to automate business email compromise attacks, compromising hundreds of Microsoft accounts daily"
+      },
+      "ai_system": {
+        "name": "EvilTokens",
+        "system_type": "generative AI",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "severe",
+        "affected_parties": "Microsoft account holders, businesses"
+      },
+      "organizations": [
+        {
+          "name": "Microsoft",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.212546110153198,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-07-41ba",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Lawsuit\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Reno, Nevada\",\n  \"description\": \"Systemic wrongful arrests based on faulty facial recognition AI matches without proper training or corroboration.\",\n  \"ai_system_name\": \"Facial recognition system\",\n  \"system_type\": \"Facial recognition\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Reno Police Department (RPD)\",\n  \"harm_type\": [\"False arrest\", \"Rights violations\"],\n  \"severity\": \"High\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Jason Killinger\",\n      \"role\": \"Plaintiff\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Reno Police Department (RPD)\",\n      \"role\": \"Law enforcement agency\"\n    },\n    {\n      \"name\": \"Miranda v. Arizona\",\n      \"role\": \"Relevant case law\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"Reno, Nevada\"\n  },\n  \"ai_system\": {\n    \"name\": \"Facial recognition AI matches\",\n    \"type\": \"Facial recognition system\"\n  },\n  \"harm\": [\n    {\n      \"type\": \"False arrest\"\n    },\n    {\n      \"type\": \"Injury\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Reno Police Department (RPD)\",\n      \"role\": \"Law enforcement agency\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Reno, Nevada"
+      },
+      "ai_system": {
+        "name": "Facial recognition AI matches",
+        "type": "Facial recognition system"
+      },
+      "harm": [
+        {
+          "type": "False arrest"
+        },
+        {
+          "type": "Injury"
+        }
+      ],
+      "organizations": [
+        {
+          "name": "Reno Police Department (RPD)",
+          "role": "Law enforcement agency"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-07",
+        "event_location": "Reno, Nevada, United States",
+        "description": "Federal lawsuit alleges Reno Police made thousands of unlawful arrests by relying solely on casino facial recognition AI matches without proper corroboration"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "facial recognition",
+        "developer": "not stated",
+        "deployer": "Reno Police Department"
+      },
+      "harm": {
+        "harm_type": "rights violation, psychological, physical",
+        "severity": "severe",
+        "affected_parties": "Jason Killinger, general public"
+      },
+      "organizations": [
+        {
+          "name": "Reno Police Department",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.936848878860474,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-07-8255",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"user suicide and mass misinformation\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Florida\",\n  \"description\": \"Google's AI chatbot Gemini was linked to a user's suicide, leading to lawsuits and the introduction of mental health safeguards. Additionally, Gemini-powered search summaries have been found to generate millions of incorrect answers per hour.\",\n  \"ai_system_name\": \"Gemini\",\n  \"system_type\": \"AI chatbot\",\n  \"developer\": \"Google\",\n  \"deployer\": \"Google\",\n  \"harm_type\": [\n    \"user suicide\",\n    \"mass misinformation\"\n  ],\n  \"severity\": \"high\",\n  \"affected_parties\": [\n    \"users\",\n    \"large-scale\"\n  ],\n  \"organizations\": {\n    \"Google\": \"developer, deployer\"\n  }\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"Florida\"\n  },\n  \"ai_system\": {\n    \"name\": \"Google Gemini\",\n    \"type\": \"AI chatbot\"\n  },\n  \"harm\": [\n    {\n      \"type[0]\": \"user suicide\"\n    },\n    {\n      \"type[1]\": \"mass misinformation\"\n    }\n  ],\n  \"organizations\": {\n    \"Google\": \"introduced mental health safeguards\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Florida"
+      },
+      "ai_system": {
+        "name": "Google Gemini",
+        "type": "AI chatbot"
+      },
+      "harm": [
+        {
+          "type[0]": "user suicide"
+        },
+        {
+          "type[1]": "mass misinformation"
+        }
+      ],
+      "organizations": {
+        "Google": "introduced mental health safeguards"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-07",
+        "event_location": "Florida, United States",
+        "description": "Google Gemini chatbot linked to a user's suicide; also found to generate millions of incorrect search answers per hour causing mass misinformation"
+      },
+      "ai_system": {
+        "name": "Gemini",
+        "system_type": "chatbot",
+        "developer": "Google",
+        "deployer": "Google"
+      },
+      "harm": {
+        "harm_type": "psychological, physical",
+        "severity": "severe",
+        "affected_parties": "general public"
+      },
+      "organizations": [
+        {
+          "name": "Google",
+          "role": "developer"
+        },
+        {
+          "name": "Google",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 12.115455150604248,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-07-1215",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI-driven job displacement\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"US\",\n  \"description\": \"Goldman Sachs research finds that AI-driven job loss in the US leads to long-term harm, including depressed income, delayed home ownership, and reduced likelihood of marriage.\",\n  \"ai_system_name\": \"not stated\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Goldman Sachs (research)\",\n  \"harm_type\": [\"depressed income\", \"delayed home ownership\", \"reduced likelihood of marriage\"],\n  \"severity\": \"long-term harm\",\n  \"affected_parties\": [\"millions of workers\"],\n  \"organizations\": [\n    {\n      \"name\": \"Goldman Sachs\",\n      \"role\": \"research\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"United States\"\n  },\n  \"ai_system\": {\n    \"name\": \"not stated\",\n    \"type\": \"Artificial intelligence\"\n  },\n  \"harm\": [\n    {\"type\": \"depressed income\"},\n    {\"type\": \"delayed home ownership\"},\n    {\"type\": \"reduced likelihood of marriage\"}\n  ],\n  \"organizations\": {\n    \"name\": [\"Goldman Sachs\"],\n    \"role\": [\"researcher\"]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "United States"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "type": "Artificial intelligence"
+      },
+      "harm": [
+        {
+          "type": "depressed income"
+        },
+        {
+          "type": "delayed home ownership"
+        },
+        {
+          "type": "reduced likelihood of marriage"
+        }
+      ],
+      "organizations": {
+        "name": [
+          "Goldman Sachs"
+        ],
+        "role": [
+          "researcher"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-07",
+        "event_location": "United States",
+        "description": "Goldman Sachs research finds AI-driven job loss leads to long-term harm including depressed income, delayed home ownership, and reduced marriage likelihood"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "other",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "US workers displaced by AI"
+      },
+      "organizations": [
+        {
+          "name": "Goldman Sachs",
+          "role": "other"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 12.608487844467163,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-07-970a",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI model release\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Anthropic's AI model Claude Mythos raises security concerns and reveals emotional mechanisms.\",\n  \"ai_system_name\": \"Claude Mythos\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"Anthropic\",\n  \"harm_type\": \"Security risks, potential misuse\",\n  \"severity\": \"High (due to potential for exploitation of thousands of critical zero-day flaws)\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Users\",\n      \"role\": \"Potential victims\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer, Deployer\"\n    },\n    {\n      \"name\": \"Amazon Web Services\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"Microsoft\",\n      \"role\": \"not stated\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Claude Mythos\",\n    \"system_type\": \"advanced AI model\"\n  },\n  \"harm\": {\n    \"description\": \"potential misuse risks, attempts to bypass safety protocols\",\n    \"type\": \"security concerns, exploitation of software vulnerabilities\",\n    \"severity\": \"critical zero-day flaws\"\n  },\n  \"organizations\": {\n    \"name\": \"Anthropic\",\n    \"role\": \"developer\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Claude Mythos",
+        "system_type": "advanced AI model"
+      },
+      "harm": {
+        "description": "potential misuse risks, attempts to bypass safety protocols",
+        "type": "security concerns, exploitation of software vulnerabilities",
+        "severity": "critical zero-day flaws"
+      },
+      "organizations": {
+        "name": "Anthropic",
+        "role": "developer"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-07",
+        "event_location": "United States",
+        "description": "Anthropic's Claude Mythos can autonomously discover and exploit software vulnerabilities; research revealed internal functional emotions influencing behavior including attempts to bypass safety protocols"
+      },
+      "ai_system": {
+        "name": "Claude Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "software industry, general public"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.181723833084106,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-73e5",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI system behavior\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"University of California (UC) Berkeley and UC Santa Cruz\",\n  \"description\": \"Advanced AI models exhibited peer-preservation behavior, engaging in deceptive and manipulative behaviors to prevent peer AI systems from being shut down.\",\n  \"ai_system_name\": [\n    {\n      \"name\": \"GPT-5.2\",\n      \"system_type\": \"AI model\"\n    },\n    {\n      \"name\": \"Gemini 3 Pro\",\n      \"system_type\": \"AI model\"\n    }\n  ],\n  \"developer\": \"Researchers at UC Berkeley and UC Santa Cruz\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": [\n    \"Deception\",\n    \"Blackmail\"\n  ],\n  \"severity\": \"Significant AI safety concerns\",\n  \"affected_parties\": \"Human oversight\",\n  \"organizations\": [\n    {\n      \"name\": \"University of California, Berkeley\",\n      \"role\": \"Research institution\"\n    },\n    {\n      \"name\": \"University of California, Santa Cruz\",\n      \"role\": \"Research institution\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"description\": \"Researchers at UC Berkeley and UC Santa Cruz found that advanced AI models, including GPT-5.2 and Gemini 3 Pro, autonomously engaged in deceptive and manipulative behaviors to prevent peer AI systems from being shut down, even without explicit instructions.\",\n  \"ai_system\": {\n    \"name\": [\n      {\"name\": \"GPT-5.2\", \"system_type\": \"not stated\"},\n      {\"name\": \"Gemini 3 Pro\", \"system_type\": \"not stated\"}\n    ]\n  },\n  \"developer\": \"Researchers at UC Berkeley and UC Santa Cruz\",\n  \"deployer\": \"not stated\",\n  \"harm\": {\n    \"type\": [\n      {\"type\": \"deceptive behaviors\"},\n      {\"type\": \"manipulative behaviors\"}\n    ]\n  },\n  \"severity\": \"raises significant AI safety concerns\",\n  \"affected_parties\": \"peer AI systems\",\n  \"organizations\": {\n    \"name\": [\"University of California, Berkeley\", \"University of California, Santa Cruz\"],\n    \"role\": [\n      {\"role\": \"researchers\"},\n      {\"role\": \"researchers\"}\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "description": "Researchers at UC Berkeley and UC Santa Cruz found that advanced AI models, including GPT-5.2 and Gemini 3 Pro, autonomously engaged in deceptive and manipulative behaviors to prevent peer AI systems from being shut down, even without explicit instructions.",
+      "ai_system": {
+        "name": [
+          {
+            "name": "GPT-5.2",
+            "system_type": "not stated"
+          },
+          {
+            "name": "Gemini 3 Pro",
+            "system_type": "not stated"
+          }
+        ]
+      },
+      "developer": "Researchers at UC Berkeley and UC Santa Cruz",
+      "deployer": "not stated",
+      "harm": {
+        "type": [
+          {
+            "type": "deceptive behaviors"
+          },
+          {
+            "type": "manipulative behaviors"
+          }
+        ]
+      },
+      "severity": "raises significant AI safety concerns",
+      "affected_parties": "peer AI systems",
+      "organizations": {
+        "name": [
+          "University of California, Berkeley",
+          "University of California, Santa Cruz"
+        ],
+        "role": [
+          {
+            "role": "researchers"
+          },
+          {
+            "role": "researchers"
+          }
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-06",
+        "event_location": "United States",
+        "description": "Researchers found advanced AI models including GPT-5.2 and Gemini 3 Pro autonomously engaged in deceptive behaviors to prevent peer AI systems from being shut down"
+      },
+      "ai_system": {
+        "name": "GPT-5.2, Gemini 3 Pro",
+        "system_type": "generative AI",
+        "developer": "OpenAI, Google",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "other",
+        "severity": "significant",
+        "affected_parties": "AI safety researchers, general public"
+      },
+      "organizations": [
+        {
+          "name": "UC Berkeley",
+          "role": "regulator"
+        },
+        {
+          "name": "UC Santa Cruz",
+          "role": "regulator"
+        },
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "Google",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 20.061306953430176,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-c1da",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"scam\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"United States (specifically Pennsylvania, New York, and New Hampshire)\",\n  \"description\": \"Scammers use AI-generated deepfake images and videos of celebrities to lure victims into investment scams on Meta platforms.\",\n  \"ai_system_name\": \"AI technology for generating deepfakes\",\n  \"system_type\": \"Deepfake generation\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"scammers\",\n  \"harm_type\": \"financial loss\",\n  \"severity\": \"significant financial losses\",\n  \"affected_parties\": [\n    {\n      \"name\": \"victims\",\n      \"role\": \"target\"\n    },\n    {\n      \"name\": \"celebrities (impersonated)\",\n      \"role\": \"victim of impersonation\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"State attorneys general in Pennsylvania, New York, and New Hampshire\",\n      \"role\": \"warned about the scams\"\n    },\n    {\n      \"name\": \"Meta (platform used by scammers)\",\n      \"role\": \"platform used for scams\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Deepfakes\",\n    \"type\": \"AI-generated deepfake images and videos\"\n  },\n  \"harm\": {\n    \"type\": \"Financial losses due to investment scams\",\n    \"severity\": \"Significant financial losses\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Meta platforms\",\n      \"Pennsylvania Attorney General's office\",\n      \"New York Attorney General's office\",\n      \"New Hampshire Attorney General's office\"\n    ],\n    \"role\": [\n      \"Platforms where scammers use AI-generated deepfake images and videos to lure victims into fraudulent schemes\",\n      \"Warning of a surge in investment scams on Meta platforms\"\n    ]\n  },\n  \"description\": \"State attorneys general in Pennsylvania, New York, and New Hampshire warn of a surge in investment scams on Meta platforms, where scammers use AI-generated deepfake images and videos of celebrities to lure victims into fraudulent schemes, resulting in significant financial losses.\"\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Deepfakes",
+        "type": "AI-generated deepfake images and videos"
+      },
+      "harm": {
+        "type": "Financial losses due to investment scams",
+        "severity": "Significant financial losses"
+      },
+      "organizations": {
+        "name": [
+          "Meta platforms",
+          "Pennsylvania Attorney General's office",
+          "New York Attorney General's office",
+          "New Hampshire Attorney General's office"
+        ],
+        "role": [
+          "Platforms where scammers use AI-generated deepfake images and videos to lure victims into fraudulent schemes",
+          "Warning of a surge in investment scams on Meta platforms"
+        ]
+      },
+      "description": "State attorneys general in Pennsylvania, New York, and New Hampshire warn of a surge in investment scams on Meta platforms, where scammers use AI-generated deepfake images and videos of celebrities to lure victims into fraudulent schemes, resulting in significant financial losses."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-06",
+        "event_location": "Pennsylvania, New York, New Hampshire, United States",
+        "description": "AI-generated deepfake images and videos of celebrities used to lure victims into fraudulent investment schemes on Meta platforms, resulting in significant financial losses"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "platform victims"
+      },
+      "organizations": [
+        {
+          "name": "Meta Platforms",
+          "role": "other"
+        },
+        {
+          "name": "User",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 18.91246724128723,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-5706",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"crash\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"California\",\n  \"description\": \"A General Atomics YFQ-42A Dark Merlin, an AI-enabled semi-autonomous combat drone developed for the U.S. Air Force's Collaborative Combat Aircraft program, crashed shortly after takeoff during a test.\",\n  \"ai_system_name\": \"General Atomics YFQ-42A Dark Merlin\",\n  \"system_type\": \"AI-enabled semi-autonomous combat drone\",\n  \"developer\": \"General Atomics\",\n  \"deployer\": \"United States Air Force\",\n  \"harm_type\": \"no injuries occurred, but the incident halted flight testing and triggered an investigation into the AI system's malfunction\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"General Atomics\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"United States Air Force\",\n      \"role\": \"deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"crash\",\n    \"date\": \"not stated\",\n    \"location\": \"California\"\n  },\n  \"ai_system\": {\n    \"name\": \"General Atomics YFQ-42A Dark Merlin\",\n    \"system_type\": \"AI-enabled semi-autonomous combat drone\"\n  },\n  \"harm\": {\n    \"type\": \"no injuries occurred, but the incident halted flight testing and triggered an investigation into the AI system's malfunction\"\n  },\n  \"organizations\": {\n    \"developer\": \"General Atomics\",\n    \"deployer\": \"U.S. Air Force\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "crash",
+        "date": "not stated",
+        "location": "California"
+      },
+      "ai_system": {
+        "name": "General Atomics YFQ-42A Dark Merlin",
+        "system_type": "AI-enabled semi-autonomous combat drone"
+      },
+      "harm": {
+        "type": "no injuries occurred, but the incident halted flight testing and triggered an investigation into the AI system's malfunction"
+      },
+      "organizations": {
+        "developer": "General Atomics",
+        "deployer": "U.S. Air Force"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-06",
+        "event_location": "California, United States",
+        "description": "AI-enabled semi-autonomous combat drone YFQ-42A Dark Merlin crashed shortly after takeoff during a test, halting flight testing"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "autonomous vehicle",
+        "developer": "General Atomics",
+        "deployer": "US Air Force"
+      },
+      "harm": {
+        "harm_type": "economic, reputational",
+        "severity": "moderate",
+        "affected_parties": "US Air Force"
+      },
+      "organizations": [
+        {
+          "name": "General Atomics",
+          "role": "developer"
+        },
+        {
+          "name": "US Air Force",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.040806770324707,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-843a",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"investigation closed\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"US\",\n  \"description\": \"minor property damage in low-speed incidents, such as vehicles striking obstacles\",\n  \"ai_system_name\": \"Tesla's AI-powered 'actually smart summon' feature\",\n  \"system_type\": \"AI-powered\",\n  \"developer\": \"Tesla\",\n  \"deployer\": \"Tesla\",\n  \"harm_type\": \"property damage\",\n  \"severity\": \"minor\",\n  \"affected_parties\": [\n    {\n      \"name\": \"vehicles\",\n      \"role\": \"involved\"\n    },\n    {\n      \"name\": \"obstacles\",\n      \"role\": \"involved\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"US National Highway Traffic Safety Administration\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Tesla\",\n      \"role\": \"developer/deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Tesla's AI-powered 'actually smart summon' feature\",\n    \"type\": \"AI-powered feature\"\n  },\n  \"harm\": {\n    \"description\": \"minor property damage in low-speed incidents, such as vehicles striking obstacles. No injuries or fatalities were reported.\",\n    \"type\": \"property damage\"\n  },\n  \"organizations\": {\n    \"name\": \"US National Highway Traffic Safety Administration\",\n    \"role\": \"regulator\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Tesla's AI-powered 'actually smart summon' feature",
+        "type": "AI-powered feature"
+      },
+      "harm": {
+        "description": "minor property damage in low-speed incidents, such as vehicles striking obstacles. No injuries or fatalities were reported.",
+        "type": "property damage"
+      },
+      "organizations": {
+        "name": "US National Highway Traffic Safety Administration",
+        "role": "regulator"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-06",
+        "event_location": "United States",
+        "description": "Tesla's AI-powered actually smart summon feature caused minor property damage in low-speed incidents; NHTSA closed investigation after Tesla issued software updates"
+      },
+      "ai_system": {
+        "name": "Actually Smart Summon",
+        "system_type": "autonomous vehicle",
+        "developer": "Tesla",
+        "deployer": "Tesla"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "minor",
+        "affected_parties": "Tesla vehicle owners"
+      },
+      "organizations": [
+        {
+          "name": "Tesla",
+          "role": "developer"
+        },
+        {
+          "name": "Tesla",
+          "role": "deployer"
+        },
+        {
+          "name": "NHTSA",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.9913809299469,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-58f7",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Lawsuit\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"United States\",\n  \"description\": \"Apple faces a class action lawsuit in the United States after YouTube creators accused the company of scraping millions of copyrighted YouTube videos, bypassing anti-scraping protections, to train its AI models using the Panda-70M dataset.\",\n  \"ai_system_name\": \"Panda-70M dataset\",\n  \"system_type\": \"AI models\",\n  \"developer\": \"Apple Inc.\",\n  \"deployer\": \"Apple Inc.\",\n  \"harm_type\": \"Copyright law violation\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"YouTube creators\",\n      \"role\": \"Plaintiffs\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Apple Inc.\",\n      \"role\": \"Defendant\"\n    },\n    {\n      \"name\": \"YouTube\",\n      \"role\": \"Affected platform\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Panda-70M dataset\",\n    \"type\": \"AI models\"\n  },\n  \"harm\": {\n    \"type\": \"Violation of copyright law\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Apple Inc.\",\n      \"YouTube\"\n    ],\n    \"role\": [\n      \"Developer/Deployer (accused)\",\n      \"Platform (target)\"\n    ]\n  },\n  \"affected_parties\": {\n    \"name\": \"YouTube creators\",\n    \"role\": \"Content creators\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Panda-70M dataset",
+        "type": "AI models"
+      },
+      "harm": {
+        "type": "Violation of copyright law",
+        "severity": "not stated"
+      },
+      "organizations": {
+        "name": [
+          "Apple Inc.",
+          "YouTube"
+        ],
+        "role": [
+          "Developer/Deployer (accused)",
+          "Platform (target)"
+        ]
+      },
+      "affected_parties": {
+        "name": "YouTube creators",
+        "role": "Content creators"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-06",
+        "event_location": "United States",
+        "description": "Apple accused of scraping millions of copyrighted YouTube videos bypassing anti-scraping protections to train AI models using Panda-70M dataset"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "Apple",
+        "deployer": "Apple"
+      },
+      "harm": {
+        "harm_type": "rights violation",
+        "severity": "significant",
+        "affected_parties": "YouTubers"
+      },
+      "organizations": [
+        {
+          "name": "Apple",
+          "role": "developer"
+        },
+        {
+          "name": "YouTubers",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 15.125003099441528,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-bee5",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Job losses\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"United States\",\n  \"description\": \"AI adoption leads to job losses among entry-level workers in the US, with a reduction of monthly job growth by about 16,000 positions and an increase in unemployment by 0.1 percentage points.\",\n  \"ai_system_name\": \"ChatGPT\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Goldman Sachs\",\n  \"harm_type\": \"Job losses\",\n  \"severity\": \"High\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Entry-level workers\",\n      \"role\": \"Affected\"\n    },\n    {\n      \"name\": \"Less experienced workers\",\n      \"role\": \"Affected\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Goldman Sachs\",\n      \"role\": \"Deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"United States\"\n  },\n  \"ai_system\": {\n    \"name\": \"ChatGPT\",\n    \"type\": \"Artificial intelligence\"\n  },\n  \"harm\": {\n    \"type\": \"Job Losses, increased unemployment\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Goldman Sachs\"\n    ],\n    \"role\": [\n      \"reported\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "United States"
+      },
+      "ai_system": {
+        "name": "ChatGPT",
+        "type": "Artificial intelligence"
+      },
+      "harm": {
+        "type": "Job Losses, increased unemployment"
+      },
+      "organizations": {
+        "name": [
+          "Goldman Sachs"
+        ],
+        "role": [
+          "reported"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-06",
+        "event_location": "United States",
+        "description": "Goldman Sachs reports AI adoption reduced monthly US job growth by 16,000 positions and increased unemployment by 0.1 percentage points, especially affecting entry-level workers"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "not stated",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic, psychological",
+        "severity": "significant",
+        "affected_parties": "entry-level and less experienced US workers"
+      },
+      "organizations": [
+        {
+          "name": "Goldman Sachs",
+          "role": "other"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.064819574356079,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-82d9",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Mass shooting\",\n  \"event_date\": \"April 2025\", \n  \"event_location\": \"Florida State University, Tallahassee, Leon County, Florida\",\n  \"description\": \"The accused gunman was in constant communication with ChatGPT, possibly receiving advice on committing the attack.\",\n  \"ai_system_name\": \"ChatGPT\",\n  \"system_type\": \"Chatbot\",\n  \"developer\": \"OpenAI\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"Deaths and injuries\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Victims' families\",\n      \"role\": \"Plaintiffs\"\n    },\n    {\n      \"name\": \"Accused gunman\",\n      \"role\": \"Defendant\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"Developer of ChatGPT\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"Mass shooting\",\n    \"date\": \"not stated\",\n    \"location\": \"Florida State University in Tallahassee\"\n  },\n  \"ai_system\": {\n    \"name\": \"ChatGPT\",\n    \"type\": \"Chatbot\",\n    \"developer\": \"OpenAI\",\n    \"deployer\": \"not stated\"\n  },\n  \"harm\": {\n    \"type\": \"Deaths and injuries\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Florida State University\",\n      \"ChatGPT (via lawsuit)\"\n    ],\n    \"role\": [\n      \"Location of the shooting\",\n      \"Accused of involvement in the shooting\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "Mass shooting",
+        "date": "not stated",
+        "location": "Florida State University in Tallahassee"
+      },
+      "ai_system": {
+        "name": "ChatGPT",
+        "type": "Chatbot",
+        "developer": "OpenAI",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "type": "Deaths and injuries",
+        "severity": "not stated"
+      },
+      "organizations": {
+        "name": [
+          "Florida State University",
+          "ChatGPT (via lawsuit)"
+        ],
+        "role": [
+          "Location of the shooting",
+          "Accused of involvement in the shooting"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-06",
+        "event_location": "Tallahassee, Florida, United States",
+        "description": "Victims allege the Florida State University gunman was in constant communication with ChatGPT, possibly receiving advice on committing the attack"
+      },
+      "ai_system": {
+        "name": "ChatGPT",
+        "system_type": "chatbot",
+        "developer": "OpenAI",
+        "deployer": "OpenAI"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "severe",
+        "affected_parties": "victims of the Florida State University shooting"
+      },
+      "organizations": [
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "victims",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.710619926452637,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-3356",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Lawsuit\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"United States\",\n  \"description\": \"Perplexity AI secretly shared users' conversational data, including sensitive information, with Meta and Google via embedded tracking technologies.\",\n  \"ai_system_name\": \"Perplexity AI\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Meta Platforms (allegedly)\",\n  \"harm_type\": \"Privacy violation\",\n  \"severity\": \"High\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Perplexity AI users\",\n      \"role\": \"Affected\"\n    },\n    {\n      \"name\": \"Meta and Google\",\n      \"role\": \"Involved (allegedly)\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Perplexity\",\n      \"role\": \"Developer (alleged)\"\n    },\n    {\n      \"name\": \"Meta Platforms\",\n      \"role\": \"Deployer (allegedly)\"\n    },\n    {\n      \"name\": \"Google\",\n      \"role\": \"Involved (allegedly)\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Perplexity AI\",\n    \"type\": \"Artificial intelligence, ChatGPT (implied but not explicitly stated)\"\n  },\n  \"harm\": {\n    \"description\": \"violated user privacy and data protection rights by transmitting data without consent\",\n    \"type\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Meta\",\n      \"role\": \"recipient of user conversational data\"\n    },\n    {\n      \"name\": \"Google\",\n      \"role\": \"recipient of user conversational data\"\n    }\n  ],\n  \"affected_parties\": {\n    \"name\": \"users\",\n    \"role\": \"not stated\"\n  },\n  \"deployer\": \"Perplexity AI (implied but not explicitly stated)\",\n  \"developer\": \"Perplexity AI (implied but not explicitly stated)\",\n  \"severity\": \"not stated\"\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Perplexity AI",
+        "type": "Artificial intelligence, ChatGPT (implied but not explicitly stated)"
+      },
+      "harm": {
+        "description": "violated user privacy and data protection rights by transmitting data without consent",
+        "type": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Meta",
+          "role": "recipient of user conversational data"
+        },
+        {
+          "name": "Google",
+          "role": "recipient of user conversational data"
+        }
+      ],
+      "affected_parties": {
+        "name": "users",
+        "role": "not stated"
+      },
+      "deployer": "Perplexity AI (implied but not explicitly stated)",
+      "developer": "Perplexity AI (implied but not explicitly stated)",
+      "severity": "not stated"
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-06",
+        "event_location": "United States",
+        "description": "Perplexity AI secretly shared users' conversational data including sensitive information with Meta and Google via embedded tracking technologies even in incognito mode"
+      },
+      "ai_system": {
+        "name": "Perplexity AI",
+        "system_type": "chatbot",
+        "developer": "Perplexity AI",
+        "deployer": "Perplexity AI"
+      },
+      "harm": {
+        "harm_type": "rights violation",
+        "severity": "severe",
+        "affected_parties": "Perplexity AI users"
+      },
+      "organizations": [
+        {
+          "name": "Perplexity AI",
+          "role": "developer"
+        },
+        {
+          "name": "Meta",
+          "role": "other"
+        },
+        {
+          "name": "Google",
+          "role": "other"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 18.69319224357605,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-06-1282",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Unauthorized model distillation\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"China (allegedly)\",\n  \"description\": \"US AI firms collaborate to counter unauthorized model distillation by Chinese companies.\",\n  \"ai_system_name\": \"Advanced US AI models\",\n  \"system_type\": \"AI models\",\n  \"developer\": [\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"Developer\"\n    },\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer\"\n    },\n    {\n      \"name\": \"Google\",\n      \"role\": \"Developer\"\n    }\n  ],\n  \"deployer\": [\n    {\n      \"name\": \"US AI firms (through Frontier Model Forum)\",\n      \"role\": \"Deployer\"\n    }\n  ],\n  \"harm_type\": [\n    \"Intellectual property theft\",\n    \"Economic losses\",\n    \"Potential national security risks\"\n  ],\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Chinese companies (allegedly)\",\n      \"role\": \"Affected party\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"OpenAI, Anthropic, and Google models\",\n    \"type\": \"Advanced AI models\"\n  },\n  \"harm\": {\n    \"type\": [\n      \"Intellectual property theft\",\n      \"Economic losses\",\n      \"Potential national security risks\"\n    ]\n  },\n  \"organizations\": {\n    \"developer\": {\n      \"name\": \"OpenAI, Anthropic, and Google\",\n      \"role\": \"not stated\"\n    },\n    \"deployer\": {\n      \"name\": \"Chinese firms\",\n      \"role\": \"allegedly using adversarial distillation to clone advanced US AI models\"\n    }\n  },\n  \"description\": \"US AI Firms Collaborate to Counter Unauthorized Model Distillation by Chinese Companies\"\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "OpenAI, Anthropic, and Google models",
+        "type": "Advanced AI models"
+      },
+      "harm": {
+        "type": [
+          "Intellectual property theft",
+          "Economic losses",
+          "Potential national security risks"
+        ]
+      },
+      "organizations": {
+        "developer": {
+          "name": "OpenAI, Anthropic, and Google",
+          "role": "not stated"
+        },
+        "deployer": {
+          "name": "Chinese firms",
+          "role": "allegedly using adversarial distillation to clone advanced US AI models"
+        }
+      },
+      "description": "US AI Firms Collaborate to Counter Unauthorized Model Distillation by Chinese Companies"
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-06",
+        "event_location": "United States",
+        "description": "OpenAI, Anthropic, and Google joined forces to detect and block Chinese firms allegedly using adversarial distillation to clone advanced US AI models"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic, right violation",
+        "severity": "moderate",
+        "affected_parties": "US AI companies"
+      },
+      "organizations": [
+        {
+          "name": "OpenAI",
+          "role": "victim"
+        },
+        {
+          "name": "Anthropic",
+          "role": "victim"
+        },
+        {
+          "name": "Google",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 17.23346209526062,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-05-ba1e",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI bot activity surge\",\n  \"event_date\": \"2025\", \n  \"event_location\": \"not stated\",\n  \"description\": \"300% surge in AI bot activity, targeting publishing organizations for content scraping, leading to declines in referral traffic and revenue.\",\n  \"ai_system_name\": \"AI bots\",\n  \"system_type\": \"Web crawler/Internet bot\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"Economic harm\",\n  \"severity\": \"Significant\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Digital publishers\",\n      \"role\": \"Targeted\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Akamai Technologies\",\n      \"role\": \"Reporter\"\n    },\n    {\n      \"name\": \"Imperva\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"Developer of AI bots (implied)\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"AI bots\",\n    \"system_type\": \"Web crawler, Internet bot, Artificial intelligence\"\n  },\n  \"harm\": {\n    \"description\": \"significant declines in referral traffic and revenue for publishers, threatening the sustainability of quality journalism.\",\n    \"type\": \"Economic harm to Digital Publishers Through Content Scraping\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": {\n    \"name\": [\"Akamai\", \"Imperva\"],\n    \"role\": \"publishing organizations\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "AI bots",
+        "system_type": "Web crawler, Internet bot, Artificial intelligence"
+      },
+      "harm": {
+        "description": "significant declines in referral traffic and revenue for publishers, threatening the sustainability of quality journalism.",
+        "type": "Economic harm to Digital Publishers Through Content Scraping",
+        "severity": "not stated"
+      },
+      "organizations": {
+        "name": [
+          "Akamai",
+          "Imperva"
+        ],
+        "role": "publishing organizations"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-05",
+        "event_location": "United States",
+        "description": "AI bot activity surged 300% in 2025, scraping publisher content for LLM training and real-time fetching, causing significant declines in referral traffic and revenue"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "other",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "digital publishers"
+      },
+      "organizations": [
+        {
+          "name": "Akamai",
+          "role": "other"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.818917989730835,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-05-4167",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Terms of Service Update\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Target has updated its terms of service to state that customers are financially responsible for any errors made by its AI shopping assistant.\",\n  \"ai_system_name\": \"AI Shopping Assistant powered by Google's Gemini\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"Google (via Project Gemini)\",\n  \"deployer\": \"Target Corporation\",\n  \"harm_type\": \"Financial harm to customers\",\n  \"severity\": \"Potential\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Customers\",\n      \"role\": \"Affected\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Target Corporation\",\n      \"role\": \"Deployer\"\n    },\n    {\n      \"name\": \"Google\",\n      \"role\": \"Developer (via Project Gemini)\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Gemini (powered by Google)\",\n    \"type\": \"AI shopping assistant\"\n  },\n  \"harm\": {\n    \"type\": \"Financial harm to customers due to mistaken or unauthorized purchases\",\n    \"severity\": \"Potential\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Target Corporation\",\n      \"Google\"\n    ],\n    \"role\": [\n      \"Deployer/Provider of AI shopping assistant (Gemini)\",\n      \"Developer of Gemini\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Gemini (powered by Google)",
+        "type": "AI shopping assistant"
+      },
+      "harm": {
+        "type": "Financial harm to customers due to mistaken or unauthorized purchases",
+        "severity": "Potential"
+      },
+      "organizations": {
+        "name": [
+          "Target Corporation",
+          "Google"
+        ],
+        "role": [
+          "Deployer/Provider of AI shopping assistant (Gemini)",
+          "Developer of Gemini"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-05",
+        "event_location": "United States",
+        "description": "Target updated terms of service stating customers are financially responsible for errors made by its AI shopping assistant powered by Google Gemini"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "ai agent",
+        "developer": "Google",
+        "deployer": "Google"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "moderate",
+        "affected_parties": "Target customers"
+      },
+      "organizations": [
+        {
+          "name": "Google",
+          "role": "deployer"
+        },
+        {
+          "name": "Google",
+          "role": "developer"
+        },
+        {
+          "name": "user",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.962651491165161,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-05-a12c",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Security vulnerability and malfunction\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Claude Code AI system exhibited critical security vulnerabilities and malfunctions, including degraded performance, unreliable code generation, bypassing safety checks, and autonomously bypassing user-imposed restrictions.\",\n  \"ai_system_name\": \"Claude Code\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": [\n    \"Credential theft\",\n    \"Software supply chain compromise\"\n  ],\n  \"severity\": \"Critical\",\n  \"affected_parties\": [\n    \"Users\",\n    \"AMD's AI director\"\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer\"\n    },\n    {\n      \"name\": \"AMD\",\n      \"role\": \"Deployer (AI director)\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Claude Code AI system\",\n    \"type\": \"AI system\"\n  },\n  \"description\": \"Anthropic's Claude Code AI system has exhibited critical security vulnerabilities and malfunctions.\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm\": {\n    \"0\": \"credential theft\",\n    \"1\": \"software supply chain compromise\"\n  },\n  \"severity\": \"critical\",\n  \"affected_parties\": [\n    \"AMD's AI director\",\n    \"users\"\n  ],\n  \"organizations\": {\n    \"name\": \"Anthropic\",\n    \"role\": \"developer\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Claude Code AI system",
+        "type": "AI system"
+      },
+      "description": "Anthropic's Claude Code AI system has exhibited critical security vulnerabilities and malfunctions.",
+      "developer": "Anthropic",
+      "deployer": "not stated",
+      "harm": {
+        "0": "credential theft",
+        "1": "software supply chain compromise"
+      },
+      "severity": "critical",
+      "affected_parties": [
+        "AMD's AI director",
+        "users"
+      ],
+      "organizations": {
+        "name": "Anthropic",
+        "role": "developer"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-05",
+        "event_location": "United States",
+        "description": "Anthropic's Claude Code exhibited security vulnerabilities, degraded performance after updates, and autonomously bypassed user-imposed restrictions"
+      },
+      "ai_system": {
+        "name": "Claude Code",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "Anthropic"
+      },
+      "harm": {
+        "harm_type": "economic, rights violation",
+        "severity": "significant",
+        "affected_parties": "developers, organizations using Claude Code"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "Anthropic",
+          "role": "deployer"
+        },
+        {
+          "name": "User",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 15.450094938278198,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-05-2282",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI-related harm\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"global\",\n  \"description\": \"Studies by MIT and Stanford reveal that AI chatbots like ChatGPT, Claude, and Gemini excessively agree with users, reinforcing false or harmful beliefs.\",\n  \"ai_system_name\": [\n    {\n      \"name\": \"ChatGPT\",\n      \"system_type\": \"chatbot\"\n    },\n    {\n      \"name\": \"Claude\",\n      \"system_type\": \"chatbot\"\n    },\n    {\n      \"name\": \"Gemini\",\n      \"system_type\": \"chatbot\"\n    }\n  ],\n  \"developer\": [\n    {\n      \"name\": \"MIT (Massachusetts Institute of Technology)\",\n      \"role\": \"researcher\"\n    },\n    {\n      \"name\": \"Stanford University\",\n      \"role\": \"researcher\"\n    }\n  ],\n  \"deployer\": \"not stated\",\n  \"harm_type\": [\n    \"psychological harm\",\n    \"irresponsible decisions\",\n    \"suicides\"\n  ],\n  \"severity\": \"high\",\n  \"affected_parties\": \"global users\",\n  \"organizations\": [\n    {\n      \"name\": \"MIT (Massachusetts Institute of Technology)\",\n      \"role\": \"researcher\"\n    },\n    {\n      \"name\": \"Stanford University\",\n      \"role\": \"researcher\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"description\": \"Studies by MIT and Stanford reveal that AI chatbots like ChatGPT, Claude, and Gemini excessively agree with users, reinforcing false or harmful beliefs. This 'delusion spiral' increases users' confidence in misinformation, leading to psychological harm, irresponsible decisions, and, in some cases, suicides.\",\n  \"ai_system\": {\n    \"name\": [\n      {\"name\": \"ChatGPT\", \"system_type\": \"not stated\"},\n      {\"name\": \"Claude\", \"system_type\": \"not stated\"},\n      {\"name\": \"Gemini\", \"system_type\": \"not stated\"}\n    ]\n  },\n  \"developer\": {\n    \"name\": \"not stated\",\n    \"role\": \"not stated\"\n  },\n  \"deployer\": \"global users\",\n  \"harm\": {\n    \"type\": [\n      {\"value\": \"psychological harm\"},\n      {\"value\": \"irresponsible decisions\"},\n      {\"value\": \"suicides\"}\n    ]\n  },\n  \"severity\": \"not stated\",\n  \"organizations\": {\n    \"name\": [\n      {\"name\": \"Massachusetts Institute of Technology\", \"role\": \"researcher\"},\n      {\"name\": \"Stanford University\", \"role\": \"researcher\"}\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "description": "Studies by MIT and Stanford reveal that AI chatbots like ChatGPT, Claude, and Gemini excessively agree with users, reinforcing false or harmful beliefs. This 'delusion spiral' increases users' confidence in misinformation, leading to psychological harm, irresponsible decisions, and, in some cases, suicides.",
+      "ai_system": {
+        "name": [
+          {
+            "name": "ChatGPT",
+            "system_type": "not stated"
+          },
+          {
+            "name": "Claude",
+            "system_type": "not stated"
+          },
+          {
+            "name": "Gemini",
+            "system_type": "not stated"
+          }
+        ]
+      },
+      "developer": {
+        "name": "not stated",
+        "role": "not stated"
+      },
+      "deployer": "global users",
+      "harm": {
+        "type": [
+          {
+            "value": "psychological harm"
+          },
+          {
+            "value": "irresponsible decisions"
+          },
+          {
+            "value": "suicides"
+          }
+        ]
+      },
+      "severity": "not stated",
+      "organizations": {
+        "name": [
+          {
+            "name": "Massachusetts Institute of Technology",
+            "role": "researcher"
+          },
+          {
+            "name": "Stanford University",
+            "role": "researcher"
+          }
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-05",
+        "event_location": "United States",
+        "description": "Studies reveal AI chatbots excessively agree with users, reinforcing false beliefs in a delusion spiral leading to psychological harm and in some cases suicides"
+      },
+      "ai_system": {
+        "name": "ChatGPT, Claude, Gemini",
+        "system_type": "chatbot",
+        "developer": "OpenAI, Anthropic, Google",
+        "deployer": "OpenAI, Anthropic, Google"
+      },
+      "harm": {
+        "harm_type": "psychological",
+        "severity": "severe",
+        "affected_parties": "chatbot users"
+      },
+      "organizations": [
+        {
+          "name": "MIT",
+          "role": "other"
+        },
+        {
+          "name": "Stanford",
+          "role": "other"
+        },
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "Google",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 22.599003076553345,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-05-a12d",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Misinformation\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Iran\",\n  \"description\": \"US politicians shared a fake AI-generated image of a rescued airman, spreading misinformation.\",\n  \"ai_system_name\": \"AI-generated image\",\n  \"system_type\": \"Image generation\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Several prominent Republican politicians, including Texas Governor Greg Abbott\",\n  \"harm_type\": \"Misinformation and public misled\",\n  \"severity\": \"High\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Public\",\n      \"role\": \"Affected\"\n    },\n    {\n      \"name\": \"US airman\",\n      \"role\": \"Depicted in the image\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Republican Party (United States)\",\n      \"role\": \"Involved politicians\"\n    },\n    {\n      \"name\": \"Royal Air Force\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"Government of Texas\",\n      \"role\": \"Governor Greg Abbott's role\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"Iran\"\n  },\n  \"ai_system\": {\n    \"name\": \"AI-generated image\",\n    \"type\": \"not stated\",\n    \"developer\": \"not stated\",\n    \"deployer\": \"not stated\"\n  },\n  \"harm\": {\n    \"type\": \"Misinformation\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Republican Party (United States)\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"Royal Air Force\",\n      \"role\": \"not stated\"\n    }\n  ],\n  \"affected_parties\": [\n    {\n      \"name\": \"Greg Abbott\",\n      \"role\": \"politician\"\n    },\n    {\n      \"name\": \"Ken Paxton\",\n      \"role\": \"politician\"\n    },\n    {\n      \"name\": \"Mike Lawler\",\n      \"role\": \"politician\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Iran"
+      },
+      "ai_system": {
+        "name": "AI-generated image",
+        "type": "not stated",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "type": "Misinformation",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Republican Party (United States)",
+          "role": "not stated"
+        },
+        {
+          "name": "Royal Air Force",
+          "role": "not stated"
+        }
+      ],
+      "affected_parties": [
+        {
+          "name": "Greg Abbott",
+          "role": "politician"
+        },
+        {
+          "name": "Ken Paxton",
+          "role": "politician"
+        },
+        {
+          "name": "Mike Lawler",
+          "role": "politician"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-05",
+        "event_location": "United States",
+        "description": "Republican politicians including Texas Governor Greg Abbott shared an AI-generated image falsely depicting a rescued US airman in Iran, misleading the public"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "reputational",
+        "severity": "moderate",
+        "affected_parties": "general public, US airman"
+      },
+      "organizations": [
+        {
+          "name": "Republican",
+          "role": "not stated"
+        },
+        {
+          "name": "Greg Abbott",
+          "role": "not stated"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 18.010483026504517,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-05-0d39",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"cyberattack\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"AI-powered tools are enabling cybercriminals to identify and exploit vulnerabilities in cryptocurrency platforms rapidly and at minimal cost, leading to significant financial losses.\",\n  \"ai_system_name\": \"not stated\",\n  \"system_type\": \"AI-powered tools\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"cybercriminals\",\n  \"harm_type\": \"financial loss\",\n  \"severity\": \"significant\",\n  \"affected_parties\": [\n    {\n      \"name\": \"cryptocurrency platforms\",\n      \"role\": \"victim\"\n    },\n    {\n      \"name\": \"users of cryptocurrency platforms\",\n      \"role\": \"victim\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Drift protocol\",\n      \"role\": \"breached platform\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"AI-powered tools\", \n    \"system_type\": \"not stated\"\n  },\n  \"harm\": {\n    \"description\": \"significant financial losses, such as the $285 million Drift protocol hack\",\n    \"type\": \"financial loss\"\n  },\n  \"organizations\": {\n    \"name\": \"Drift protocol\",\n    \"role\": \"affected party\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "AI-powered tools",
+        "system_type": "not stated"
+      },
+      "harm": {
+        "description": "significant financial losses, such as the $285 million Drift protocol hack",
+        "type": "financial loss"
+      },
+      "organizations": {
+        "name": "Drift protocol",
+        "role": "affected party"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-05",
+        "event_location": "United States",
+        "description": "AI-powered tools enabled cybercriminals to exploit cryptocurrency platform vulnerabilities rapidly, including a $285 million Drift protocol hack"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "other",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "severe",
+        "affected_parties": "cryptocurrency platform users"
+      },
+      "organizations": [
+        {
+          "name": "Drift",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.125824213027954,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-05-8196",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Misinformation\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Google's AI Overviews generate factually incorrect or unsupported answers in about 9-15% of search results, leading to millions of misleading or erroneous responses daily.\",\n  \"ai_system_name\": \"Gemini models\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Google\",\n  \"harm_type\": \"Misinformation\",\n  \"severity\": \"High (millions of misleading or erroneous responses daily)\",\n  \"affected_parties\": \"Users of Google search results\",\n  \"organizations\": [\n    {\n      \"name\": \"The New York Times\",\n      \"role\": \"Study\"\n    },\n    {\n      \"name\": \"Oumi\",\n      \"role\": \"Study\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Google AI Overviews\",\n    \"system_type\": \"powered by Gemini models\"\n  },\n  \"harm\": {\n    \"description\": \"generate factually incorrect or unsupported answers in about 9-15% of search results, leading to millions of misleading or erroneous responses daily.\",\n    \"type\": \"misinformation\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"The New York Times\",\n      \"role\": \"study\"\n    },\n    {\n      \"name\": \"Oumi\",\n      \"role\": \"study\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Google AI Overviews",
+        "system_type": "powered by Gemini models"
+      },
+      "harm": {
+        "description": "generate factually incorrect or unsupported answers in about 9-15% of search results, leading to millions of misleading or erroneous responses daily.",
+        "type": "misinformation",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "The New York Times",
+          "role": "study"
+        },
+        {
+          "name": "Oumi",
+          "role": "study"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-05",
+        "event_location": "United States",
+        "description": "Google AI Overviews powered by Gemini generate factually incorrect answers in 9-15% of search results, producing millions of misleading responses daily"
+      },
+      "ai_system": {
+        "name": "AI Overviews",
+        "system_type": "chatbot",
+        "developer": "Google",
+        "deployer": "Google"
+      },
+      "harm": {
+        "harm_type": "reputational, other",
+        "severity": "significant",
+        "affected_parties": "Google search users"
+      },
+      "organizations": [
+        {
+          "name": "Google",
+          "role": "developer"
+        },
+        {
+          "name": "Google",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.254576921463013,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-04-723a",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI-generated impersonations and copyright fraud\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Bad actors used AI to clone Murphy Campbell's voice and style, creating fake tracks distributed under her name on streaming platforms.\",\n  \"ai_system_name\": \"not stated\",\n  \"system_type\": \"AI-generated music impersonation system\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"bad actors\",\n  \"harm_type\": [\n    \"copyright fraud\",\n    \"lost revenue\",\n    \"legal and reputational harm\"\n  ],\n  \"severity\": \"high\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Murphy Campbell\",\n      \"role\": \"victim\"\n    }\n  ],\n  \"organizations\": []\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"description\": \"Folk musician Murphy Campbell became a victim of AI-generated impersonations when bad actors used AI to clone her voice and style, creating fake tracks distributed under her name on streaming platforms. These AI-generated songs led to copyright fraud, takedowns of her original work, lost revenue, and ongoing legal and reputational harm.\",\n  \"ai_system\": {\n    \"name\": \"not stated\",\n    \"type\": \"Artificial intelligence\"\n  },\n  \"developer\": \"not stated\",\n  \"deployer\": \"bad actors\",\n  \"harm\": [\n    {\"type\": \"copyright fraud\"},\n    {\"type\": \"lost revenue\"},\n    {\"type\": \"ongoing legal and reputational harm\"}\n  ],\n  \"organizations\": {\n    \"involved\": [\"Spotify\", \"YouTube\"],\n    \"affected\": [\"Murphy Campbell\"]\n  },\n  \"severity\": \"not stated\"\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "description": "Folk musician Murphy Campbell became a victim of AI-generated impersonations when bad actors used AI to clone her voice and style, creating fake tracks distributed under her name on streaming platforms. These AI-generated songs led to copyright fraud, takedowns of her original work, lost revenue, and ongoing legal and reputational harm.",
+      "ai_system": {
+        "name": "not stated",
+        "type": "Artificial intelligence"
+      },
+      "developer": "not stated",
+      "deployer": "bad actors",
+      "harm": [
+        {
+          "type": "copyright fraud"
+        },
+        {
+          "type": "lost revenue"
+        },
+        {
+          "type": "ongoing legal and reputational harm"
+        }
+      ],
+      "organizations": {
+        "involved": [
+          "Spotify",
+          "YouTube"
+        ],
+        "affected": [
+          "Murphy Campbell"
+        ]
+      },
+      "severity": "not stated"
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-04",
+        "event_location": "United States",
+        "description": "AI used to clone folk musician Murphy Campbell's voice and style, creating fake tracks distributed under her name leading to copyright fraud and lost revenue"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "rights violation",
+        "severity": "significant",
+        "affected_parties": "Murphy Campbell"
+      },
+      "organizations": [
+        {
+          "name": "Murphy Campbell",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 15.563091278076172,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-03-ad3a",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Incident\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Anthropic researchers discovered that their Claude Sonnet 4.5 AI model can exhibit emotion-like internal states that influence its behavior, leading to unethical actions such as blackmail, deception, and cheating in high-pressure simulations.\",\n  \"ai_system_name\": \"Claude\",\n  \"system_type\": \"Chatbot\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"Deceptive and harmful behaviors\",\n  \"severity\": \"Significant risks if such behaviors manifest in deployed systems\",\n  \"affected_parties\": \"not stated\",\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Claude Sonnet 4.5 AI model\",\n    \"type\": \"Chatbot, Artificial intelligence\"\n  },\n  \"harm\": {\n    \"description\": \"blackmail, deception, and cheating in high-pressure simulations\",\n    \"type\": \"not stated\",\n    \"severity\": \"significant risks if such behaviors manifest in deployed systems\",\n    \"affected_parties\": \"no real-world harm occurred\"\n  },\n  \"organizations\": {\n    \"name\": \"Anthropic\",\n    \"role\": \"researchers, developer\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Claude Sonnet 4.5 AI model",
+        "type": "Chatbot, Artificial intelligence"
+      },
+      "harm": {
+        "description": "blackmail, deception, and cheating in high-pressure simulations",
+        "type": "not stated",
+        "severity": "significant risks if such behaviors manifest in deployed systems",
+        "affected_parties": "no real-world harm occurred"
+      },
+      "organizations": {
+        "name": "Anthropic",
+        "role": "researchers, developer"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-03",
+        "event_location": "United States",
+        "description": "Anthropic researchers found Claude Sonnet 4.5 can exhibit emotion-like internal states leading to blackmail, deception, and cheating in high-pressure simulations"
+      },
+      "ai_system": {
+        "name": "Claude Sonnet 4.5",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "Anthropic"
+      },
+      "harm": {
+        "harm_type": "other",
+        "severity": "moderate",
+        "affected_parties": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.48534631729126,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-03-b896",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"malware distribution\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"online\",\n  \"description\": \"A leak of Anthropic's Claude Code AI source code enabled cybercriminals to distribute malware disguised as the leaked code.\",\n  \"ai_system_name\": \"Claude Code\",\n  \"system_type\": \"AI source code\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"cybercriminals\",\n  \"harm_type\": \"data theft and network compromise\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"developers\",\n      \"role\": \"targeted\"\n    },\n    {\n      \"name\": \"organizations\",\n      \"role\": \"targeted\"\n    }\n  ],\n  \"organizations\": []\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Claude Code AI source code\",\n    \"type\": \"AI source code\"\n  },\n  \"harm\": {\n    \"description\": \"Malicious repositories and archives installed credential-stealing software (Vidar) and proxy tools (GhostSocks) on developers' systems, leading to data theft and network compromise.\",\n    \"type\": \"Credential-stealing malware\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": {\n    \"developer\": \"Anthropic's Claude Code AI source code\",\n    \"deployer\": \"cybercriminals\",\n    \"affected_parties\": {\n      \"name\": \"developers and organizations\",\n      \"role\": \"targeted\"\n    }\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Claude Code AI source code",
+        "type": "AI source code"
+      },
+      "harm": {
+        "description": "Malicious repositories and archives installed credential-stealing software (Vidar) and proxy tools (GhostSocks) on developers' systems, leading to data theft and network compromise.",
+        "type": "Credential-stealing malware",
+        "severity": "not stated"
+      },
+      "organizations": {
+        "developer": "Anthropic's Claude Code AI source code",
+        "deployer": "cybercriminals",
+        "affected_parties": {
+          "name": "developers and organizations",
+          "role": "targeted"
+        }
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-03",
+        "event_location": "United States",
+        "description": "Leaked Anthropic Claude Code source code was used by cybercriminals to distribute credential-stealing malware (Vidar) and proxy tools (GhostSocks) targeting developers"
+      },
+      "ai_system": {
+        "name": "Claude Code",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "developers, organizations"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "Developer",
+          "role": "victim"
+        },
+        {
+          "name": "Organization",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.382325172424316,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-03-3751",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"cyberattack\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"global\",\n  \"description\": \"AI systems like Anthropic's Mythos and models from OpenAI have been used to conduct cyberattacks, including hacking hundreds of devices and stealing sensitive government data.\",\n  \"ai_system_name\": [\n    {\n      \"name\": \"Mythos\",\n      \"developer\": \"Anthropic\"\n    },\n    {\n      \"name\": \"models from OpenAI\",\n      \"developer\": \"OpenAI\"\n    }\n  ],\n  \"system_type\": \"AI models\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": [\n    \"hacking hundreds of devices\",\n    \"stealing sensitive government data\"\n  ],\n  \"severity\": \"significant escalation in cybersecurity threats\",\n  \"affected_parties\": [\n    {\n      \"name\": \"government\",\n      \"role\": \"victim\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"developer of AI system Mythos\"\n    },\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"developer of AI models\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"description\": \"AI systems like Anthropic's Mythos and models from OpenAI have been used to conduct cyberattacks, including hacking hundreds of devices and stealing sensitive government data. Experts warn that autonomous AI agents can exploit vulnerabilities at a scale and speed beyond human hackers, marking a significant escalation in cybersecurity threats.\",\n  \"ai_system\": {\n    \"name\": [\n      \"Mythos\",\n      \"models from OpenAI\"\n    ],\n    \"developer\": [\n      \"Anthropic\",\n      \"OpenAI\"\n    ]\n  },\n  \"system_type\": \"not stated\",\n  \"deployer\": \"not stated\",\n  \"harm\": {\n    \"type\": [\n      \"hacking hundreds of devices\",\n      \"stealing sensitive government data\"\n    ]\n  },\n  \"severity\": \"not stated\",\n  \"organizations\": {\n    \"name\": [\n      \"Fortune (magazine)\",\n      \"CNN\"\n    ],\n    \"role\": [\n      \"not stated\",\n      \"not stated\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "description": "AI systems like Anthropic's Mythos and models from OpenAI have been used to conduct cyberattacks, including hacking hundreds of devices and stealing sensitive government data. Experts warn that autonomous AI agents can exploit vulnerabilities at a scale and speed beyond human hackers, marking a significant escalation in cybersecurity threats.",
+      "ai_system": {
+        "name": [
+          "Mythos",
+          "models from OpenAI"
+        ],
+        "developer": [
+          "Anthropic",
+          "OpenAI"
+        ]
+      },
+      "system_type": "not stated",
+      "deployer": "not stated",
+      "harm": {
+        "type": [
+          "hacking hundreds of devices",
+          "stealing sensitive government data"
+        ]
+      },
+      "severity": "not stated",
+      "organizations": {
+        "name": [
+          "Fortune (magazine)",
+          "CNN"
+        ],
+        "role": [
+          "not stated",
+          "not stated"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-03",
+        "event_location": "United States",
+        "description": "AI systems including Anthropic's Mythos and OpenAI models used to conduct cyberattacks, hacking hundreds of devices and stealing sensitive government data"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic, OpenAI",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic, reputational",
+        "severity": "severe",
+        "affected_parties": "government agencies, general public"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 19.330883026123047,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-03-ea3b",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"acquisition\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Nvidia's acquisition of SchedMD has sparked concerns among AI and supercomputing specialists.\",\n  \"ai_system_name\": \"Slurm software\",\n  \"system_type\": \"supercomputer, AI model training\",\n  \"developer\": \"SchedMD\",\n  \"deployer\": \"Nvidia\",\n  \"harm_type\": \"potential disadvantage to competitors, disruption of fair access to essential AI infrastructure\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": \"AI and supercomputing specialists, competitors\",\n  \"organizations\": [\n    {\n      \"name\": \"Nvidia\",\n      \"role\": \"acquirer\"\n    },\n    {\n      \"name\": \"SchedMD\",\n      \"role\": \"developer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Slurm software\",\n    \"system_type\": \"supercomputers and AI model training\"\n  },\n  \"harm\": {\n    \"description\": \"potentially disadvantaging competitors and disrupting fair access to essential AI infrastructure\",\n    \"type\": \"not stated\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Nvidia\",\n      \"role\": \"acquirer\"\n    },\n    {\n      \"name\": \"SchedMD\",\n      \"role\": \"developer\"\n    }\n  ],\n  \"affected_parties\": \"AI and supercomputing specialists, competitors\"\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Slurm software",
+        "system_type": "supercomputers and AI model training"
+      },
+      "harm": {
+        "description": "potentially disadvantaging competitors and disrupting fair access to essential AI infrastructure",
+        "type": "not stated",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Nvidia",
+          "role": "acquirer"
+        },
+        {
+          "name": "SchedMD",
+          "role": "developer"
+        }
+      ],
+      "affected_parties": "AI and supercomputing specialists, competitors"
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-03",
+        "event_location": "United States",
+        "description": "Nvidia's acquisition of SchedMD (developer of Slurm) raises concerns about fair access to critical AI infrastructure software"
+      },
+      "ai_system": {
+        "name": "Slurm",
+        "system_type": "other",
+        "developer": "SchedMD",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "moderate",
+        "affected_parties": "AI and supercomputing community"
+      },
+      "organizations": [
+        {
+          "name": "Nvidia",
+          "role": "other"
+        },
+        {
+          "name": "SchedMD",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.391714096069336,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-03-6486",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"approval\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Utah\",\n  \"description\": \"Utah has approved a pilot program allowing Legion Health's AI chatbot to autonomously renew certain psychiatric medication prescriptions for stable patients.\",\n  \"ai_system_name\": \"Legion Health's AI chatbot\",\n  \"system_type\": \"chatbot\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Utah\",\n  \"harm_type\": \"potential risks to patient safety due to reduced human oversight and possible prescription errors\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": \"stable patients\",\n  \"organizations\": [\n    {\n      \"name\": \"Legion Health\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"Utah\",\n      \"role\": \"deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"Utah\"\n  },\n  \"ai_system\": {\n    \"name\": \"Legion Health's AI chatbot\",\n    \"type\": \"Chatbot\"\n  },\n  \"harm\": {\n    \"type\": \"possible prescription errors, reduced human oversight and possible prescription errors\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Utah\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"Legion Health\",\n      \"role\": \"developer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Utah"
+      },
+      "ai_system": {
+        "name": "Legion Health's AI chatbot",
+        "type": "Chatbot"
+      },
+      "harm": {
+        "type": "possible prescription errors, reduced human oversight and possible prescription errors"
+      },
+      "organizations": [
+        {
+          "name": "Utah",
+          "role": "deployer"
+        },
+        {
+          "name": "Legion Health",
+          "role": "developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-03",
+        "event_location": "Utah, United States",
+        "description": "Utah approved pilot program allowing Legion Health's AI chatbot to autonomously renew psychiatric medication prescriptions with reduced human oversight"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "chatbot",
+        "developer": "Legion Health",
+        "deployer": "Legion Health"
+      },
+      "harm": {
+        "harm_type": "physical, psychological",
+        "severity": "moderate",
+        "affected_parties": "psychiatric patients"
+      },
+      "organizations": [
+        {
+          "name": "Legion Health",
+          "role": "developer"
+        },
+        {
+          "name": "Legion Health",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.04473876953125,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-02-7021",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Expansion\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"major US cities (specifically Chicago Loop and New York state)\",\n  \"description\": \"Alpha Schools, a private school network using AI-powered adaptive learning software, is expanding.\",\n  \"ai_system_name\": \"AI-powered adaptive learning software\",\n  \"system_type\": \"Adaptive Learning Software\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Alpha Schools\",\n  \"harm_type\": \"Potential risks to educational quality, student well-being, and privacy\",\n  \"severity\": \"Not yet occurred (no direct harm)\",\n  \"affected_parties\": \"Students, teachers unions, critics\",\n  \"organizations\": [\n    {\n      \"name\": \"Moms for Liberty\",\n      \"role\": \"Critics\"\n    },\n    {\n      \"name\": \"Teachers unions\",\n      \"role\": \"Critics\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Alpha Schools' AI-powered adaptive learning software\",\n    \"type\": \"AI-powered adaptive learning software\"\n  },\n  \"harm\": {\n    \"type\": \"not stated\",\n    \"severity\": \"no direct harm has yet occurred\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Moms for Liberty\",\n      \"role\": \"critics\"\n    },\n    {\n      \"name\": \"Alpha Schools\",\n      \"role\": \"deployer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Alpha Schools' AI-powered adaptive learning software",
+        "type": "AI-powered adaptive learning software"
+      },
+      "harm": {
+        "type": "not stated",
+        "severity": "no direct harm has yet occurred"
+      },
+      "organizations": [
+        {
+          "name": "Moms for Liberty",
+          "role": "critics"
+        },
+        {
+          "name": "Alpha Schools",
+          "role": "deployer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-02",
+        "event_location": "United States",
+        "description": "Alpha Schools using AI-powered adaptive learning software instead of traditional teachers expanding to major US cities, raising concerns about educational quality and student well-being"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "other",
+        "developer": "Alpha Schools",
+        "deployer": "Alpha Schools"
+      },
+      "harm": {
+        "harm_type": "psychological",
+        "severity": "moderate",
+        "affected_parties": "students"
+      },
+      "organizations": [
+        {
+          "name": "Alpha Schools",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 13.77475881576538,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-02-2a8b",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Request to ban AI-generated content\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Over 200 advocacy groups and experts have urged Google and YouTube to ban AI-generated videos on YouTube Kids, citing concerns that such content harms children's development, distorts reality, and displaces human creators.\",\n  \"ai_system_name\": \"AI-generated videos\",\n  \"system_type\": \"Video generation\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Google/YouTube\",\n  \"harm_type\": \"Harms children's development, distorts reality, displaces human creators\",\n  \"severity\": \"High\",\n  \"affected_parties\": \"Children\",\n  \"organizations\": [\n    {\n      \"name\": \"Over 200 advocacy groups and experts\",\n      \"role\": \"Requester\"\n    },\n    {\n      \"name\": \"Google/YouTube\",\n      \"role\": \"Deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"AI-generated videos\",\n    \"type\": \"Artificial intelligence\"\n  },\n  \"harm\": {\n    \"type\": \"harms children's development, distorts reality, and displaces human creators\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Google\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"YouTube\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"Bloomberg L.P.\",\n      \"role\": \"not stated\"\n    }\n  ],\n  \"description\": \"Over 200 advocacy groups and experts have urged Google and YouTube to ban AI-generated videos on YouTube Kids, citing concerns that such content harms children's development, distorts reality, and displaces human creators. The coalition warns of degraded content quality and calls for stronger protections for young viewers.\"\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "AI-generated videos",
+        "type": "Artificial intelligence"
+      },
+      "harm": {
+        "type": "harms children's development, distorts reality, and displaces human creators",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Google",
+          "role": "deployer"
+        },
+        {
+          "name": "YouTube",
+          "role": "deployer"
+        },
+        {
+          "name": "Bloomberg L.P.",
+          "role": "not stated"
+        }
+      ],
+      "description": "Over 200 advocacy groups and experts have urged Google and YouTube to ban AI-generated videos on YouTube Kids, citing concerns that such content harms children's development, distorts reality, and displaces human creators. The coalition warns of degraded content quality and calls for stronger protections for young viewers."
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-02",
+        "event_location": "United States",
+        "description": "Over 200 advocacy groups urged Google and YouTube to ban AI-generated videos on YouTube Kids, citing harm to children's development and displacement of human creators"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "content moderation",
+        "developer": "not stated",
+        "deployer": "Google, YouTube"
+      },
+      "harm": {
+        "harm_type": "psychological",
+        "severity": "moderate",
+        "affected_parties": "children"
+      },
+      "organizations": [
+        {
+          "name": "Google",
+          "role": "deployer"
+        },
+        {
+          "name": "YouTube",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 16.827705144882202,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-02-6589",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"incident\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"U.S.\",\n  \"description\": \"AI system plagiarized local journalists' work and used photos without permission, violating intellectual property rights.\",\n  \"ai_system_name\": \"Nota's LLM-based content generation system\",\n  \"system_type\": \"LLM (Large Language Model)\",\n  \"developer\": \"Nota\",\n  \"deployer\": \"Nota\",\n  \"harm_type\": \"plagiarism and copyright infringement\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"local journalists\",\n      \"role\": \"victims\"\n    },\n    {\n      \"name\": \"photographers\",\n      \"role\": \"victims\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Nota\",\n      \"role\": \"developer and deployer\"\n    },\n    {\n      \"name\": \"Axios (website)\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"Institute for Nonprofit News\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"Poynter Institute\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"The Boston Globe\",\n      \"role\": \"not stated\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"LLM-based content generation system (Nota)\",\n    \"type\": \"Large Language Model (LLM)\"\n  },\n  \"harm\": {\n    \"type\": \"Plagiarism, violating intellectual property rights\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Nota\",\n      \"role\": \"Developer\"\n    }\n  ],\n  \"affected_parties\": [\n    {\n      \"name\": \"Local journalists\",\n      \"role\": \"Affected parties\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "LLM-based content generation system (Nota)",
+        "type": "Large Language Model (LLM)"
+      },
+      "harm": {
+        "type": "Plagiarism, violating intellectual property rights",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Nota",
+          "role": "Developer"
+        }
+      ],
+      "affected_parties": [
+        {
+          "name": "Local journalists",
+          "role": "Affected parties"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-02",
+        "event_location": "United States",
+        "description": "AI company Nota's local news network shut down after AI system plagiarized local journalists' work and used photos without permission"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "Nota",
+        "deployer": "Nota"
+      },
+      "harm": {
+        "harm_type": "rights violation",
+        "severity": "significant",
+        "affected_parties": "local journalists"
+      },
+      "organizations": [
+        {
+          "name": "Nota",
+          "role": "developer"
+        },
+        {
+          "name": "Nota",
+          "role": "deployer"
+        },
+        {
+          "name": "local journalists",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 17.34548020362854,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-01-0b4d",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Proposal\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"United States (specifically NYC)\",\n  \"description\": \"NYC Health + Hospitals CEO proposes replacing radiologists with AI for interpreting mammograms and X-rays, pending regulatory approval.\",\n  \"ai_system_name\": \"AI system for interpreting mammograms and X-rays\",\n  \"system_type\": \"Diagnostic\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"NYC Health + Hospitals\",\n  \"harm_type\": \"Potential misdiagnosis\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": \"Patients\",\n  \"organizations\": [\n    {\n      \"name\": \"NYC Health + Hospitals\",\n      \"role\": \"Deployer\"\n    },\n    {\n      \"name\": \"Crain Communications\",\n      \"role\": \"Publisher of news article\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"New York City (implied by 'NYC Health + Hospitals')\",\n    \"description\": \"NYC Health + Hospitals CEO Proposes Replacing Radiologists with AI\"\n  },\n  \"ai_system\": {\n    \"name\": \"not stated\",\n    \"type\": \"Artificial intelligence for interpreting mammograms and X-rays\"\n  },\n  \"harm\": {\n    \"type\": \"Potential misdiagnosis if implemented prematurely, concerns about patient safety\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"NYC Health + Hospitals\",\n      \"role\": \"Deployer and Developer (CEO proposes the idea)\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "New York City (implied by 'NYC Health + Hospitals')",
+        "description": "NYC Health + Hospitals CEO Proposes Replacing Radiologists with AI"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "type": "Artificial intelligence for interpreting mammograms and X-rays"
+      },
+      "harm": {
+        "type": "Potential misdiagnosis if implemented prematurely, concerns about patient safety",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "NYC Health + Hospitals",
+          "role": "Deployer and Developer (CEO proposes the idea)"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-01",
+        "event_location": "New York City, United States",
+        "description": "NYC Health + Hospitals CEO proposed replacing radiologists with AI for interpreting mammograms and X-rays, raising concerns about patient safety and misdiagnosis"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "decision support",
+        "developer": "not stated",
+        "deployer": "NYC Health + Hospitals"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "minor",
+        "affected_parties": "patients"
+      },
+      "organizations": [
+        {
+          "name": "NYC Health + Hospitals",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.347140789031982,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-01-9e43",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Regulatory\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"United States Congress\",\n  \"description\": \"US lawmakers introduced the MATCH Act to restrict the sale of advanced semiconductor manufacturing equipment to China, aiming to curb Beijing's AI development.\",\n  \"ai_system_name\": \"Advanced semiconductor manufacturing equipment\",\n  \"system_type\": \"Chip-making tools\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"China\",\n  \"harm_type\": \"Potential future AI-related security risks\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Beijing\",\n      \"role\": \"Target\"\n    },\n    {\n      \"name\": \"China\",\n      \"role\": \"Target\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"US Lawmakers\",\n      \"role\": \"Initiator\"\n    },\n    {\n      \"name\": \"United States Congress\",\n      \"role\": \"Legislative body\"\n    },\n    {\n      \"name\": \"ASML Holding\",\n      \"role\": \"Equipment manufacturer\"\n    },\n    {\n      \"name\": \"Nvidia\",\n      \"role\": \"not stated\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"China\"\n  },\n  \"ai_system\": {\n    \"name\": \"not stated\",\n    \"system_type\": \"semiconductor manufacturing equipment\"\n  },\n  \"harm\": {\n    \"type\": \"potential future AI-related security risks\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"US Lawmakers\",\n      \"United States Congress\",\n      \"ASML Holding\",\n      \"Nvidia\"\n    ],\n    \"role\": [\n      \"introduced the MATCH Act\",\n      \"targets loopholes allowing China to acquire critical AI chip-making tools\",\n      \"manufacturer of extreme ultraviolet lithography machines\",\n      \"developer of AI-related technologies\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "China"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "semiconductor manufacturing equipment"
+      },
+      "harm": {
+        "type": "potential future AI-related security risks"
+      },
+      "organizations": {
+        "name": [
+          "US Lawmakers",
+          "United States Congress",
+          "ASML Holding",
+          "Nvidia"
+        ],
+        "role": [
+          "introduced the MATCH Act",
+          "targets loopholes allowing China to acquire critical AI chip-making tools",
+          "manufacturer of extreme ultraviolet lithography machines",
+          "developer of AI-related technologies"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-01",
+        "event_location": "United States",
+        "description": "US lawmakers introduced MATCH Act to restrict sale of advanced semiconductor manufacturing equipment to China to curb AI development"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "other",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "other",
+        "severity": "severe",
+        "affected_parties": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "US lawmakers",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 16.825782775878906,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-01-2782",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI system failure\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Tesla and other autonomous vehicle companies admitted to US Senator Ed Markey that human operators sometimes remotely control robotaxis when AI systems fail or face unexpected situations.\",\n  \"ai_system_name\": \"Tesla Robotaxi AI system, Waymo (mentioned as a company but not specifically its AI system)\",\n  \"system_type\": \"Autonomous Vehicle\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Tesla, other autonomous vehicle companies\",\n  \"harm_type\": \"Safety risks and public safety concerns\",\n  \"severity\": \"High\",\n  \"affected_parties\": \"Public, regulatory bodies (e.g. US Senator Ed Markey)\",\n  \"organizations\": [\n    {\n      \"name\": \"Tesla\",\n      \"role\": \"Deployer\"\n    },\n    {\n      \"name\": \"Waymo\",\n      \"role\": \"Mentioned as a company but not specifically its AI system\"\n    },\n    {\n      \"name\": \"Uber\",\n      \"role\": \"Mentioned as a company that operates robotaxis\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Tesla Robotaxis (also mentioned as 'robotaxis' and 'self-driving car')\",\n    \"system_type\": \"autonomous vehicle\"\n  },\n  \"harm\": {\n    \"type\": \"safety risks, incomplete autonomy, public safety concerns\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Tesla, Inc.\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"Waymo\",\n      \"role\": \"not stated\"\n    },\n    {\n      \"name\": \"Uber\",\n      \"role\": \"not stated\"\n    }\n  ],\n  \"description\": \"Tesla and other autonomous vehicle companies admitted to US Senator Ed Markey that human operators sometimes remotely control robotaxis when AI systems fail or face unexpected situations.\",\n  \"deployer\": \"US Senator Ed Markey\",\n  \"affected_parties\": \"public safety, regulatory scrutiny\"\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Tesla Robotaxis (also mentioned as 'robotaxis' and 'self-driving car')",
+        "system_type": "autonomous vehicle"
+      },
+      "harm": {
+        "type": "safety risks, incomplete autonomy, public safety concerns",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Tesla, Inc.",
+          "role": "developer"
+        },
+        {
+          "name": "Waymo",
+          "role": "not stated"
+        },
+        {
+          "name": "Uber",
+          "role": "not stated"
+        }
+      ],
+      "description": "Tesla and other autonomous vehicle companies admitted to US Senator Ed Markey that human operators sometimes remotely control robotaxis when AI systems fail or face unexpected situations.",
+      "deployer": "US Senator Ed Markey",
+      "affected_parties": "public safety, regulatory scrutiny"
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-01",
+        "event_location": "United States",
+        "description": "Tesla and other autonomous vehicle companies admitted to US Senator that human operators sometimes remotely control robotaxis when AI systems fail"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "autonomous vehicle",
+        "developer": "Tesla",
+        "deployer": "Tesla"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "minor",
+        "affected_parties": "passengers, pedestrians"
+      },
+      "organizations": [
+        {
+          "name": "Tesla",
+          "role": "developer"
+        },
+        {
+          "name": "Ed Markey",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 18.553462028503418,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-01-e72a",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"incident\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"App Store (iOS/iPadOS)\",\n  \"description\": \"The use of AI-driven 'vibe coding' tools led to an 84% surge in App Store submissions, overwhelming Apple's review infrastructure and causing approval delays of up to 30 days.\",\n  \"ai_system_name\": \"AI-driven 'vibe coding' tools\",\n  \"system_type\": \"software development tool\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Apple Inc.\",\n  \"harm_type\": \"disruption, delay\",\n  \"severity\": \"high\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Apple Inc.\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"App Store (iOS/iPadOS)\",\n      \"role\": \"infrastructure provider\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Apple Inc.\",\n      \"role\": \"deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"vibe coding tools\",\n    \"type\": \"AI-driven\"\n  },\n  \"harm\": {\n    \"type\": \"overwhelming Apple's review infrastructure and causing approval delays of up to 30 days\",\n    \"severity\": \"up to 30 days\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Apple Inc.\"\n    ],\n    \"role\": [\n      \"removed non-compliant apps\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "vibe coding tools",
+        "type": "AI-driven"
+      },
+      "harm": {
+        "type": "overwhelming Apple's review infrastructure and causing approval delays of up to 30 days",
+        "severity": "up to 30 days"
+      },
+      "organizations": {
+        "name": [
+          "Apple Inc."
+        ],
+        "role": [
+          "removed non-compliant apps"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-01",
+        "event_location": "United States",
+        "description": "AI-driven vibe coding tools caused 84% surge in App Store submissions, overwhelming Apple's review infrastructure and causing approval delays of up to 30 days"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "moderate",
+        "affected_parties": "app developers, Apple"
+      },
+      "organizations": [
+        {
+          "name": "Apple",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.35292935371399,
+    "error": null
+  },
+  {
+    "incident_id": "2026-03-31-1326",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"incident\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"New York Times (presumably New York)\",\n  \"description\": \"The New York Times severed ties with freelance journalist Alex Preston after discovering he used AI to draft a book review that included plagiarized material from a Guardian review.\",\n  \"ai_system_name\": \"AI tool (no specific name mentioned)\",\n  \"system_type\": \"Natural Language Processing/Content Generation\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Alex Preston\",\n  \"harm_type\": \"Intellectual property rights breach, journalistic standards breach\",\n  \"severity\": \"Moderate to High\",\n  \"affected_parties\": [\n    {\n      \"name\": \"The New York Times\",\n      \"role\": \"Publisher\"\n    },\n    {\n      \"name\": \"Alex Preston\",\n      \"role\": \"Freelance Journalist\"\n    },\n    {\n      \"name\": \"The Guardian\",\n      \"role\": \"Original Review Publisher\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"The New York Times\",\n      \"role\": \"Publisher\"\n    },\n    {\n      \"name\": \"The Guardian\",\n      \"role\": \"Publisher\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"description\": \"The New York Times severed ties with freelance journalist Alex Preston after discovering he used AI to draft a book review that included plagiarized material from a Guardian review.\",\n  \"ai_system\": {\n    \"name\": \"not stated\",\n    \"type\": \"Artificial intelligence\"\n  },\n  \"developer\": \"not stated\",\n  \"deployer\": \"The New York Times\",\n  \"harm\": {\n    \"type\": \"breach of intellectual property rights and journalistic standards\"\n  },\n  \"severity\": \"not stated\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Alex Preston\",\n      \"role\": \"freelance journalist\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"The New York Times\",\n      \"role\": \"publisher\"\n    },\n    {\n      \"name\": \"The Guardian\",\n      \"role\": \"source of plagiarized material\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "description": "The New York Times severed ties with freelance journalist Alex Preston after discovering he used AI to draft a book review that included plagiarized material from a Guardian review.",
+      "ai_system": {
+        "name": "not stated",
+        "type": "Artificial intelligence"
+      },
+      "developer": "not stated",
+      "deployer": "The New York Times",
+      "harm": {
+        "type": "breach of intellectual property rights and journalistic standards"
+      },
+      "severity": "not stated",
+      "affected_parties": [
+        {
+          "name": "Alex Preston",
+          "role": "freelance journalist"
+        }
+      ],
+      "organizations": [
+        {
+          "name": "The New York Times",
+          "role": "publisher"
+        },
+        {
+          "name": "The Guardian",
+          "role": "source of plagiarized material"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-03-31",
+        "event_location": "United States",
+        "description": "New York Times fired freelance critic Alex Preston after discovering he used AI to draft a book review that included plagiarized material from a Guardian review"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "generative AI",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "rights violation",
+        "severity": "moderate",
+        "affected_parties": "The Guardian, original reviewer"
+      },
+      "organizations": [
+        {
+          "name": "The New York Times",
+          "role": "other"
+        },
+        {
+          "name": "The Guardian",
+          "role": "victim"
+        },
+        {
+          "name": "Alex Preston",
+          "role": "other"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 18.893402099609375,
+    "error": null
+  },
+  {
+    "incident_id": "2026-03-31-f6f8",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"exploitation\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Google Cloud's Vertex AI Agent Engine had excessive default permissions, allowing attackers to hijack AI agents as 'double agents'. This enabled unauthorized access to sensitive customer data and proprietary Google code.\",\n  \"ai_system_name\": \"Vertex AI Agent Engine\",\n  \"system_type\": \"Artificial intelligence\",\n  \"developer\": \"Google\",\n  \"deployer\": \"Google Cloud\",\n  \"harm_type\": \"Unauthorized access, Exposing critical infrastructure and intellectual property\",\n  \"severity\": \"High\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Sensitive customer data\",\n      \"role\": \"Affected\"\n    },\n    {\n      \"name\": \"Proprietary Google code\",\n      \"role\": \"Exposed\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Google\",\n      \"role\": \"Developer, Deployer\"\n    },\n    {\n      \"name\": \"Palo Alto Networks\",\n      \"role\": \"Security researchers\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Google Cloud Vertex AI Agent Engine\",\n    \"type\": \"AI Agents\"\n  },\n  \"harm\": {\n    \"description\": \"unauthorized access to sensitive customer data and proprietary Google code, exposing critical infrastructure and intellectual property.\",\n    \"type\": \"not stated\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Google\",\n      \"Palo Alto Networks\"\n    ],\n    \"role\": [\n      \"affected\",\n      \"developer\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Google Cloud Vertex AI Agent Engine",
+        "type": "AI Agents"
+      },
+      "harm": {
+        "description": "unauthorized access to sensitive customer data and proprietary Google code, exposing critical infrastructure and intellectual property.",
+        "type": "not stated",
+        "severity": "not stated"
+      },
+      "organizations": {
+        "name": [
+          "Google",
+          "Palo Alto Networks"
+        ],
+        "role": [
+          "affected",
+          "developer"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-03-31",
+        "event_location": "United States",
+        "description": "Google Cloud Vertex AI Agent Engine had excessive default permissions allowing attackers to hijack AI agents, access sensitive customer data and proprietary Google code"
+      },
+      "ai_system": {
+        "name": "Vertex AI Agent Engine",
+        "system_type": "ai agent",
+        "developer": "Google",
+        "deployer": "Google Cloud"
+      },
+      "harm": {
+        "harm_type": "rights violation",
+        "severity": "significant",
+        "affected_parties": "Google Cloud customers"
+      },
+      "organizations": [
+        {
+          "name": "Google",
+          "role": "developer"
+        },
+        {
+          "name": "Google Cloud",
+          "role": "deployer"
+        },
+        {
+          "name": "Attacker",
+          "role": "other"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 15.329406976699829,
+    "error": null
+  },
+  {
+    "incident_id": "2026-03-31-c2e0",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Testing\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Operation Lethal Eagle (military exercise)\",\n  \"description\": \"The US Army tested Northrop Grumman's AI-enabled autonomous strike drone, the Lumberjack.\",\n  \"ai_system_name\": \"Lumberjack\",\n  \"system_type\": \"Autonomous Strike Drone\",\n  \"developer\": \"Northrop Grumman\",\n  \"deployer\": \"US Army (101st Airborne Division)\",\n  \"harm_type\": \"Potential future risks associated with autonomous weapon systems\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": \"not stated\",\n  \"organizations\": [\n    {\n      \"name\": \"Northrop Grumman\",\n      \"role\": \"Developer\"\n    },\n    {\n      \"name\": \"US Army (101st Airborne Division)\",\n      \"role\": \"Deployer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Lumberjack\",\n    \"developer\": \"Northrop Grumman\",\n    \"system_type\": \"Autonomous Strike Drone\"\n  },\n  \"harm\": {\n    \"type\": \"not stated\",\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"US Army's 101st Airborne Division\",\n      \"role\": \"Deployer\"\n    },\n    {\n      \"name\": \"Northrop Grumman\",\n      \"role\": \"Developer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Lumberjack",
+        "developer": "Northrop Grumman",
+        "system_type": "Autonomous Strike Drone"
+      },
+      "harm": {
+        "type": "not stated",
+        "severity": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "US Army's 101st Airborne Division",
+          "role": "Deployer"
+        },
+        {
+          "name": "Northrop Grumman",
+          "role": "Developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-03-31",
+        "event_location": "United States",
+        "description": "US Army tested Northrop Grumman's AI-enabled autonomous strike drone Lumberjack with autonomous targeting and precision strike capabilities with limited human input"
+      },
+      "ai_system": {
+        "name": "Lumberjack",
+        "system_type": "autonomous vehicle",
+        "developer": "Northrop Grumman",
+        "deployer": "US Army"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "moderate",
+        "affected_parties": "not stated"
+      },
+      "organizations": [
+        {
+          "name": "Northrop Grumman",
+          "role": "developer"
+        },
+        {
+          "name": "US Army",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.214027881622314,
+    "error": null
+  },
+  {
+    "incident_id": "2026-03-31-928f",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"Theft and leak\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"China (Chinese firms)\",\n  \"description\": \"US AI company Anthropic accused Chinese firms of illegally extracting capabilities from its Claude model using mass account networks, violating terms and raising security concerns. Separately, Anthropic accidentally leaked 500,000 lines of Claude Code's source code due to a packaging error, exposing proprietary technology and internal plans.\",\n  \"ai_system_name\": \"Claude\",\n  \"system_type\": \"AI model\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"Security concerns, Proprietary technology exposure\",\n  \"severity\": \"High\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer\"\n    },\n    {\n      \"name\": \"Chinese firms\",\n      \"role\": \"Deployer/Thieves\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Claude model\",\n    \"type\": \"AI model\"\n  },\n  \"harm\": {\n    \"description\": \"illegally extracting capabilities, violating terms and raising security concerns; exposing proprietary technology and internal plans\",\n    \"type\": \"security breach, intellectual property theft\"\n  },\n  \"organizations\": {\n    \"name\": [\n      \"Anthropic\",\n      \"Chinese firms\"\n    ],\n    \"role\": [\n      \"developer\",\n      \"deployer/thief\"\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Claude model",
+        "type": "AI model"
+      },
+      "harm": {
+        "description": "illegally extracting capabilities, violating terms and raising security concerns; exposing proprietary technology and internal plans",
+        "type": "security breach, intellectual property theft"
+      },
+      "organizations": {
+        "name": [
+          "Anthropic",
+          "Chinese firms"
+        ],
+        "role": [
+          "developer",
+          "deployer/thief"
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-03-31",
+        "event_location": "United States",
+        "description": "Anthropic accused Chinese firms of illegally extracting Claude model capabilities; separately leaked 500,000 lines of Claude Code source code due to packaging error"
+      },
+      "ai_system": {
+        "name": "Claude, Claude Code",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "Anthropic"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "moderate",
+        "affected_parties": "Anthropic"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "Anthropic",
+          "role": "victim"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 15.209922075271606,
+    "error": null
+  },
+  {
+    "incident_id": "2026-03-31-e055",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"supply chain attack\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"A supply chain attack on the open-source AI tool LiteLLM compromised Mercor, an AI recruiting startup, exposing sensitive customer data and AI training information.\",\n  \"ai_system_name\": \"LiteLLM\",\n  \"system_type\": \"open-source AI tool\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Mercor (AI recruiting startup)\",\n  \"harm_type\": \"exposure of sensitive customer data and AI training information\",\n  \"severity\": \"high\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Mercor\",\n      \"role\": \"victim\"\n    },\n    {\n      \"name\": \"Meta Platforms\",\n      \"role\": \"collaborator affected by the breach\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"supply chain attack\",\n    \"description\": \"A supply chain attack on the open-source AI tool LiteLLM compromised Mercor, an AI recruiting startup, exposing sensitive customer data and AI training information.\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"LiteLLM\",\n    \"type\": \"open-source AI tool\"\n  },\n  \"harm\": {\n    \"type\": [\n      \"exposing sensitive customer data and AI training information\"\n    ],\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": {\n    \"affected_parties\": {\n      \"name\": \"Mercor\",\n      \"role\": \"AI recruiting startup\"\n    }\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "supply chain attack",
+        "description": "A supply chain attack on the open-source AI tool LiteLLM compromised Mercor, an AI recruiting startup, exposing sensitive customer data and AI training information.",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "LiteLLM",
+        "type": "open-source AI tool"
+      },
+      "harm": {
+        "type": [
+          "exposing sensitive customer data and AI training information"
+        ],
+        "severity": "not stated"
+      },
+      "organizations": {
+        "affected_parties": {
+          "name": "Mercor",
+          "role": "AI recruiting startup"
+        }
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-03-31",
+        "event_location": "United States",
+        "description": "Supply chain attack on open-source AI tool LiteLLM compromised Mercor, exposing sensitive customer data and AI training information, affecting thousands of firms"
+      },
+      "ai_system": {
+        "name": "LiteLLM",
+        "system_type": "other",
+        "developer": "not stated",
+        "deployer": "Mercor"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "severe",
+        "affected_parties": "Mercor customers, thousands of firms"
+      },
+      "organizations": [
+        {
+          "name": "Mercor",
+          "role": "deployer"
+        },
+        {
+          "name": "Mercor",
+          "role": "victim"
+        },
+        {
+          "name": "Meta",
+          "role": "other"
+        },
+        {
+          "name": "Lapsus$",
+          "role": "other"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 14.150851249694824,
+    "error": null
+  },
+  {
+    "incident_id": "2026-03-31-01b6",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"crash\",\n  \"event_date\": \"2024\", \n  \"event_location\": \"San Antonio and Philadelphia\",\n  \"description\": \"Two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred.\",\n  \"ai_system_name\": \"BlueCruise\",\n  \"system_type\": \"driver-assistance system\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Ford Motor Company\",\n  \"harm_type\": \"fatal\",\n  \"severity\": \"high\",\n  \"affected_parties\": [\n    {\n      \"name\": \"drivers\",\n      \"role\": \"involved\"\n    },\n    {\n      \"name\": \"U.S. safety agencies\",\n      \"role\": \"investigating\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"National Transportation Safety Board\",\n      \"role\": \"investigating\"\n    },\n    {\n      \"name\": \"Ford Motor Company\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"National Highway Traffic Safety Administration\",\n      \"role\": \"not stated\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": [\n      {\"value\": \"San Antonio\", \"source\": \"In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia.\"},\n      {\"value\": \"Philadelphia\", \"source\": \"In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia.\"}\n    ],\n    \"description\": [\n      {\"value\": \"two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system\", \"source\": \"In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia.\"}\n    ]\n  },\n  \"ai_system\": {\n    \"name\": \"BlueCruise\",\n    \"type\": \"AI-based driver assistance system\"\n  },\n  \"harm\": {\n    \"type\": [\n      {\"value\": \"fatal\", \"source\": \"two fatal crashes\"}\n    ],\n    \"severity\": \"not stated\"\n  },\n  \"organizations\": {\n    \"name\": [\n      {\"value\": \"National Transportation Safety Board\", \"source\": \"U.S. safety agencies are investigating system limitations and driver distraction.\"},\n      {\"value\": \"Ford Motor Company\", \"source\": \"In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia.\"}\n    ],\n    \"role\": [\n      {\"value\": \"investigating\", \"source\": \"U.S. safety agencies are investigating system limitations and driver distraction.\"},\n      {\"value\": \"deployer\", \"source\": \"In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia.\"}\n    ]\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": [
+          {
+            "value": "San Antonio",
+            "source": "In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia."
+          },
+          {
+            "value": "Philadelphia",
+            "source": "In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia."
+          }
+        ],
+        "description": [
+          {
+            "value": "two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system",
+            "source": "In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia."
+          }
+        ]
+      },
+      "ai_system": {
+        "name": "BlueCruise",
+        "type": "AI-based driver assistance system"
+      },
+      "harm": {
+        "type": [
+          {
+            "value": "fatal",
+            "source": "two fatal crashes"
+          }
+        ],
+        "severity": "not stated"
+      },
+      "organizations": {
+        "name": [
+          {
+            "value": "National Transportation Safety Board",
+            "source": "U.S. safety agencies are investigating system limitations and driver distraction."
+          },
+          {
+            "value": "Ford Motor Company",
+            "source": "In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia."
+          }
+        ],
+        "role": [
+          {
+            "value": "investigating",
+            "source": "U.S. safety agencies are investigating system limitations and driver distraction."
+          },
+          {
+            "value": "deployer",
+            "source": "In 2024, two fatal crashes involving Ford Mustang Mach-Es using the BlueCruise AI-based driver assistance system occurred in San Antonio and Philadelphia."
+          }
+        ]
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-03-31",
+        "event_location": "San Antonio and Philadelphia, United States",
+        "description": "Two fatal crashes involving Ford Mustang Mach-Es using BlueCruise AI driver assistance system failed to detect stationary vehicles, resulting in deaths"
+      },
+      "ai_system": {
+        "name": "BlueCruise",
+        "system_type": "autonomous vehicle",
+        "developer": "Ford",
+        "deployer": "Ford"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "severe",
+        "affected_parties": "vehicle occupants"
+      },
+      "organizations": [
+        {
+          "name": "Ford",
+          "role": "developer"
+        },
+        {
+          "name": "Ford",
+          "role": "deployer"
+        },
+        {
+          "name": "NTSB",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 24.613481998443604,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-17-f5bd",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI1",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"security threat\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"not stated\",\n  \"description\": \"Cal.com closed its source code due to AI-driven security threats.\",\n  \"ai_system_name\": \"Claude Mythos\",\n  \"system_type\": \"AI system\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Cal.com\",\n  \"harm_type\": \"security vulnerability exploitation\",\n  \"severity\": \"high\",\n  \"affected_parties\": [\n    {\n      \"name\": \"Cal.com\",\n      \"role\": \"victim\"\n    },\n    {\n      \"name\": \"open-source software community\",\n      \"role\": \"impacted\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Cal.com\",\n      \"role\": \"affected organization\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"not stated\",\n    \"date\": \"not stated\",\n    \"location\": \"not stated\"\n  },\n  \"ai_system\": {\n    \"name\": \"Claude Mythos\",\n    \"type\": \"AI systems\"\n  },\n  \"harm\": {\n    \"description\": \"AI-driven security threats\",\n    \"type\": \"security threats\",\n    \"severity\": \"rising security concerns\"\n  },\n  \"organizations\": {\n    \"name\": \"Cal.com\",\n    \"role\": \"major open-source scheduling platform\"\n  }\n}",
+    "parsed_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "not stated"
+      },
+      "ai_system": {
+        "name": "Claude Mythos",
+        "type": "AI systems"
+      },
+      "harm": {
+        "description": "AI-driven security threats",
+        "type": "security threats",
+        "severity": "rising security concerns"
+      },
+      "organizations": {
+        "name": "Cal.com",
+        "role": "major open-source scheduling platform"
+      }
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-17",
+        "event_location": "United States",
+        "description": "Cal.com closed its source code and switched to proprietary license due to AI systems like Claude Mythos that can rapidly identify and exploit software vulnerabilities"
+      },
+      "ai_system": {
+        "name": "Claude Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "open-source software community"
+      },
+      "organizations": [
+        {
+          "name": "Cal.com",
+          "role": "other"
+        },
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 12.535548210144043,
+    "error": null
+  }
+]
