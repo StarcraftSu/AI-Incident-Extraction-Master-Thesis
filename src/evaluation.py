@@ -324,11 +324,33 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
         return "incorrect"
 
     elif field_type == "bertscore":
-        # Free text field: try substring match first, then BERTScore
-        if isinstance(ext_str, str) and isinstance(gt_str, str):
-            if ext_str == gt_str or ext_str in gt_str or gt_str in ext_str:
-                return "correct"
-        score = compute_bert_score(str(extracted), str(ground_truth))
+        # Free text field. Join lists to comma-separated text so BERTScore
+        # does not score Python repr noise. Also try substring on each list
+        # element individually — a single matching element should count.
+        def _to_text(v):
+            if isinstance(v, list):
+                return ", ".join(str(x) for x in v if x is not None)
+            return str(v)
+
+        ext_text = _to_text(extracted)
+        gt_text = _to_text(ground_truth)
+        ext_norm = _normalize_str(ext_text)
+        gt_norm = _normalize_str(gt_text)
+        if ext_norm == gt_norm or ext_norm in gt_norm or gt_norm in ext_norm:
+            return "correct"
+        # Per-element substring shortcut (only when one side is a list).
+        if isinstance(extracted, list) or isinstance(ground_truth, list):
+            ext_parts = [_normalize_str(str(x)) for x in extracted] if isinstance(extracted, list) else [ext_norm]
+            gt_parts = [_normalize_str(str(x)) for x in ground_truth] if isinstance(ground_truth, list) else [gt_norm]
+            for e in ext_parts:
+                if not e:
+                    continue
+                for g in gt_parts:
+                    if not g:
+                        continue
+                    if e == g or e in g or g in e:
+                        return "correct"
+        score = compute_bert_score(ext_text, gt_text)
         return "correct" if score >= BERT_SCORE_THRESHOLD else "incorrect"
 
     else:
@@ -388,8 +410,11 @@ def _normalize_to_nested(extracted: dict) -> dict:
     that downstream evaluation counts them as hallucinations instead of
     discarding evidence of structure-level invention.
     """
-    if not extracted or not isinstance(extracted, dict):
-        return extracted or {}
+    if not isinstance(extracted, dict):
+        # Treats None, scalars (json.loads("123")), bare strings, and lists
+        # uniformly as unparseable structure → fields score as missing rather
+        # than crashing downstream on .keys().
+        return {}
 
     result = {"event": {}, "ai_system": {}, "harm": {}, "organizations": []}
 
@@ -413,9 +438,16 @@ def _normalize_to_nested(extracted: dict) -> dict:
                 renamed = mapping.get(k, k)
                 result[group_key][renamed] = v
 
-    # Pass 3: organizations array (preserve as-is; comparison logic handles it).
-    if "organizations" in extracted:
-        result["organizations"] = extracted["organizations"]
+    # Pass 3: organizations. Models occasionally emit a single dict instead
+    # of a list (≈15% of records, concentrated in PS3_KI4). Coerce a single
+    # {name, role} dict into [dict] so it can be matched; drop other shapes
+    # (role-keyed, column-oriented) — they're left as the initialized [],
+    # so GT orgs count as missing rather than being silently zeroed.
+    orgs = extracted.get("organizations")
+    if isinstance(orgs, list):
+        result["organizations"] = orgs
+    elif isinstance(orgs, dict) and ("name" in orgs or "role" in orgs):
+        result["organizations"] = [orgs]
 
     return result
 
@@ -715,5 +747,36 @@ if __name__ == "__main__":
     assert len(org_paths) == 4, f"expected 4 org-hall paths, got {org_paths}"
     assert all(org_results[p] == "hallucinated" for p in org_paths)
     print("  Empty-GT-orgs hallucination counting: OK")
+
+    # ---- Regression tests for ultrareview findings (May 2026) ----
+
+    # Ultrareview #3: bare-JSON parsed_output must not crash evaluate_extraction.
+    for bare in (123, "AI incident", [1, 2, 3], True):
+        out = evaluate_extraction(bare, {"event": {"event_type": "AI incident"}})
+        assert out.get("event.event_type") == "missing", f"bare {bare!r} → {out}"
+    print("  Bare-JSON parsed_output safe: OK")
+
+    # Ultrareview #2: single-dict organizations coerced to list and matched.
+    gt_one_org = {
+        "event": {}, "ai_system": {}, "harm": {},
+        "organizations": [{"name": "Anthropic", "role": "developer"}],
+    }
+    ext_dict_org = {
+        "event": {}, "ai_system": {}, "harm": {},
+        "organizations": {"name": "Anthropic", "role": "developer"},
+    }
+    r = evaluate_extraction(ext_dict_org, gt_one_org)
+    assert r.get("organizations[0].name") == "correct"
+    assert r.get("organizations[0].role") == "correct"
+    print("  Single-dict organizations coercion: OK")
+
+    # Ultrareview #1: list-typed BERTScore extraction matched via substring.
+    r = compare_values(
+        ["employees", "store operations"],
+        "Andon Market employees",
+        "harm.affected_parties",
+    )
+    assert r == "correct", f"expected correct, got {r}"
+    print("  BERTScore list extraction: OK")
 
     print("\nAll tests passed!")
