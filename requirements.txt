@@ -3,6 +3,9 @@
 # HTTP requests for Ollama API
 requests>=2.28.0
 
+# .env loader for ANTHROPIC_API_KEY (read at the top of every entry point)
+python-dotenv>=1.0.0
+
 # Configuration file parsing
 pyyaml>=6.0
 

@@ -14,6 +14,10 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
+# Load ANTHROPIC_API_KEY from .env at project root.
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).resolve().parent / ".env")
+
 from llm_client import OllamaClient, AnthropicClient
 from templates import build_condition_prompt, ALL_CONDITIONS, KI_LABELS, PS_LABELS
 from evaluation import parse_json_output

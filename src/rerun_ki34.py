@@ -12,6 +12,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+# Load ANTHROPIC_API_KEY from .env at project root (no-op for local Ollama,
+# but harmless and consistent with experiment.py's loader).
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+
 from data_loader import load_dataset_with_ground_truth
 from experiment import ExperimentRunner
 

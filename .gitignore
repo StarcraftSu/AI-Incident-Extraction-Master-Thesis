@@ -27,5 +27,11 @@ data/results/*.json
 # Office lock files (Word/Excel "~$..." while a doc is open)
 ~$*
 
+# Local secrets — .env holds ANTHROPIC_API_KEY etc. NEVER commit.
+# .env.example IS tracked as a non-secret template.
+.env
+.env.*
+!.env.example
+
 # macOS
 .DS_Store

@@ -17,6 +17,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+# Load ANTHROPIC_API_KEY from .env at project root before any client imports.
+# .env is gitignored; copy .env.example -> .env and fill in your key.
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+
 from data_loader import Dataset
 from llm_client import OllamaClient, AnthropicClient, LLMResponse, create_client
 from evaluation import (
