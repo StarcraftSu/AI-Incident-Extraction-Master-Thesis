@@ -307,9 +307,17 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
     gt_str = _normalize_str(str(ground_truth)) if not isinstance(ground_truth, (dict, list)) else ground_truth
 
     if field_type == "constrained":
-        # Constrained field: handle comma-separated values in both GT and extraction
-        gt_options = {opt.strip() for opt in gt_str.split(",")} if isinstance(gt_str, str) else {gt_str}
-        ext_options = {opt.strip() for opt in ext_str.split(",")} if isinstance(ext_str, str) else {ext_str}
+        # Constrained field: build sets of allowed values from each side.
+        # Both can be: a comma-separated string, or a list of strings.
+        def _to_options(v):
+            if isinstance(v, list):
+                return {_normalize_str(str(x)) for x in v if x is not None}
+            if isinstance(v, str):
+                return {opt.strip() for opt in v.split(",")}
+            return {str(v)}
+
+        gt_options = _to_options(gt_str)
+        ext_options = _to_options(ext_str)
         # Correct if any extracted value matches any ground truth value
         if gt_options & ext_options:
             return "correct"
@@ -334,79 +342,82 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
         return "incorrect"
 
 
-def _normalize_to_nested(extracted: dict) -> dict:
-    """Normalize a flat extraction output to the nested ground truth structure.
+_INNER_KEY_MAP = {
+    "event": {
+        "type": "event_type",
+        "date": "event_date",
+        "location": "event_location",
+    },
+    "ai_system": {
+        "type": "system_type",
+        "system": "system_type",
+    },
+    "harm": {
+        "type": "harm_type",
+    },
+}
 
-    Maps flat keys like 'event_type', 'ai_system_name' to nested paths like
-    'event.event_type', 'ai_system.name'. If the output is already nested
-    (has 'event', 'ai_system', 'harm' keys), it is returned as-is.
+_FLAT_TO_NESTED = {
+    "event_type": ("event", "event_type"),
+    "event_date": ("event", "event_date"),
+    "event_location": ("event", "event_location"),
+    "description": ("event", "description"),
+    "ai_system_name": ("ai_system", "name"),
+    "name": ("ai_system", "name"),
+    "system_type": ("ai_system", "system_type"),
+    "developer": ("ai_system", "developer"),
+    "deployer": ("ai_system", "deployer"),
+    "harm_type": ("harm", "harm_type"),
+    "severity": ("harm", "severity"),
+    "affected_parties": ("harm", "affected_parties"),
+}
+
+
+def _normalize_to_nested(extracted: dict) -> dict:
+    """Normalize an extraction output to the nested ground truth structure.
+
+    Three cases handled by a single pass (fixes the previous all-or-nothing
+    logic that left flat keys in place when the output was partially nested):
+
+    1. Pure flat output  → flat keys promoted into nested groups.
+    2. Pure nested output → inner keys renamed (e.g., 'type' → 'event_type').
+    3. Mixed output      → flat keys promoted AND nested blocks merged in;
+                           nested values win on conflict.
+
+    Unknown top-level keys are preserved (rather than silently dropped) so
+    that downstream evaluation counts them as hallucinations instead of
+    discarding evidence of structure-level invention.
     """
     if not extracted or not isinstance(extracted, dict):
         return extracted or {}
 
-    # If already nested (has the group dict keys), normalize inner keys
-    # then return. Models sometimes use shortened names like "type" instead
-    # of "event_type" or "location" instead of "event_location".
-    is_nested = any(isinstance(extracted.get(k), dict) for k in ("event", "ai_system", "harm"))
-    if is_nested:
-        INNER_KEY_MAP = {
-            "event": {
-                "type": "event_type",
-                "date": "event_date",
-                "location": "event_location",
-            },
-            "ai_system": {
-                "type": "system_type",
-                "system": "system_type",
-            },
-            "harm": {
-                "type": "harm_type",
-            },
-        }
-        result = {}
-        for key, value in extracted.items():
-            if key in INNER_KEY_MAP and isinstance(value, dict):
-                mapping = INNER_KEY_MAP[key]
-                result[key] = {mapping.get(k, k): v for k, v in value.items()}
-            else:
-                result[key] = value
-        return result
+    result = {"event": {}, "ai_system": {}, "harm": {}, "organizations": []}
 
-    # Mapping from flat key → (group, nested_key)
-    FLAT_TO_NESTED = {
-        "event_type": ("event", "event_type"),
-        "event_date": ("event", "event_date"),
-        "event_location": ("event", "event_location"),
-        "description": ("event", "description"),
-        "ai_system_name": ("ai_system", "name"),
-        "name": ("ai_system", "name"),
-        "system_type": ("ai_system", "system_type"),
-        "developer": ("ai_system", "developer"),
-        "deployer": ("ai_system", "deployer"),
-        "harm_type": ("harm", "harm_type"),
-        "severity": ("harm", "severity"),
-        "affected_parties": ("harm", "affected_parties"),
-    }
-
-    nested = {
-        "event": {},
-        "ai_system": {},
-        "harm": {},
-    }
-
+    # Pass 1: lift recognised flat keys into their nested groups.
     for key, value in extracted.items():
-        if key == "organizations":
-            nested["organizations"] = value
-        elif key in FLAT_TO_NESTED:
-            group, nested_key = FLAT_TO_NESTED[key]
-            nested[group][nested_key] = value
-        # Ignore unmapped keys (they would be hallucinated structure)
+        if key in ("event", "ai_system", "harm", "organizations"):
+            continue
+        if key in _FLAT_TO_NESTED:
+            group, nested_key = _FLAT_TO_NESTED[key]
+            result[group][nested_key] = value
+        else:
+            # Unknown top-level key: preserve so it surfaces as a hallucination.
+            result[key] = value
 
-    # Preserve organizations if present
-    if "organizations" not in nested:
-        nested["organizations"] = []
+    # Pass 2: merge nested blocks on top, overriding any flat-promoted values.
+    for group_key in ("event", "ai_system", "harm"):
+        block = extracted.get(group_key)
+        if isinstance(block, dict):
+            mapping = _INNER_KEY_MAP.get(group_key, {})
+            for k, v in block.items():
+                renamed = mapping.get(k, k)
+                result[group_key][renamed] = v
 
-    return nested
+    # Pass 3: organizations array (preserve as-is; comparison logic handles it).
+    if "organizations" in extracted:
+        result["organizations"] = extracted["organizations"]
+
+    return result
 
 
 def evaluate_extraction(
@@ -445,10 +456,16 @@ def evaluate_extraction(
                 field_path
             )
             results.update(nested_results)
-        elif isinstance(gt_value, list) and isinstance(gt_value[0] if gt_value else None, dict):
-            # Organizations array: compare lists of {name, role} dicts
+        elif key == "organizations" or (
+            isinstance(gt_value, list)
+            and gt_value
+            and isinstance(gt_value[0], dict)
+        ):
+            # Organizations array: compare lists of {name, role} dicts.
+            # Enter this branch even when GT is an empty list, so that
+            # hallucinated orgs are counted per-element.
             ext_list = ext_value if isinstance(ext_value, list) else []
-            gt_list = gt_value
+            gt_list = gt_value if isinstance(gt_value, list) else []
 
             # For each ground truth org, find best match in extracted
             for i, gt_org in enumerate(gt_list):
@@ -641,5 +658,62 @@ if __name__ == "__main__":
     assert compare_values("OpenAI", "OpenAI", "ai_system.developer") == "correct"
     assert compare_values("Reno Police", "Reno Police Department", "ai_system.deployer") == "correct"
     print("  Open field substring: OK")
+
+    # ---- Regression tests for the 30-Apr / 01-May evaluation fixes ----
+
+    # Bug 1: mixed flat + nested output should not double-count.
+    mixed = {
+        "event": {"event_type": "AI incident"},
+        "harm_type": "physical",  # flat extra
+        "severity": "severe",      # flat extra
+    }
+    normalized = _normalize_to_nested(mixed)
+    assert normalized["event"]["event_type"] == "AI incident"
+    assert normalized["harm"]["harm_type"] == "physical"
+    assert normalized["harm"]["severity"] == "severe"
+    assert "harm_type" not in normalized and "severity" not in normalized
+    print("  Mixed flat+nested merge: OK")
+
+    # Bug 1b: pure flat still promoted.
+    flat_only = {"event_type": "AI incident", "harm_type": "economic"}
+    norm_flat = _normalize_to_nested(flat_only)
+    assert norm_flat["event"]["event_type"] == "AI incident"
+    assert norm_flat["harm"]["harm_type"] == "economic"
+    assert "event_type" not in norm_flat
+    print("  Pure flat promotion: OK")
+
+    # Bug 1c: nested wins on conflict with flat duplicate.
+    conflict = {"event": {"event_type": "AI hazard"}, "event_type": "AI incident"}
+    norm_c = _normalize_to_nested(conflict)
+    assert norm_c["event"]["event_type"] == "AI hazard"
+    print("  Nested-wins-on-conflict: OK")
+
+    # Bug 3: unknown top-level keys preserved (counted as hallucination downstream).
+    unknown = {"event_type": "AI incident", "culprit": "Tesla"}
+    norm_u = _normalize_to_nested(unknown)
+    assert norm_u.get("culprit") == "Tesla"
+    print("  Unknown key preservation: OK")
+
+    # Bug 2: hallucinated orgs counted per-element when GT has empty list.
+    gt_empty_orgs = {
+        "event": {"event_type": "AI incident"},
+        "ai_system": {},
+        "harm": {},
+        "organizations": [],
+    }
+    ext_two_orgs = {
+        "event": {"event_type": "AI incident"},
+        "ai_system": {},
+        "harm": {},
+        "organizations": [
+            {"name": "Tesla", "role": "developer"},
+            {"name": "ACLU", "role": "other"},
+        ],
+    }
+    org_results = evaluate_extraction(ext_two_orgs, gt_empty_orgs)
+    org_paths = [p for p in org_results if p.startswith("organizations[h")]
+    assert len(org_paths) == 4, f"expected 4 org-hall paths, got {org_paths}"
+    assert all(org_results[p] == "hallucinated" for p in org_paths)
+    print("  Empty-GT-orgs hallucination counting: OK")
 
     print("\nAll tests passed!")
