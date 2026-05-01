@@ -413,6 +413,10 @@ _INNER_KEY_MAP = {
     "ai_system": {
         "type": "system_type",
         "system": "system_type",
+        # Some models (notably Haiku PS3) emit the flat-style key inside
+        # the nested ai_system block: {ai_system: {ai_system_name: ...}}.
+        # Rename to the canonical inner key so it scores against name.
+        "ai_system_name": "name",
     },
     "harm": {
         "type": "harm_type",
@@ -857,6 +861,20 @@ if __name__ == "__main__":
     assert compare_values("Physical harm, Economic harm", "physical", "harm.harm_type") == "correct"
     assert compare_values("Physical harm, Economic harm", "economic", "harm.harm_type") == "correct"
     print("  Harm-suffix strip scoped to constrained: OK")
+
+    # Haiku PS3 quirk: ai_system_name inside nested ai_system block.
+    haiku_ps3_shape = {
+        "event": {"event_type": "AI hazard"},
+        "ai_system": {"ai_system_name": "Mythos", "system_type": "AI model"},
+        "harm": {},
+        "organizations": [],
+    }
+    norm = _normalize_to_nested(haiku_ps3_shape)
+    assert norm["ai_system"].get("name") == "Mythos", (
+        f"ai_system_name should rename to name; got {norm['ai_system']}"
+    )
+    assert "ai_system_name" not in norm["ai_system"]
+    print("  Inner ai_system_name → name rename: OK")
 
     # Round-2 #4 (bug_008): empty {} / [] parsed_output should produce
     # missings rather than disappearing from per-field totals.
