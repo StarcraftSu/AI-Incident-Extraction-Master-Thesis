@@ -111,16 +111,18 @@ class BenchmarkMetrics:
         """Return only field rows that should contribute to per-field
         accuracy/precision/recall/F1 averages.
 
-        Excludes `organizations[hN].*` pseudo-fields. These rows track
-        hallucinated organizations (orgs the model extracted that have
-        no GT match) and are 0% accuracy by construction; including
-        them in the average double-counts hallucinations (already
-        captured in `overall_hallucination_rate`) and is sensitive to
-        the arbitrary slot-indexing of where hallucinated orgs land.
+        Excludes any field row with no GT signal at all (correct +
+        incorrect + missing == 0). Such rows are pure hallucinations:
+        the model invented a field that does not exist in the schema
+        (e.g. `event.event_date_quote`, `ai_system.underlying_model`,
+        a top-level `incidents` array, or `organizations[hN].*` for
+        extra orgs). They are at 0% accuracy by construction and
+        should not drag the per-field average — the hallucination
+        signal is already preserved by `overall_hallucination_rate`.
         """
         return {
             k: v for k, v in self.field_metrics.items()
-            if "organizations[h" not in k
+            if (v.correct + v.incorrect + v.missing_in_extraction) > 0
         }
 
     @property
@@ -884,25 +886,32 @@ if __name__ == "__main__":
     assert compare_values("Physical harm, Economic harm", "economic", "harm.harm_type") == "correct"
     print("  Harm-suffix strip scoped to constrained: OK")
 
-    # Hallucinated-org pseudo-fields must NOT inflate per-field
-    # accuracy averages, but must STILL count in hallucination_rate.
+    # Pure-hallucination rows (no GT signal at all) must NOT inflate
+    # per-field accuracy averages, but must STILL count in
+    # hallucination_rate. Triggered by:
+    #   - organizations[hN].* (extra orgs not in GT)
+    #   - schema-extra fields like event.description_quote, harm.scale,
+    #     ai_system.underlying_model, top-level "incidents" array
     bm = BenchmarkMetrics(model="m", template="t", total_samples=2)
     bm.field_metrics = {
         "harm.harm_type":            FieldMetrics("harm.harm_type",            correct=2, incorrect=0, missing_in_extraction=0, hallucinated=0, total=2),
         "ai_system.name":            FieldMetrics("ai_system.name",            correct=2, incorrect=0, missing_in_extraction=0, hallucinated=0, total=2),
         "organizations[h0].name":    FieldMetrics("organizations[h0].name",    correct=0, incorrect=0, missing_in_extraction=0, hallucinated=3, total=3),
         "organizations[h0].role":    FieldMetrics("organizations[h0].role",    correct=0, incorrect=0, missing_in_extraction=0, hallucinated=3, total=3),
+        "event.event_date_quote":    FieldMetrics("event.event_date_quote",    correct=0, incorrect=0, missing_in_extraction=0, hallucinated=2, total=2),
+        "ai_system.underlying_model":FieldMetrics("ai_system.underlying_model",correct=0, incorrect=0, missing_in_extraction=0, hallucinated=1, total=1),
     }
-    # Two real fields at 100% — accuracy must be 100%, not pulled down by [h0] rows.
+    # Two real fields at 100% — accuracy must be 100%, not pulled down
+    # by hallucinated-only rows (org pseudo-fields OR schema extras).
     assert abs(bm.overall_accuracy - 1.0) < 1e-9, (
-        f"hallucinated-org pseudo-fields must not drag accuracy; got {bm.overall_accuracy}"
+        f"pure-hallucination rows must not drag accuracy; got {bm.overall_accuracy}"
     )
-    # Hallucination rate must still see the 6 hallucinated extractions.
-    # total_extracted = 2 + 2 + 3 + 3 = 10; halluc = 6; rate = 0.6.
-    assert abs(bm.overall_hallucination_rate - 0.6) < 1e-9, (
-        f"hallucination_rate must include [hN] rows; got {bm.overall_hallucination_rate}"
+    # Hallucination rate must still see all 9 hallucinated extractions.
+    # total_extracted = 2 + 2 + 3 + 3 + 2 + 1 = 13; halluc = 9; rate = 9/13 ≈ 0.692.
+    assert abs(bm.overall_hallucination_rate - 9/13) < 1e-6, (
+        f"hallucination_rate must include all rows; got {bm.overall_hallucination_rate}"
     )
-    print("  Org-hallucination pseudo-fields excluded from accuracy: OK")
+    print("  Pure-hallucination rows excluded from accuracy: OK")
 
     # Haiku PS3 quirk: ai_system_name inside nested ai_system block.
     haiku_ps3_shape = {
