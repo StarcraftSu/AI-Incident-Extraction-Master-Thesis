@@ -244,13 +244,21 @@ def _normalize_str(value: str) -> str:
                    " llc", ", llc", " co.", ", co."]:
         if s.endswith(suffix):
             s = s[:-len(suffix)].strip()
-    # Defensive: strip trailing " harm" so that taxonomy parent labels
-    # ("physical harm", "economic harm") match the constrained vocab
-    # ("physical", "economic"). The KI3/KI4 prompts now display labels
-    # without the suffix to match OECD criterion 11, but small models may
-    # still echo the legacy form.
-    s = re.sub(r"\s+harm$", "", s)
     return s
+
+
+def _strip_harm_suffix(s: str) -> str:
+    """Strip a trailing " harm" so taxonomy parent labels ("physical harm",
+    "economic harm") match the harm_type vocab ("physical", "economic").
+
+    Scoped to the constrained-options builder rather than baked into
+    `_normalize_str`, so it does not over-fire on ai_system.* or other
+    fields whose values may legitimately end in "harm" (e.g. "victims of
+    harm", "Online Harm" as a brand). Also applied per element so
+    multi-label strings like "Physical harm, Economic harm" both get
+    stripped — the previous end-anchored regex only stripped the last.
+    """
+    return re.sub(r"\s+harm$", "", s)
 
 
 def _is_empty(value: Any) -> bool:
@@ -317,13 +325,17 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
         # Both can be: a comma-separated string, or a list of strings.
         def _to_options(v):
             if isinstance(v, list):
-                return {_normalize_str(str(x)) for x in v if x is not None}
-            if isinstance(v, str):
-                return {opt.strip() for opt in v.split(",")}
-            return {str(v)}
+                items = (_normalize_str(str(x)) for x in v if x is not None)
+            elif isinstance(v, str):
+                items = (_normalize_str(opt) for opt in v.split(","))
+            else:
+                return {str(v)}
+            # Strip taxonomy "harm" suffix per element so "Physical harm,
+            # Economic harm" → {"physical", "economic"} matches the vocab.
+            return {_strip_harm_suffix(item) for item in items if item}
 
-        gt_options = _to_options(gt_str)
-        ext_options = _to_options(ext_str)
+        gt_options = _to_options(ground_truth if isinstance(ground_truth, list) else gt_str)
+        ext_options = _to_options(extracted if isinstance(extracted, list) else ext_str)
         # Correct if any extracted value matches any ground truth value
         if gt_options & ext_options:
             return "correct"
@@ -342,7 +354,10 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
         gt_text = _to_text(ground_truth)
         ext_norm = _normalize_str(ext_text)
         gt_norm = _normalize_str(gt_text)
-        if ext_norm == gt_norm or ext_norm in gt_norm or gt_norm in ext_norm:
+        # Gate the substring shortcut on both sides being non-empty —
+        # otherwise [None] / [""] flatten to "" and trivially pass
+        # `"" in gt_norm` for any non-empty GT, silently inflating accuracy.
+        if ext_norm and gt_norm and (ext_norm == gt_norm or ext_norm in gt_norm or gt_norm in ext_norm):
             return "correct"
         # Per-element substring shortcut (only when one side is a list).
         if isinstance(extracted, list) or isinstance(ground_truth, list):
@@ -360,13 +375,32 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
         return "correct" if score >= BERT_SCORE_THRESHOLD else "incorrect"
 
     else:
-        # Exact match open field (names, dates)
+        # Exact match open field (names, dates).
         if ext_str == gt_str:
             return "correct"
-        # Also try substring for organization names
+        # Also try substring for organization names.
         if isinstance(ext_str, str) and isinstance(gt_str, str):
             if ext_str in gt_str or gt_str in ext_str:
                 return "correct"
+        # Per-element shortcut for list-typed extractions (mirrors the
+        # BERTScore branch). Without this, `["ChatGPT", "Claude"]` against
+        # GT `"ChatGPT"` is scored incorrect even though the correct value
+        # is right there in the list. ~30 records hit this path on Llama.
+        if isinstance(extracted, list) or isinstance(ground_truth, list):
+            ext_parts = [_normalize_str(str(x)) for x in extracted] if isinstance(extracted, list) else (
+                [ext_str] if isinstance(ext_str, str) else []
+            )
+            gt_parts = [_normalize_str(str(x)) for x in ground_truth] if isinstance(ground_truth, list) else (
+                [gt_str] if isinstance(gt_str, str) else []
+            )
+            for e in ext_parts:
+                if not e:
+                    continue
+                for g in gt_parts:
+                    if not g:
+                        continue
+                    if e == g or e in g or g in e:
+                        return "correct"
         return "incorrect"
 
 
@@ -613,7 +647,11 @@ def calculate_metrics(results: list) -> BenchmarkMetrics:
         if result.error:
             metrics.errors.append(f"{result.incident_id}: {result.error}")
 
-        if result.parsed_output and result.ground_truth:
+        # Drop the truthy guard on parsed_output so empty {} / [] still
+        # contribute "missing" to per-field totals (rather than silently
+        # dropping out of denominators and inflating overall accuracy).
+        # `_normalize_to_nested` already returns {} for non-dict inputs.
+        if result.ground_truth:
             field_results = evaluate_extraction(result.parsed_output, result.ground_truth)
 
             for field_path, comparison in field_results.items():
@@ -790,5 +828,64 @@ if __name__ == "__main__":
     assert compare_values("Economic harm", "economic", "harm.harm_type") == "correct"
     assert compare_values("Reputational harm", "reputational", "harm.harm_type") == "correct"
     print("  Trailing-'harm' suffix strip: OK")
+
+    # ---- Regression tests for ultrareview round 2 (May 2026) ----
+
+    # Round-2 #1 (bug_011): exact-match branch handles list-typed extractions.
+    assert compare_values(["ChatGPT", "Claude"], "ChatGPT", "ai_system.name") == "correct"
+    assert compare_values(["OpenAI"], "OpenAI", "ai_system.developer") == "correct"
+    assert compare_values(["2024-09-01"], "2024-09-01", "event.event_date") == "correct"
+    assert compare_values(["MicroBio Corp"], "MicroBio", "ai_system.deployer") == "correct"
+    print("  Exact-match list extraction: OK")
+
+    # Round-2 #2 (bug_003): BERTScore branch must not return correct for
+    # all-empty list extractions (the empty-substring trap).
+    assert compare_values([None], "Anyone harmed", "harm.affected_parties") in ("incorrect", "missing")
+    assert compare_values([""], "users", "harm.affected_parties") in ("incorrect", "missing")
+    assert compare_values(["   "], "general public", "harm.affected_parties") in ("incorrect", "missing")
+    print("  BERTScore empty-substring guard: OK")
+
+    # Round-2 #3 (merged_bug_002): harm-suffix strip is scoped to the
+    # constrained _to_options builder, not baked into _normalize_str.
+    assert _normalize_str("Physical harm") == "physical harm", (
+        "_normalize_str must not strip 'harm' (was over-broad before)"
+    )
+    assert _normalize_str("victims of harm") == "victims of harm"
+    # Multi-label asymmetry: previously the end-anchored regex only
+    # stripped the last token, so "Physical harm, Economic harm" became
+    # {"physical harm", "economic"} which did not intersect {"physical"}.
+    assert compare_values("Physical harm, Economic harm", "physical", "harm.harm_type") == "correct"
+    assert compare_values("Physical harm, Economic harm", "economic", "harm.harm_type") == "correct"
+    print("  Harm-suffix strip scoped to constrained: OK")
+
+    # Round-2 #4 (bug_008): empty {} / [] parsed_output should produce
+    # missings rather than disappearing from per-field totals.
+    from evaluation import calculate_metrics, ExtractionResult
+    full_gt = {
+        "event": {"event_type": "AI incident", "event_date": "2024-01-01",
+                  "event_location": "USA", "description": "x"},
+        "ai_system": {"name": "X", "system_type": "chatbot",
+                      "developer": "X", "deployer": "X"},
+        "harm": {"harm_type": "physical", "severity": "minor",
+                 "affected_parties": "users"},
+        "organizations": [{"name": "X", "role": "developer"}],
+    }
+    rs = [
+        ExtractionResult(incident_id="a", model="m", template="t",
+                         raw_output="", parsed_output={"event": {"event_type": "AI incident"}},
+                         ground_truth=full_gt, is_valid_json=True, latency_seconds=0.0),
+        ExtractionResult(incident_id="b", model="m", template="t",
+                         raw_output="", parsed_output={},
+                         ground_truth=full_gt, is_valid_json=True, latency_seconds=0.0),
+        ExtractionResult(incident_id="c", model="m", template="t",
+                         raw_output="", parsed_output={"event": {"event_type": "AI incident"}},
+                         ground_truth=full_gt, is_valid_json=True, latency_seconds=0.0),
+    ]
+    m = calculate_metrics(rs)
+    assert m.field_metrics["event.event_type"].total == 3, (
+        f"expected 3 records counted, got {m.field_metrics['event.event_type'].total}"
+    )
+    assert m.field_metrics["event.event_type"].missing_in_extraction == 1
+    print("  Empty parsed_output counted as missing: OK")
 
     print("\nAll tests passed!")

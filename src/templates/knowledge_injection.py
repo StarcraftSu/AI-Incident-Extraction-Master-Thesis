@@ -83,23 +83,18 @@ severity taxonomy:
   Significant — lasting harm to individuals or groups
   Severe — widespread, irreversible, or life-threatening harm
 
-system_type taxonomy:
-  Recognition / detection
-    ├── Facial recognition
-    ├── Object detection
-    └── Speech recognition
-  Decision support
-    ├── Recommendation system
-    ├── Predictive system
-    └── Content moderation
-  Autonomous systems
-    ├── Autonomous vehicle
-    └── Robotic system
-  Generative AI
-    ├── Text generation (chatbot, LLM)
-    ├── Image generation
-    └── Video / audio generation (deepfake)
-  Other"""
+system_type taxonomy (choose the single best-fitting category — use the
+label exactly, e.g. "Facial recognition", not "face matching"):
+  Facial recognition — identifying or verifying people from images / video
+  Recommendation system — suggesting content, products, or actions
+  Generative AI — producing text, images, video, audio, or code
+  Autonomous vehicle — self-driving cars, drones, robotaxis
+  Decision support — analytical systems aiding human judgment
+  Chatbot — conversational interfaces (when not a broader generative system)
+  Content moderation — automated removal or labeling of user content
+  Predictive system — risk scoring, fraud detection, demand forecasting
+  AI agent — autonomous goal-pursuing systems with multi-step actions
+  Other — any system not covered above"""
 
 
 # ---------------------------------------------------------------------------
