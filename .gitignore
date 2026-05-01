@@ -21,5 +21,11 @@ data/results/*.json
 *.tmp
 *.log
 
+# Local-only metrics backups written by src/reevaluate.py
+*.json.bak
+
+# Office lock files (Word/Excel "~$..." while a doc is open)
+~$*
+
 # macOS
 .DS_Store
