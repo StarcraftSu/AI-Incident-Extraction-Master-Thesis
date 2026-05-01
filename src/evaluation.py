@@ -244,6 +244,12 @@ def _normalize_str(value: str) -> str:
                    " llc", ", llc", " co.", ", co."]:
         if s.endswith(suffix):
             s = s[:-len(suffix)].strip()
+    # Defensive: strip trailing " harm" so that taxonomy parent labels
+    # ("physical harm", "economic harm") match the constrained vocab
+    # ("physical", "economic"). The KI3/KI4 prompts now display labels
+    # without the suffix to match OECD criterion 11, but small models may
+    # still echo the legacy form.
+    s = re.sub(r"\s+harm$", "", s)
     return s
 
 
@@ -778,5 +784,11 @@ if __name__ == "__main__":
     )
     assert r == "correct", f"expected correct, got {r}"
     print("  BERTScore list extraction: OK")
+
+    # C3: trailing " harm" stripped so taxonomy parent labels match vocab.
+    assert compare_values("Physical harm", "physical", "harm.harm_type") == "correct"
+    assert compare_values("Economic harm", "economic", "harm.harm_type") == "correct"
+    assert compare_values("Reputational harm", "reputational", "harm.harm_type") == "correct"
+    print("  Trailing-'harm' suffix strip: OK")
 
     print("\nAll tests passed!")

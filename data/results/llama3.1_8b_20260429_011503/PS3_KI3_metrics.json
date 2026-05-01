@@ -71,6 +71,46 @@
       "missing": 10,
       "hallucinated": 0
     },
+    "event.event_location": {
+      "accuracy": 0.2,
+      "precision": 0.5882352941176471,
+      "recall": 0.23255813953488372,
+      "f1_score": 0.3333333333333333,
+      "correct": 10,
+      "incorrect": 7,
+      "missing": 33,
+      "hallucinated": 0
+    },
+    "event.event_type": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 3,
+      "missing": 47,
+      "hallucinated": 0
+    },
+    "event.event_date": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 50,
+      "hallucinated": 0
+    },
+    "harm.harm_type": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 40,
+      "missing": 10,
+      "hallucinated": 0
+    },
     "harm.severity": {
       "accuracy": 0.0,
       "precision": 0.0,
@@ -91,45 +131,15 @@
       "missing": 38,
       "hallucinated": 1
     },
-    "harm.harm_type": {
-      "accuracy": 0.0,
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1_score": 0.0,
-      "correct": 0,
-      "incorrect": 40,
-      "missing": 10,
-      "hallucinated": 0
-    },
-    "event.event_type": {
-      "accuracy": 0.0,
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1_score": 0.0,
-      "correct": 0,
-      "incorrect": 3,
-      "missing": 47,
-      "hallucinated": 0
-    },
-    "event.event_location": {
-      "accuracy": 0.2,
-      "precision": 0.5882352941176471,
-      "recall": 0.23255813953488372,
-      "f1_score": 0.3333333333333333,
-      "correct": 10,
-      "incorrect": 7,
-      "missing": 33,
-      "hallucinated": 0
-    },
-    "event.event_date": {
-      "accuracy": 0.0,
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1_score": 0.0,
-      "correct": 0,
-      "incorrect": 0,
-      "missing": 50,
-      "hallucinated": 0
+    "ai_system.name": {
+      "accuracy": 0.6,
+      "precision": 0.6,
+      "recall": 1.0,
+      "f1_score": 0.7499999999999999,
+      "correct": 30,
+      "incorrect": 5,
+      "missing": 0,
+      "hallucinated": 15
     },
     "ai_system.system_type": {
       "accuracy": 0.04,
@@ -141,16 +151,6 @@
       "missing": 5,
       "hallucinated": 1
     },
-    "ai_system.developer": {
-      "accuracy": 0.44,
-      "precision": 1.0,
-      "recall": 0.44,
-      "f1_score": 0.6111111111111112,
-      "correct": 22,
-      "incorrect": 0,
-      "missing": 28,
-      "hallucinated": 0
-    },
     "ai_system.deployer": {
       "accuracy": 0.36,
       "precision": 0.8181818181818182,
@@ -161,15 +161,15 @@
       "missing": 28,
       "hallucinated": 4
     },
-    "ai_system.name": {
-      "accuracy": 0.6,
-      "precision": 0.6,
-      "recall": 1.0,
-      "f1_score": 0.7499999999999999,
-      "correct": 30,
-      "incorrect": 5,
-      "missing": 0,
-      "hallucinated": 15
+    "ai_system.developer": {
+      "accuracy": 0.44,
+      "precision": 1.0,
+      "recall": 0.44,
+      "f1_score": 0.6111111111111112,
+      "correct": 22,
+      "incorrect": 0,
+      "missing": 28,
+      "hallucinated": 0
     },
     "organizations[h0].name": {
       "accuracy": 0.0,
@@ -191,16 +191,6 @@
       "missing": 0,
       "hallucinated": 9
     },
-    "harm.category": {
-      "accuracy": 0.0,
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1_score": 0.0,
-      "correct": 0,
-      "incorrect": 0,
-      "missing": 0,
-      "hallucinated": 3
-    },
     "harm.taxonomy": {
       "accuracy": 0.3333333333333333,
       "precision": 0.3333333333333333,
@@ -210,6 +200,16 @@
       "incorrect": 0,
       "missing": 0,
       "hallucinated": 2
+    },
+    "harm.category": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 3
     },
     "organizations[3].name": {
       "accuracy": 0.0,

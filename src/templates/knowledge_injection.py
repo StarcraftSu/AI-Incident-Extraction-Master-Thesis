@@ -55,26 +55,26 @@ KI3_TAXONOMY = KI2_SCHEMA + """
 
 TAXONOMIES — use these to understand the categories. In the JSON output, always use the TOP-LEVEL category name (e.g., "physical" not "Injury", "economic" not "Financial loss"):
 
-harm_type taxonomy:
-  Physical harm
+harm_type taxonomy (use the parent label exactly — e.g., "Physical", not "Physical harm" or "Injury"):
+  Physical
     ├── Injury (bodily harm to individuals)
     ├── Death (fatalities caused by or related to AI system)
     └── Health impact (long-term health consequences)
-  Psychological harm
+  Psychological
     ├── Distress (emotional suffering, anxiety)
     ├── Manipulation (deception, coercion via AI)
     └── Dignity violation (humiliation, dehumanization)
-  Economic harm
+  Economic
     ├── Financial loss (direct monetary damage)
     ├── Property damage (destruction of physical assets)
     └── Job displacement (employment loss due to AI)
-  Reputational harm
+  Reputational
     └── Defamation or identity misuse
   Rights violation
     ├── Privacy breach (unauthorized data use or surveillance)
     ├── Discrimination (biased decisions based on protected attributes)
     └── Due process violation (denial of fair treatment)
-  Environmental harm
+  Environmental
     └── Ecological damage or resource waste
 
 severity taxonomy:
