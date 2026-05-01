@@ -43,7 +43,7 @@ def build_summary(results_root: Path) -> str:
         # Haiku and Opus runs not yet executed; rows will be omitted if
         # no metrics file is found for them.
         ("claude-haiku-4-5-20251001", "claude_haiku_4_5_20251001", "Claude Haiku 4.5 (API)"),
-        ("claude-opus-4-6-20250918", "claude_opus_4_6_20250918", "Claude Opus 4.6 (API)"),
+        ("claude-opus-4-6", "claude_opus_4_6", "Claude Opus 4.6 (API)"),
     ]
     conditions = [
         f"{ps}_{ki}"

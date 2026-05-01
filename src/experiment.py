@@ -69,9 +69,9 @@ MODELS = {
         "label": "Claude Haiku 4.5 (API)",
         "tier": "mid",
     },
-    "claude-opus-4-6-20250918": {
+    "claude-opus-4-6": {
         "provider": "anthropic",
-        "model_id": "claude-opus-4-6-20250918",
+        "model_id": "claude-opus-4-6",
         "label": "Claude Opus 4.6 (API)",
         "tier": "high",
     },
@@ -420,7 +420,7 @@ def main():
     model_keys = ["llama3.1:8b"]
 
     # Run only Anthropic models:
-    # model_keys = ["claude-haiku-4-5-20251001", "claude-opus-4-6-20250918"]
+    # model_keys = ["claude-haiku-4-5-20251001", "claude-opus-4-6"]
 
     # Run all 12 conditions:
     conditions = None  # None = all 12
