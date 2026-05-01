@@ -316,7 +316,10 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
         return "incorrect"
 
     elif field_type == "bertscore":
-        # Free text field: use BERTScore
+        # Free text field: try substring match first, then BERTScore
+        if isinstance(ext_str, str) and isinstance(gt_str, str):
+            if ext_str == gt_str or ext_str in gt_str or gt_str in ext_str:
+                return "correct"
         score = compute_bert_score(str(extracted), str(ground_truth))
         return "correct" if score >= BERT_SCORE_THRESHOLD else "incorrect"
 
@@ -341,13 +344,33 @@ def _normalize_to_nested(extracted: dict) -> dict:
     if not extracted or not isinstance(extracted, dict):
         return extracted or {}
 
-    # If already nested (has the group dict keys), return as-is
-    # Check for 'event' or 'ai_system' or 'harm' as dict values — these only
-    # exist in nested format. 'organizations' exists in both flat and nested.
-    for group_key in ("event", "ai_system", "harm"):
-        val = extracted.get(group_key)
-        if isinstance(val, dict):
-            return extracted
+    # If already nested (has the group dict keys), normalize inner keys
+    # then return. Models sometimes use shortened names like "type" instead
+    # of "event_type" or "location" instead of "event_location".
+    is_nested = any(isinstance(extracted.get(k), dict) for k in ("event", "ai_system", "harm"))
+    if is_nested:
+        INNER_KEY_MAP = {
+            "event": {
+                "type": "event_type",
+                "date": "event_date",
+                "location": "event_location",
+            },
+            "ai_system": {
+                "type": "system_type",
+                "system": "system_type",
+            },
+            "harm": {
+                "type": "harm_type",
+            },
+        }
+        result = {}
+        for key, value in extracted.items():
+            if key in INNER_KEY_MAP and isinstance(value, dict):
+                mapping = INNER_KEY_MAP[key]
+                result[key] = {mapping.get(k, k): v for k, v in value.items()}
+            else:
+                result[key] = value
+        return result
 
     # Mapping from flat key → (group, nested_key)
     FLAT_TO_NESTED = {
@@ -451,6 +474,11 @@ def evaluate_extraction(
                             best_match = ext_org
                             best_score = 1.0
                             break
+                        # Try substring match (e.g., "US Treasury" in "US Treasury Secretary Scott Besant")
+                        if gt_name and ext_name and (gt_name in ext_name or ext_name in gt_name):
+                            best_match = ext_org
+                            best_score = 1.0
+                            break
                         # Try BERTScore for fuzzy name matching
                         if not _is_empty(ext_org.get("name")) and not _is_empty(gt_org.get("name")):
                             score = compute_bert_score(ext_name, gt_name)
@@ -485,8 +513,13 @@ def evaluate_extraction(
                 for gt_org in gt_list:
                     ext_name = str(ext_org.get("name", "")).lower()
                     gt_name = str(gt_org.get("name", "")).lower()
-                    if ext_name == gt_name or (
-                        not _is_empty(ext_org.get("name")) and
+                    if ext_name == gt_name:
+                        matched = True
+                        break
+                    if gt_name and ext_name and (gt_name in ext_name or ext_name in gt_name):
+                        matched = True
+                        break
+                    if (not _is_empty(ext_org.get("name")) and
                         not _is_empty(gt_org.get("name")) and
                         compute_bert_score(ext_name, gt_name) >= BERT_SCORE_THRESHOLD
                     ):

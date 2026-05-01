@@ -1,0 +1,1478 @@
+{
+  "PS1_KI1": {
+    "condition": "PS1_KI1",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event_type": "Cybersecurity risk warning",
+      "event_date": "not stated",
+      "event_location": "Washington",
+      "description": "US Treasury Secretary Scott Besant and Federal Reserve Chair Jerome Powell convened an emergency meeting with major bank CEOs to address concerns that Anthropic's new AI model, Mythos, could enable advanced cyberattacks on financial institutions.",
+      "ai_system_name": "Mythos",
+      "system_type": "Artificial intelligence model",
+      "developer": "Anthropic",
+      "deployer": "not stated",
+      "harm_type": "Cybersecurity risks",
+      "severity": "Potential",
+      "affected_parties": "Financial institutions, Banks",
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Warning issuer"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Warning issuer"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "event_type": "Cybersecurity risk warning",
+        "event_date": "not stated",
+        "event_location": "Washington",
+        "description": "US Treasury Secretary Scott Besant and Federal Reserve Chair Jerome Powell convened an emergency meeting with major bank CEOs to address concerns that Anthropic's new AI model, Mythos, could enable advanced cyberattacks on financial institutions."
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "Artificial intelligence model",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "Cybersecurity risks",
+        "severity": "Potential",
+        "affected_parties": "Financial institutions, Banks"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Warning issuer"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Warning issuer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.event_location": "incorrect",
+      "event.event_type": "incorrect",
+      "event.event_date": "missing",
+      "harm.harm_type": "incorrect",
+      "harm.severity": "incorrect",
+      "harm.affected_parties": "correct",
+      "ai_system.name": "correct",
+      "ai_system.system_type": "incorrect",
+      "ai_system.deployer": "correct",
+      "ai_system.developer": "correct",
+      "organizations[0].name": "missing",
+      "organizations[0].role": "missing",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "incorrect",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "incorrect"
+    },
+    "summary": {
+      "total": 16,
+      "correct": 6,
+      "incorrect": 7,
+      "missing": 3,
+      "hallucinated": 0,
+      "accuracy": 0.375
+    }
+  },
+  "PS1_KI2": {
+    "condition": "PS1_KI2",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event_type": "AI hazard",
+      "event_date": "not stated",
+      "event_location": "United States, Washington",
+      "description": "US officials warned banks of AI model 'Mythos' cybersecurity risks.",
+      "ai_system_name": "Mythos",
+      "system_type": "other",
+      "developer": "Anthropic",
+      "deployer": "not stated",
+      "harm_type": "economic",
+      "severity": "significant",
+      "affected_parties": "banks, financial institutions",
+      "organizations": [
+        {
+          "name": "US Treasury Secretary Scott Besant",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve Chair Jerome Powell",
+          "role": "regulator"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "not stated",
+        "event_location": "United States, Washington",
+        "description": "US officials warned banks of AI model 'Mythos' cybersecurity risks."
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "other",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury Secretary Scott Besant",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve Chair Jerome Powell",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.event_location": "correct",
+      "event.event_type": "correct",
+      "event.event_date": "missing",
+      "harm.harm_type": "correct",
+      "harm.severity": "correct",
+      "harm.affected_parties": "correct",
+      "ai_system.name": "correct",
+      "ai_system.system_type": "incorrect",
+      "ai_system.deployer": "correct",
+      "ai_system.developer": "correct",
+      "organizations[0].name": "missing",
+      "organizations[0].role": "missing",
+      "organizations[1].name": "missing",
+      "organizations[1].role": "missing",
+      "organizations[2].name": "missing",
+      "organizations[2].role": "missing",
+      "organizations[h0].name": "hallucinated",
+      "organizations[h0].role": "hallucinated",
+      "organizations[h1].name": "hallucinated",
+      "organizations[h1].role": "hallucinated"
+    },
+    "summary": {
+      "total": 20,
+      "correct": 8,
+      "incorrect": 1,
+      "missing": 7,
+      "hallucinated": 4,
+      "accuracy": 0.4
+    }
+  },
+  "PS1_KI3": {
+    "condition": "PS1_KI3",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event_type": "AI hazard",
+      "event_date": "not stated",
+      "event_location": "United States",
+      "description": "US officials warn banks of potential cybersecurity risks from Anthropic's new AI model, Mythos.",
+      "ai_system_name": "Mythos",
+      "system_type": "other",
+      "developer": "Anthropic",
+      "deployer": "not stated",
+      "harm_type": "economic",
+      "severity": "significant",
+      "affected_parties": "banks and financial institutions",
+      "organizations": [
+        {
+          "name": "US Treasury Secretary Scott Besant",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve Chair Jerome Powell",
+          "role": "regulator"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US officials warn banks of potential cybersecurity risks from Anthropic's new AI model, Mythos."
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "other",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks and financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury Secretary Scott Besant",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve Chair Jerome Powell",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.event_location": "incorrect",
+      "event.event_type": "correct",
+      "event.event_date": "missing",
+      "harm.harm_type": "correct",
+      "harm.severity": "correct",
+      "harm.affected_parties": "correct",
+      "ai_system.name": "correct",
+      "ai_system.system_type": "incorrect",
+      "ai_system.deployer": "correct",
+      "ai_system.developer": "correct",
+      "organizations[0].name": "missing",
+      "organizations[0].role": "missing",
+      "organizations[1].name": "missing",
+      "organizations[1].role": "missing",
+      "organizations[2].name": "missing",
+      "organizations[2].role": "missing",
+      "organizations[h0].name": "hallucinated",
+      "organizations[h0].role": "hallucinated",
+      "organizations[h1].name": "hallucinated",
+      "organizations[h1].role": "hallucinated"
+    },
+    "summary": {
+      "total": 20,
+      "correct": 7,
+      "incorrect": 2,
+      "missing": 7,
+      "hallucinated": 4,
+      "accuracy": 0.35
+    }
+  },
+  "PS1_KI4": {
+    "condition": "PS1_KI4",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event_type": "AI hazard",
+      "event_date": "not stated",
+      "event_location": "United States",
+      "description": "US officials warn banks of AI model 'Mythos' cybersecurity risks.",
+      "ai_system_name": "Mythos",
+      "system_type": "generative AI",
+      "developer": "Anthropic",
+      "deployer": "not stated",
+      "harm_type": "economic",
+      "severity": "significant",
+      "affected_parties": "banks",
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US officials warn banks of AI model 'Mythos' cybersecurity risks."
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.event_location": "incorrect",
+      "event.event_type": "correct",
+      "event.event_date": "missing",
+      "harm.harm_type": "correct",
+      "harm.severity": "correct",
+      "harm.affected_parties": "incorrect",
+      "ai_system.name": "correct",
+      "ai_system.system_type": "correct",
+      "ai_system.deployer": "correct",
+      "ai_system.developer": "correct",
+      "organizations[0].name": "missing",
+      "organizations[0].role": "missing",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "correct",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "correct"
+    },
+    "summary": {
+      "total": 16,
+      "correct": 11,
+      "incorrect": 2,
+      "missing": 3,
+      "hallucinated": 0,
+      "accuracy": 0.688
+    }
+  },
+  "PS2_KI1": {
+    "condition": "PS2_KI1",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US Officials Warn Banks of AI Model 'Mythos' Cybersecurity Risks"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "Artificial intelligence model",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "cybersecurity risk",
+        "severity": "potential",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        },
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US Officials Warn Banks of AI Model 'Mythos' Cybersecurity Risks"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "Artificial intelligence model",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "cybersecurity risk",
+        "severity": "potential",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        },
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.event_location": "incorrect",
+      "event.event_type": "incorrect",
+      "event.event_date": "missing",
+      "harm.harm_type": "incorrect",
+      "harm.severity": "incorrect",
+      "harm.affected_parties": "correct",
+      "ai_system.name": "correct",
+      "ai_system.system_type": "incorrect",
+      "ai_system.deployer": "correct",
+      "ai_system.developer": "correct",
+      "organizations[0].name": "correct",
+      "organizations[0].role": "correct",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "correct",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "correct"
+    },
+    "summary": {
+      "total": 16,
+      "correct": 10,
+      "incorrect": 5,
+      "missing": 1,
+      "hallucinated": 0,
+      "accuracy": 0.625
+    }
+  },
+  "PS2_KI2": {
+    "condition": "PS2_KI2",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US Officials Warn Banks of AI Model 'Mythos' Cybersecurity Risks"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "other",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US Officials Warn Banks of AI Model 'Mythos' Cybersecurity Risks"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "other",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.event_location": "incorrect",
+      "event.event_type": "incorrect",
+      "event.event_date": "missing",
+      "harm.harm_type": "correct",
+      "harm.severity": "correct",
+      "harm.affected_parties": "correct",
+      "ai_system.name": "correct",
+      "ai_system.system_type": "incorrect",
+      "ai_system.deployer": "correct",
+      "ai_system.developer": "correct",
+      "organizations[0].name": "missing",
+      "organizations[0].role": "missing",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "correct",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "correct"
+    },
+    "summary": {
+      "total": 16,
+      "correct": 10,
+      "incorrect": 3,
+      "missing": 3,
+      "hallucinated": 0,
+      "accuracy": 0.625
+    }
+  },
+  "PS2_KI3": {
+    "condition": "PS2_KI3",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US Officials Warn Banks of AI Model 'Mythos' Cybersecurity Risks"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "other",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        },
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US Officials Warn Banks of AI Model 'Mythos' Cybersecurity Risks"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "other",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        },
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.event_location": "incorrect",
+      "event.event_type": "incorrect",
+      "event.event_date": "missing",
+      "harm.harm_type": "correct",
+      "harm.severity": "correct",
+      "harm.affected_parties": "correct",
+      "ai_system.name": "correct",
+      "ai_system.system_type": "incorrect",
+      "ai_system.deployer": "correct",
+      "ai_system.developer": "correct",
+      "organizations[0].name": "correct",
+      "organizations[0].role": "correct",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "correct",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "correct"
+    },
+    "summary": {
+      "total": 16,
+      "correct": 12,
+      "incorrect": 3,
+      "missing": 1,
+      "hallucinated": 0,
+      "accuracy": 0.75
+    }
+  },
+  "PS2_KI4": {
+    "condition": "PS2_KI4",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US officials warned banks of AI model 'Mythos' cybersecurity risks"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "other",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "United States",
+        "description": "US officials warned banks of AI model 'Mythos' cybersecurity risks"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "other",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "banks, financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.event_location": "incorrect",
+      "event.event_type": "incorrect",
+      "event.event_date": "missing",
+      "harm.harm_type": "correct",
+      "harm.severity": "correct",
+      "harm.affected_parties": "correct",
+      "ai_system.name": "correct",
+      "ai_system.system_type": "incorrect",
+      "ai_system.deployer": "correct",
+      "ai_system.developer": "correct",
+      "organizations[0].name": "missing",
+      "organizations[0].role": "missing",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "correct",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "correct"
+    },
+    "summary": {
+      "total": 16,
+      "correct": 10,
+      "incorrect": 3,
+      "missing": 3,
+      "hallucinated": 0,
+      "accuracy": 0.625
+    }
+  },
+  "PS3_KI1": {
+    "condition": "PS3_KI1",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.date": "correct",
+      "event.type": "correct",
+      "event.event_location": "missing",
+      "event.event_type": "missing",
+      "event.location": "hallucinated",
+      "event.event_date": "missing",
+      "harm.harm_type": "missing",
+      "harm.type": "hallucinated",
+      "harm.affected_parties": "missing",
+      "harm.severity": "missing",
+      "ai_system.name": "correct",
+      "ai_system.deployer": "correct",
+      "ai_system.type": "hallucinated",
+      "ai_system.system_type": "missing",
+      "ai_system.developer": "missing",
+      "organizations[0].name": "correct",
+      "organizations[0].role": "correct",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "incorrect",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "incorrect"
+    },
+    "summary": {
+      "total": 21,
+      "correct": 8,
+      "incorrect": 2,
+      "missing": 8,
+      "hallucinated": 3,
+      "accuracy": 0.381
+    }
+  },
+  "PS3_KI2": {
+    "condition": "PS3_KI2",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.date": "correct",
+      "event.type": "correct",
+      "event.event_location": "missing",
+      "event.event_type": "missing",
+      "event.location": "hallucinated",
+      "event.event_date": "missing",
+      "harm.harm_type": "missing",
+      "harm.type": "hallucinated",
+      "harm.affected_parties": "missing",
+      "harm.severity": "missing",
+      "ai_system.name": "correct",
+      "ai_system.deployer": "correct",
+      "ai_system.type": "hallucinated",
+      "ai_system.system_type": "missing",
+      "ai_system.developer": "missing",
+      "organizations[0].name": "correct",
+      "organizations[0].role": "correct",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "incorrect",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "incorrect"
+    },
+    "summary": {
+      "total": 21,
+      "correct": 8,
+      "incorrect": 2,
+      "missing": 8,
+      "hallucinated": 3,
+      "accuracy": 0.381
+    }
+  },
+  "PS3_KI3": {
+    "condition": "PS3_KI3",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.date": "correct",
+      "event.type": "correct",
+      "event.event_location": "missing",
+      "event.event_type": "missing",
+      "event.location": "hallucinated",
+      "event.event_date": "missing",
+      "harm.harm_type": "missing",
+      "harm.type": "hallucinated",
+      "harm.affected_parties": "missing",
+      "harm.severity": "missing",
+      "ai_system.name": "correct",
+      "ai_system.deployer": "correct",
+      "ai_system.type": "hallucinated",
+      "ai_system.system_type": "missing",
+      "ai_system.developer": "missing",
+      "organizations[0].name": "correct",
+      "organizations[0].role": "correct",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "incorrect",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "incorrect"
+    },
+    "summary": {
+      "total": 21,
+      "correct": 8,
+      "incorrect": 2,
+      "missing": 8,
+      "hallucinated": 3,
+      "accuracy": 0.381
+    }
+  },
+  "PS3_KI4": {
+    "condition": "PS3_KI4",
+    "incident_id": "2026-04-10-eb21",
+    "raw_output": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "normalized": {
+      "event": {
+        "type": "not stated",
+        "date": "not stated",
+        "location": "Washington"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "type": "Artificial intelligence model"
+      },
+      "harm": {
+        "type": "Cybersecurity risks, advanced cyberattacks on financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Authorities"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Authorities"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "valid_json": true,
+    "eval_results": {
+      "event.date": "correct",
+      "event.type": "correct",
+      "event.event_location": "missing",
+      "event.event_type": "missing",
+      "event.location": "hallucinated",
+      "event.event_date": "missing",
+      "harm.harm_type": "missing",
+      "harm.type": "hallucinated",
+      "harm.affected_parties": "missing",
+      "harm.severity": "missing",
+      "ai_system.name": "correct",
+      "ai_system.deployer": "correct",
+      "ai_system.type": "hallucinated",
+      "ai_system.system_type": "missing",
+      "ai_system.developer": "missing",
+      "organizations[0].name": "correct",
+      "organizations[0].role": "correct",
+      "organizations[1].name": "correct",
+      "organizations[1].role": "incorrect",
+      "organizations[2].name": "correct",
+      "organizations[2].role": "incorrect"
+    },
+    "summary": {
+      "total": 21,
+      "correct": 8,
+      "incorrect": 2,
+      "missing": 8,
+      "hallucinated": 3,
+      "accuracy": 0.381
+    }
+  }
+}
