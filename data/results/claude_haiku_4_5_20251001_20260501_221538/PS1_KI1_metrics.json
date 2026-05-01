@@ -4,22 +4,52 @@
   "total_samples": 50,
   "valid_json_count": 50,
   "json_validity_rate": 1.0,
-  "overall_accuracy": 0.21803309692671394,
-  "overall_precision": 0.3025494274753262,
-  "overall_recall": 0.3274882920511967,
-  "overall_f1": 0.2680757933340621,
+  "overall_accuracy": 0.3270496453900709,
+  "overall_precision": 0.4538241412129893,
+  "overall_recall": 0.4912324380767951,
+  "overall_f1": 0.4021136900010932,
   "overall_hallucination_rate": 0.20245398773006135,
   "avg_latency_seconds": 2.178257508277893,
   "field_metrics": {
-    "event.event_date": {
-      "accuracy": 0.02,
-      "precision": 0.2,
-      "recall": 0.021739130434782608,
-      "f1_score": 0.0392156862745098,
-      "correct": 1,
-      "incorrect": 4,
-      "missing": 45,
-      "hallucinated": 0
+    "ai_system.developer": {
+      "accuracy": 0.88,
+      "precision": 0.9361702127659575,
+      "recall": 0.9361702127659575,
+      "f1_score": 0.9361702127659575,
+      "correct": 44,
+      "incorrect": 2,
+      "missing": 3,
+      "hallucinated": 1
+    },
+    "ai_system.name": {
+      "accuracy": 0.78,
+      "precision": 0.78,
+      "recall": 1.0,
+      "f1_score": 0.8764044943820225,
+      "correct": 39,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 11
+    },
+    "ai_system.deployer": {
+      "accuracy": 0.64,
+      "precision": 0.7619047619047619,
+      "recall": 0.8,
+      "f1_score": 0.7804878048780488,
+      "correct": 32,
+      "incorrect": 5,
+      "missing": 8,
+      "hallucinated": 5
+    },
+    "ai_system.system_type": {
+      "accuracy": 0.08,
+      "precision": 0.08333333333333333,
+      "recall": 0.6666666666666666,
+      "f1_score": 0.14814814814814814,
+      "correct": 4,
+      "incorrect": 43,
+      "missing": 2,
+      "hallucinated": 1
     },
     "event.event_location": {
       "accuracy": 0.42,
@@ -41,15 +71,15 @@
       "missing": 0,
       "hallucinated": 0
     },
-    "harm.affected_parties": {
-      "accuracy": 0.74,
-      "precision": 0.7872340425531915,
-      "recall": 0.925,
-      "f1_score": 0.8505747126436781,
-      "correct": 37,
-      "incorrect": 9,
-      "missing": 3,
-      "hallucinated": 1
+    "event.event_date": {
+      "accuracy": 0.02,
+      "precision": 0.2,
+      "recall": 0.021739130434782608,
+      "f1_score": 0.0392156862745098,
+      "correct": 1,
+      "incorrect": 4,
+      "missing": 45,
+      "hallucinated": 0
     },
     "harm.severity": {
       "accuracy": 0.04,
@@ -70,6 +100,16 @@
       "incorrect": 46,
       "missing": 0,
       "hallucinated": 0
+    },
+    "harm.affected_parties": {
+      "accuracy": 0.74,
+      "precision": 0.7872340425531915,
+      "recall": 0.925,
+      "f1_score": 0.8505747126436781,
+      "correct": 37,
+      "incorrect": 9,
+      "missing": 3,
+      "hallucinated": 1
     },
     "organizations[0].name": {
       "accuracy": 0.9361702127659575,
@@ -150,46 +190,6 @@
       "incorrect": 0,
       "missing": 0,
       "hallucinated": 7
-    },
-    "ai_system.name": {
-      "accuracy": 0.78,
-      "precision": 0.78,
-      "recall": 1.0,
-      "f1_score": 0.8764044943820225,
-      "correct": 39,
-      "incorrect": 0,
-      "missing": 0,
-      "hallucinated": 11
-    },
-    "ai_system.system_type": {
-      "accuracy": 0.08,
-      "precision": 0.08333333333333333,
-      "recall": 0.6666666666666666,
-      "f1_score": 0.14814814814814814,
-      "correct": 4,
-      "incorrect": 43,
-      "missing": 2,
-      "hallucinated": 1
-    },
-    "ai_system.deployer": {
-      "accuracy": 0.64,
-      "precision": 0.7619047619047619,
-      "recall": 0.8,
-      "f1_score": 0.7804878048780488,
-      "correct": 32,
-      "incorrect": 5,
-      "missing": 8,
-      "hallucinated": 5
-    },
-    "ai_system.developer": {
-      "accuracy": 0.88,
-      "precision": 0.9361702127659575,
-      "recall": 0.9361702127659575,
-      "f1_score": 0.9361702127659575,
-      "correct": 44,
-      "incorrect": 2,
-      "missing": 3,
-      "hallucinated": 1
     },
     "organizations[h0].name": {
       "accuracy": 0.0,

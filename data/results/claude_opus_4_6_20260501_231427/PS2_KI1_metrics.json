@@ -1,73 +1,73 @@
 {
-  "model": "claude-haiku-4-5-20251001",
-  "template": "PS2_KI3",
+  "model": "claude-opus-4-6",
+  "template": "PS2_KI1",
   "total_samples": 50,
   "valid_json_count": 50,
   "json_validity_rate": 1.0,
-  "overall_accuracy": 0.5441972920696325,
-  "overall_precision": 0.71987488701852,
-  "overall_recall": 0.6451219898798036,
-  "overall_f1": 0.6468131968164202,
-  "overall_hallucination_rate": 0.12578616352201258,
-  "avg_latency_seconds": 2.1706021070480346,
+  "overall_accuracy": 0.4741715022566086,
+  "overall_precision": 0.6049969716659125,
+  "overall_recall": 0.621648710282581,
+  "overall_f1": 0.5727289002397978,
+  "overall_hallucination_rate": 0.1548872180451128,
+  "avg_latency_seconds": 4.202759957313537,
   "field_metrics": {
     "ai_system.developer": {
-      "accuracy": 0.84,
-      "precision": 0.9545454545454546,
-      "recall": 0.875,
-      "f1_score": 0.9130434782608695,
-      "correct": 42,
-      "incorrect": 1,
-      "missing": 6,
+      "accuracy": 0.9,
+      "precision": 0.9782608695652174,
+      "recall": 0.9183673469387755,
+      "f1_score": 0.9473684210526316,
+      "correct": 45,
+      "incorrect": 0,
+      "missing": 4,
       "hallucinated": 1
     },
     "ai_system.name": {
-      "accuracy": 0.82,
-      "precision": 0.8541666666666666,
-      "recall": 0.9534883720930233,
-      "f1_score": 0.9010989010989011,
-      "correct": 41,
-      "incorrect": 1,
-      "missing": 2,
-      "hallucinated": 6
-    },
-    "ai_system.deployer": {
-      "accuracy": 0.74,
-      "precision": 0.8604651162790697,
-      "recall": 0.8409090909090909,
-      "f1_score": 0.8505747126436781,
-      "correct": 37,
-      "incorrect": 3,
-      "missing": 7,
-      "hallucinated": 3
-    },
-    "ai_system.system_type": {
-      "accuracy": 0.68,
-      "precision": 0.6938775510204082,
-      "recall": 0.9714285714285714,
-      "f1_score": 0.8095238095238094,
-      "correct": 34,
-      "incorrect": 14,
-      "missing": 1,
-      "hallucinated": 1
-    },
-    "event.event_location": {
-      "accuracy": 0.6,
-      "precision": 0.967741935483871,
-      "recall": 0.6122448979591837,
-      "f1_score": 0.75,
-      "correct": 30,
-      "incorrect": 1,
-      "missing": 19,
-      "hallucinated": 0
-    },
-    "event.event_type": {
       "accuracy": 0.88,
       "precision": 0.88,
       "recall": 1.0,
       "f1_score": 0.9361702127659575,
       "correct": 44,
-      "incorrect": 6,
+      "incorrect": 2,
+      "missing": 0,
+      "hallucinated": 4
+    },
+    "ai_system.deployer": {
+      "accuracy": 0.78,
+      "precision": 0.8125,
+      "recall": 0.9512195121951219,
+      "f1_score": 0.8764044943820225,
+      "correct": 39,
+      "incorrect": 3,
+      "missing": 2,
+      "hallucinated": 6
+    },
+    "ai_system.system_type": {
+      "accuracy": 0.16,
+      "precision": 0.16666666666666666,
+      "recall": 0.8,
+      "f1_score": 0.27586206896551724,
+      "correct": 8,
+      "incorrect": 39,
+      "missing": 2,
+      "hallucinated": 1
+    },
+    "event.event_location": {
+      "accuracy": 0.5,
+      "precision": 0.9259259259259259,
+      "recall": 0.5208333333333334,
+      "f1_score": 0.6666666666666667,
+      "correct": 25,
+      "incorrect": 2,
+      "missing": 23,
+      "hallucinated": 0
+    },
+    "event.event_type": {
+      "accuracy": 0.7,
+      "precision": 0.7,
+      "recall": 1.0,
+      "f1_score": 0.8235294117647058,
+      "correct": 35,
+      "incorrect": 15,
       "missing": 0,
       "hallucinated": 0
     },
@@ -77,79 +77,79 @@
       "recall": 0.0,
       "f1_score": 0.0,
       "correct": 0,
-      "incorrect": 2,
-      "missing": 48,
+      "incorrect": 4,
+      "missing": 46,
       "hallucinated": 0
     },
     "harm.severity": {
       "accuracy": 0.58,
-      "precision": 0.6304347826086957,
-      "recall": 0.8787878787878788,
+      "precision": 0.6170212765957447,
+      "recall": 0.90625,
       "f1_score": 0.7341772151898734,
       "correct": 29,
-      "incorrect": 17,
-      "missing": 4,
+      "incorrect": 18,
+      "missing": 3,
       "hallucinated": 0
     },
     "harm.harm_type": {
-      "accuracy": 0.76,
-      "precision": 0.76,
-      "recall": 1.0,
-      "f1_score": 0.8636363636363636,
-      "correct": 38,
-      "incorrect": 12,
-      "missing": 0,
+      "accuracy": 0.6,
+      "precision": 0.625,
+      "recall": 0.9375,
+      "f1_score": 0.75,
+      "correct": 30,
+      "incorrect": 18,
+      "missing": 2,
       "hallucinated": 0
     },
     "harm.affected_parties": {
       "accuracy": 0.7,
-      "precision": 0.7291666666666666,
-      "recall": 0.9459459459459459,
+      "precision": 0.7,
+      "recall": 1.0,
       "f1_score": 0.8235294117647058,
       "correct": 35,
-      "incorrect": 13,
-      "missing": 2,
+      "incorrect": 15,
+      "missing": 0,
       "hallucinated": 0
     },
     "organizations[0].name": {
-      "accuracy": 0.9148936170212766,
+      "accuracy": 0.9361702127659575,
       "precision": 1.0,
-      "recall": 0.9148936170212766,
-      "f1_score": 0.9555555555555556,
-      "correct": 43,
+      "recall": 0.9361702127659575,
+      "f1_score": 0.967032967032967,
+      "correct": 44,
       "incorrect": 0,
-      "missing": 4,
-      "hallucinated": 0
-    },
-    "organizations[0].role": {
-      "accuracy": 0.7872340425531915,
-      "precision": 0.8409090909090909,
-      "recall": 0.925,
-      "f1_score": 0.8809523809523809,
-      "correct": 37,
-      "incorrect": 7,
       "missing": 3,
       "hallucinated": 0
     },
+    "organizations[0].role": {
+      "accuracy": 0.5957446808510638,
+      "precision": 0.6363636363636364,
+      "recall": 0.9032258064516129,
+      "f1_score": 0.7466666666666666,
+      "correct": 28,
+      "incorrect": 15,
+      "missing": 3,
+      "hallucinated": 1
+    },
     "organizations[1].name": {
       "accuracy": 0.7878787878787878,
-      "precision": 0.9285714285714286,
-      "recall": 0.8387096774193549,
-      "f1_score": 0.8813559322033899,
+      "precision": 0.9629629629629629,
+      "recall": 0.8125,
+      "f1_score": 0.8813559322033898,
       "correct": 26,
-      "incorrect": 2,
-      "missing": 5,
+      "incorrect": 1,
+      "missing": 6,
       "hallucinated": 0
     },
     "organizations[1].role": {
-      "accuracy": 0.3939393939393939,
-      "precision": 0.4642857142857143,
-      "recall": 0.7222222222222222,
-      "f1_score": 0.5652173913043479,
-      "correct": 13,
-      "incorrect": 14,
+      "accuracy": 0.36363636363636365,
+      "precision": 0.42857142857142855,
+      "recall": 0.7058823529411765,
+      "f1_score": 0.5333333333333333,
+      "correct": 12,
+      "incorrect": 16,
       "missing": 5,
-      "hallucinated": 1
+      "hallucinated": 0
     },
     "organizations[2].name": {
       "accuracy": 0.4,
@@ -162,12 +162,12 @@
       "hallucinated": 0
     },
     "organizations[2].role": {
-      "accuracy": 0.3333333333333333,
-      "precision": 0.8333333333333334,
-      "recall": 0.35714285714285715,
-      "f1_score": 0.5,
-      "correct": 5,
-      "incorrect": 1,
+      "accuracy": 0.26666666666666666,
+      "precision": 0.6666666666666666,
+      "recall": 0.3076923076923077,
+      "f1_score": 0.42105263157894735,
+      "correct": 4,
+      "incorrect": 2,
       "missing": 9,
       "hallucinated": 0
     },
@@ -179,7 +179,7 @@
       "correct": 0,
       "incorrect": 0,
       "missing": 0,
-      "hallucinated": 7
+      "hallucinated": 5
     },
     "organizations[h0].role": {
       "accuracy": 0.0,
@@ -189,7 +189,7 @@
       "correct": 0,
       "incorrect": 0,
       "missing": 0,
-      "hallucinated": 7
+      "hallucinated": 5
     },
     "organizations[h1].name": {
       "accuracy": 0.0,
@@ -199,7 +199,7 @@
       "correct": 0,
       "incorrect": 0,
       "missing": 0,
-      "hallucinated": 16
+      "hallucinated": 17
     },
     "organizations[h1].role": {
       "accuracy": 0.0,
@@ -209,7 +209,7 @@
       "correct": 0,
       "incorrect": 0,
       "missing": 0,
-      "hallucinated": 16
+      "hallucinated": 17
     },
     "organizations[h2].name": {
       "accuracy": 0.0,
@@ -219,7 +219,7 @@
       "correct": 0,
       "incorrect": 0,
       "missing": 0,
-      "hallucinated": 9
+      "hallucinated": 14
     },
     "organizations[h2].role": {
       "accuracy": 0.0,
@@ -229,7 +229,27 @@
       "correct": 0,
       "incorrect": 0,
       "missing": 0,
-      "hallucinated": 9
+      "hallucinated": 14
+    },
+    "organizations[h3].name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 6
+    },
+    "organizations[h3].role": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 6
     },
     "organizations[3].name": {
       "accuracy": 0.3333333333333333,
@@ -242,16 +262,16 @@
       "hallucinated": 0
     },
     "organizations[3].role": {
-      "accuracy": 0.3333333333333333,
-      "precision": 1.0,
-      "recall": 0.3333333333333333,
-      "f1_score": 0.5,
-      "correct": 1,
-      "incorrect": 0,
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 1,
       "missing": 2,
       "hallucinated": 0
     },
-    "organizations[h3].name": {
+    "organizations[h4].name": {
       "accuracy": 0.0,
       "precision": 0.0,
       "recall": 0.0,
@@ -259,9 +279,9 @@
       "correct": 0,
       "incorrect": 0,
       "missing": 0,
-      "hallucinated": 2
+      "hallucinated": 3
     },
-    "organizations[h3].role": {
+    "organizations[h4].role": {
       "accuracy": 0.0,
       "precision": 0.0,
       "recall": 0.0,
@@ -269,7 +289,7 @@
       "correct": 0,
       "incorrect": 0,
       "missing": 0,
-      "hallucinated": 2
+      "hallucinated": 3
     },
     "organizations[4].name": {
       "accuracy": 0.0,

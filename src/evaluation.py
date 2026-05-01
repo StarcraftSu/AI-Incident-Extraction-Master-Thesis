@@ -107,32 +107,54 @@ class BenchmarkMetrics:
     def avg_latency(self) -> float:
         return self.total_latency / self.total_samples if self.total_samples > 0 else 0.0
 
+    def _accuracy_aggregation_fields(self) -> dict:
+        """Return only field rows that should contribute to per-field
+        accuracy/precision/recall/F1 averages.
+
+        Excludes `organizations[hN].*` pseudo-fields. These rows track
+        hallucinated organizations (orgs the model extracted that have
+        no GT match) and are 0% accuracy by construction; including
+        them in the average double-counts hallucinations (already
+        captured in `overall_hallucination_rate`) and is sensitive to
+        the arbitrary slot-indexing of where hallucinated orgs land.
+        """
+        return {
+            k: v for k, v in self.field_metrics.items()
+            if "organizations[h" not in k
+        }
+
     @property
     def overall_accuracy(self) -> float:
-        if not self.field_metrics:
+        agg = self._accuracy_aggregation_fields()
+        if not agg:
             return 0.0
-        return sum(m.accuracy for m in self.field_metrics.values()) / len(self.field_metrics)
+        return sum(m.accuracy for m in agg.values()) / len(agg)
 
     @property
     def overall_f1(self) -> float:
-        if not self.field_metrics:
+        agg = self._accuracy_aggregation_fields()
+        if not agg:
             return 0.0
-        return sum(m.f1_score for m in self.field_metrics.values()) / len(self.field_metrics)
+        return sum(m.f1_score for m in agg.values()) / len(agg)
 
     @property
     def overall_precision(self) -> float:
-        if not self.field_metrics:
+        agg = self._accuracy_aggregation_fields()
+        if not agg:
             return 0.0
-        return sum(m.precision for m in self.field_metrics.values()) / len(self.field_metrics)
+        return sum(m.precision for m in agg.values()) / len(agg)
 
     @property
     def overall_recall(self) -> float:
-        if not self.field_metrics:
+        agg = self._accuracy_aggregation_fields()
+        if not agg:
             return 0.0
-        return sum(m.recall for m in self.field_metrics.values()) / len(self.field_metrics)
+        return sum(m.recall for m in agg.values()) / len(agg)
 
     @property
     def overall_hallucination_rate(self) -> float:
+        # Includes ALL field rows (including organizations[hN]) — that is
+        # where the org-hallucination signal lives.
         total_extracted = sum(
             m.correct + m.incorrect + m.hallucinated
             for m in self.field_metrics.values()
@@ -861,6 +883,26 @@ if __name__ == "__main__":
     assert compare_values("Physical harm, Economic harm", "physical", "harm.harm_type") == "correct"
     assert compare_values("Physical harm, Economic harm", "economic", "harm.harm_type") == "correct"
     print("  Harm-suffix strip scoped to constrained: OK")
+
+    # Hallucinated-org pseudo-fields must NOT inflate per-field
+    # accuracy averages, but must STILL count in hallucination_rate.
+    bm = BenchmarkMetrics(model="m", template="t", total_samples=2)
+    bm.field_metrics = {
+        "harm.harm_type":            FieldMetrics("harm.harm_type",            correct=2, incorrect=0, missing_in_extraction=0, hallucinated=0, total=2),
+        "ai_system.name":            FieldMetrics("ai_system.name",            correct=2, incorrect=0, missing_in_extraction=0, hallucinated=0, total=2),
+        "organizations[h0].name":    FieldMetrics("organizations[h0].name",    correct=0, incorrect=0, missing_in_extraction=0, hallucinated=3, total=3),
+        "organizations[h0].role":    FieldMetrics("organizations[h0].role",    correct=0, incorrect=0, missing_in_extraction=0, hallucinated=3, total=3),
+    }
+    # Two real fields at 100% — accuracy must be 100%, not pulled down by [h0] rows.
+    assert abs(bm.overall_accuracy - 1.0) < 1e-9, (
+        f"hallucinated-org pseudo-fields must not drag accuracy; got {bm.overall_accuracy}"
+    )
+    # Hallucination rate must still see the 6 hallucinated extractions.
+    # total_extracted = 2 + 2 + 3 + 3 = 10; halluc = 6; rate = 0.6.
+    assert abs(bm.overall_hallucination_rate - 0.6) < 1e-9, (
+        f"hallucination_rate must include [hN] rows; got {bm.overall_hallucination_rate}"
+    )
+    print("  Org-hallucination pseudo-fields excluded from accuracy: OK")
 
     # Haiku PS3 quirk: ai_system_name inside nested ai_system block.
     haiku_ps3_shape = {
