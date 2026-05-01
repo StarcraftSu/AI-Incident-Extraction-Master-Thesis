@@ -17,12 +17,16 @@ from pathlib import Path
 def latest_metrics_for_condition(results_root: Path, model_safe: str, condition: str) -> dict | None:
     """Return the parsed metrics dict from the most recent run dir that
     contains `<condition>_metrics.json` for this model. Most-recent wins
-    so the latest prompt version's results are used."""
-    candidates = sorted(
-        results_root.glob(f"{model_safe}_*"),
-        key=lambda p: p.stat().st_mtime,
-        reverse=True,
-    )
+    so the latest prompt version's results are used.
+
+    `_archive/` is deliberately excluded — see results/_archive/README.md
+    for why those runs are kept but not picked up by the summary.
+    """
+    candidates = [
+        p for p in results_root.glob(f"{model_safe}_*")
+        if p.is_dir() and p.parent.name != "_archive"
+    ]
+    candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
     for run_dir in candidates:
         metrics_path = run_dir / f"{condition}_metrics.json"
         if metrics_path.exists():
