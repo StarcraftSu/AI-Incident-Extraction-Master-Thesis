@@ -10,17 +10,17 @@ pricing ≈ $0.10. Output goes into a fresh data/results/<timestamp>/ dir.
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from dotenv import load_dotenv
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+load_dotenv(Path(__file__).resolve().parents[3] / ".env")
 
 from data_loader import load_dataset_with_ground_truth, Dataset
 from experiment import ExperimentRunner
 
 
 def main():
-    project_root = Path(__file__).parent.parent
+    project_root = Path(__file__).resolve().parents[3]
     runner = ExperimentRunner(output_dir=str(project_root / "data" / "results"))
 
     full = load_dataset_with_ground_truth(
