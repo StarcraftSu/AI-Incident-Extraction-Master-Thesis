@@ -60,14 +60,15 @@ def build_summary(results_root: Path) -> str:
         "Each row uses the most recent run-dir's metrics for that condition. "
         "Both **macro accuracy** (unweighted mean of per-field accuracies — "
         "sensitive to small-n org slots) and **micro accuracy** (total correct "
-        "cells / total scored cells, sample-weighted) are reported. Micro is "
-        "the standard metric for NLP extraction benchmarks and the recommended "
-        "headline number; macro is shown for completeness.",
+        "cells / total scored cells, sample-weighted) are reported, paired "
+        "with **macro F1** and **micro F1**. Micro is the standard metric for "
+        "NLP extraction benchmarks and the recommended headline number; macro "
+        "is shown for completeness.",
         "",
         "## Overall Comparison",
         "",
-        "| Model | PS | KI | JSON Valid | Acc (macro) | Acc (micro) | Precision | Recall | F1 | Halluc. | Latency | Source |",
-        "|-------|----|----|------------|-------------|-------------|-----------|--------|-----|---------|---------|--------|",
+        "| Model | PS | KI | JSON Valid | Acc (macro) | Acc (micro) | F1 (macro) | F1 (micro) | Halluc. | Latency | Source |",
+        "|-------|----|----|------------|-------------|-------------|------------|------------|---------|---------|--------|",
     ]
 
     for _, model_safe, label in models:
@@ -83,9 +84,8 @@ def build_summary(results_root: Path) -> str:
                 f"| {m['json_validity_rate']:.0%} "
                 f"| {m['overall_accuracy']:.1%} "
                 f"| {m.get('overall_accuracy_micro', m['overall_accuracy']):.1%} "
-                f"| {m['overall_precision']:.1%} "
-                f"| {m['overall_recall']:.1%} "
                 f"| {m['overall_f1']:.3f} "
+                f"| {m.get('overall_f1_micro', m['overall_f1']):.3f} "
                 f"| {m['overall_hallucination_rate']:.1%} "
                 f"| {m['avg_latency_seconds']:.1f}s "
                 f"| `{m['_run_dir']}` |"

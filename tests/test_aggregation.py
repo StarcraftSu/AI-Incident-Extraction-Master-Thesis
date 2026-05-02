@@ -112,6 +112,51 @@ class TestMacroVsMicro:
         assert bm.overall_accuracy_micro == pytest.approx(4/5)   # micro
 
 
+class TestMicroFamily:
+    """Micro precision/recall/F1: the global-counts variants paired with
+    micro accuracy. Added to address the metric-aggregation
+    inconsistency flagged in the peer review of Chapter 4."""
+
+    def test_micro_precision_recall_consistent(self):
+        # Construct a 2-field example with known global TP/FP/FN.
+        # Field A: 8 correct, 2 incorrect, 0 missing → contribute TP=8, FP=2
+        # Field B: 6 correct, 1 incorrect, 3 missing → contribute TP=6, FP=1, FN=3
+        # Global TP = 14, FP = 3, FN = 3
+        # Precision_micro = 14/17, Recall_micro = 14/17, F1_micro = 14/17
+        bm = BenchmarkMetrics(model="m", template="t", total_samples=10)
+        bm.field_metrics = {
+            "A": _make_field(correct=8, incorrect=2, missing=0),
+            "B": _make_field(correct=6, incorrect=1, missing=3),
+        }
+        assert bm.overall_precision_micro == pytest.approx(14/17)
+        assert bm.overall_recall_micro == pytest.approx(14/17)
+        assert bm.overall_f1_micro == pytest.approx(14/17)
+
+    def test_micro_f1_harmonic_mean(self):
+        # Asymmetric P and R: TP=10, FP=10, FN=0 → P=0.5, R=1.0, F1=2*0.5*1/(1.5)=2/3
+        bm = BenchmarkMetrics(model="m", template="t", total_samples=10)
+        bm.field_metrics = {
+            "A": _make_field(correct=10, incorrect=10, missing=0),
+        }
+        assert bm.overall_precision_micro == pytest.approx(0.5)
+        assert bm.overall_recall_micro == pytest.approx(1.0)
+        assert bm.overall_f1_micro == pytest.approx(2/3)
+
+    def test_micro_excludes_pure_halluc_rows(self):
+        # The org-pseudo-field exclusion must apply to the micro family too.
+        bm = BenchmarkMetrics(model="m", template="t", total_samples=10)
+        bm.field_metrics = {
+            "real": _make_field(correct=8, incorrect=2),
+            "organizations[h0].name": _make_field(hallucinated=5),
+        }
+        # Micro should compute over only the real row.
+        assert bm.overall_precision_micro == pytest.approx(8/10)
+        assert bm.overall_recall_micro == pytest.approx(1.0)  # 0 missings
+        # But hallucination_rate still includes the org-pseudo-field.
+        # total_extracted = 10 + 5 = 15, total_halluc = 0 + 5 = 5, rate = 1/3
+        assert bm.overall_hallucination_rate == pytest.approx(1/3)
+
+
 # ---------------------------------------------------------------------------
 # F1 algebra (per-field property)
 # ---------------------------------------------------------------------------

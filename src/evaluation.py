@@ -162,6 +162,39 @@ class BenchmarkMetrics:
         return total_c / total_n if total_n else 0.0
 
     @property
+    def overall_precision_micro(self) -> float:
+        """Micro precision: TP / (TP + FP) computed from global counts.
+        TP = total correct cells. FP = total incorrect + hallucinated.
+        Sample-weighted, paired with overall_accuracy_micro."""
+        agg = self._accuracy_aggregation_fields()
+        total_tp = sum(m.correct for m in agg.values())
+        total_fp = sum(m.incorrect + m.hallucinated for m in agg.values())
+        denom = total_tp + total_fp
+        return total_tp / denom if denom else 0.0
+
+    @property
+    def overall_recall_micro(self) -> float:
+        """Micro recall: TP / (TP + FN) computed from global counts.
+        TP = total correct cells. FN = total missing cells."""
+        agg = self._accuracy_aggregation_fields()
+        total_tp = sum(m.correct for m in agg.values())
+        total_fn = sum(m.missing_in_extraction for m in agg.values())
+        denom = total_tp + total_fn
+        return total_tp / denom if denom else 0.0
+
+    @property
+    def overall_f1_micro(self) -> float:
+        """Micro F1: harmonic mean of micro precision and micro recall.
+        This is the standard NLP-extraction F1 and is paired with
+        overall_accuracy_micro as the recommended headline metrics.
+        Less volatile than `overall_f1` (macro), which is the
+        unweighted mean of per-field F1 scores and inherits the
+        small-n org-slot artifact described in `overall_accuracy`."""
+        p = self.overall_precision_micro
+        r = self.overall_recall_micro
+        return 2 * p * r / (p + r) if (p + r) > 0 else 0.0
+
+    @property
     def overall_f1(self) -> float:
         agg = self._accuracy_aggregation_fields()
         if not agg:
@@ -203,8 +236,11 @@ class BenchmarkMetrics:
             "overall_accuracy": self.overall_accuracy,
             "overall_accuracy_micro": self.overall_accuracy_micro,
             "overall_precision": self.overall_precision,
+            "overall_precision_micro": self.overall_precision_micro,
             "overall_recall": self.overall_recall,
+            "overall_recall_micro": self.overall_recall_micro,
             "overall_f1": self.overall_f1,
+            "overall_f1_micro": self.overall_f1_micro,
             "overall_hallucination_rate": self.overall_hallucination_rate,
             "avg_latency_seconds": self.avg_latency,
             "field_metrics": {
