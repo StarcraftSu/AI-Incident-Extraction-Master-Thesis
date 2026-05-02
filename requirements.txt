@@ -15,3 +15,6 @@ matplotlib>=3.7.0
 
 # Progress bars (optional)
 tqdm>=4.65.0
+
+# Test runner (run `pytest tests/` from the project root)
+pytest>=7.0
