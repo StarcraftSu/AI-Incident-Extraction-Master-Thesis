@@ -11,6 +11,46 @@
   "overall_hallucination_rate": 0.1514476614699332,
   "avg_latency_seconds": 16.085330486297607,
   "field_metrics": {
+    "ai_system.developer": {
+      "accuracy": 0.42,
+      "precision": 1.0,
+      "recall": 0.42,
+      "f1_score": 0.5915492957746479,
+      "correct": 21,
+      "incorrect": 0,
+      "missing": 29,
+      "hallucinated": 0
+    },
+    "ai_system.deployer": {
+      "accuracy": 0.4,
+      "precision": 0.9090909090909091,
+      "recall": 0.4166666666666667,
+      "f1_score": 0.5714285714285715,
+      "correct": 20,
+      "incorrect": 0,
+      "missing": 28,
+      "hallucinated": 2
+    },
+    "ai_system.system_type": {
+      "accuracy": 0.06,
+      "precision": 0.0625,
+      "recall": 0.6,
+      "f1_score": 0.11320754716981132,
+      "correct": 3,
+      "incorrect": 44,
+      "missing": 2,
+      "hallucinated": 1
+    },
+    "ai_system.name": {
+      "accuracy": 0.62,
+      "precision": 0.62,
+      "recall": 1.0,
+      "f1_score": 0.7654320987654321,
+      "correct": 31,
+      "incorrect": 2,
+      "missing": 0,
+      "hallucinated": 17
+    },
     "organizations[0].name": {
       "accuracy": 0.851063829787234,
       "precision": 1.0,
@@ -71,6 +111,16 @@
       "missing": 10,
       "hallucinated": 0
     },
+    "event.event_date": {
+      "accuracy": 0.96,
+      "precision": 0.96,
+      "recall": 1.0,
+      "f1_score": 0.9795918367346939,
+      "correct": 48,
+      "incorrect": 2,
+      "missing": 0,
+      "hallucinated": 0
+    },
     "event.event_location": {
       "accuracy": 0.22,
       "precision": 0.7333333333333333,
@@ -91,65 +141,15 @@
       "missing": 47,
       "hallucinated": 0
     },
-    "event.event_date": {
-      "accuracy": 0.96,
-      "precision": 0.96,
-      "recall": 1.0,
-      "f1_score": 0.9795918367346939,
-      "correct": 48,
-      "incorrect": 2,
-      "missing": 0,
-      "hallucinated": 0
-    },
-    "ai_system.system_type": {
-      "accuracy": 0.06,
-      "precision": 0.0625,
-      "recall": 0.6,
-      "f1_score": 0.11320754716981132,
-      "correct": 3,
-      "incorrect": 44,
-      "missing": 2,
+    "harm.affected_parties": {
+      "accuracy": 0.08,
+      "precision": 0.4444444444444444,
+      "recall": 0.08888888888888889,
+      "f1_score": 0.14814814814814814,
+      "correct": 4,
+      "incorrect": 4,
+      "missing": 41,
       "hallucinated": 1
-    },
-    "ai_system.name": {
-      "accuracy": 0.62,
-      "precision": 0.62,
-      "recall": 1.0,
-      "f1_score": 0.7654320987654321,
-      "correct": 31,
-      "incorrect": 2,
-      "missing": 0,
-      "hallucinated": 17
-    },
-    "ai_system.developer": {
-      "accuracy": 0.42,
-      "precision": 1.0,
-      "recall": 0.42,
-      "f1_score": 0.5915492957746479,
-      "correct": 21,
-      "incorrect": 0,
-      "missing": 29,
-      "hallucinated": 0
-    },
-    "ai_system.deployer": {
-      "accuracy": 0.4,
-      "precision": 0.9090909090909091,
-      "recall": 0.4166666666666667,
-      "f1_score": 0.5714285714285715,
-      "correct": 20,
-      "incorrect": 0,
-      "missing": 28,
-      "hallucinated": 2
-    },
-    "harm.harm_type": {
-      "accuracy": 0.02,
-      "precision": 0.025,
-      "recall": 0.09090909090909091,
-      "f1_score": 0.03921568627450981,
-      "correct": 1,
-      "incorrect": 39,
-      "missing": 10,
-      "hallucinated": 0
     },
     "harm.severity": {
       "accuracy": 0.0,
@@ -161,15 +161,15 @@
       "missing": 36,
       "hallucinated": 0
     },
-    "harm.affected_parties": {
-      "accuracy": 0.08,
-      "precision": 0.4444444444444444,
-      "recall": 0.08888888888888889,
-      "f1_score": 0.14814814814814814,
-      "correct": 4,
-      "incorrect": 4,
-      "missing": 41,
-      "hallucinated": 1
+    "harm.harm_type": {
+      "accuracy": 0.02,
+      "precision": 0.025,
+      "recall": 0.09090909090909091,
+      "f1_score": 0.03921568627450981,
+      "correct": 1,
+      "incorrect": 39,
+      "missing": 10,
+      "hallucinated": 0
     },
     "organizations[h0].name": {
       "accuracy": 0.0,
