@@ -127,10 +127,39 @@ class BenchmarkMetrics:
 
     @property
     def overall_accuracy(self) -> float:
+        """Macro accuracy: unweighted mean of per-field accuracies.
+
+        Each field counts equally regardless of how many incidents it
+        was scored on. Sensitive to small-n cells: e.g., a single
+        incident with 5 GT orgs can flip `organizations[4].name` from
+        100% to 0% based on a single output difference, which moves
+        the macro mean by ~5pp.
+
+        For headline cross-tier comparisons, prefer
+        `overall_accuracy_micro` below.
+        """
         agg = self._accuracy_aggregation_fields()
         if not agg:
             return 0.0
         return sum(m.accuracy for m in agg.values()) / len(agg)
+
+    @property
+    def overall_accuracy_micro(self) -> float:
+        """Micro accuracy: total correct cells / total scored cells.
+
+        Sample-weighted across all field rows that contribute to
+        accuracy aggregation. This is the standard metric in NLP
+        extraction benchmarks and is the recommended headline number
+        for this thesis. Less volatile than `overall_accuracy` (macro)
+        because small-n org slot rows are weighted in proportion to
+        their actual incident count.
+        """
+        agg = self._accuracy_aggregation_fields()
+        if not agg:
+            return 0.0
+        total_c = sum(m.correct for m in agg.values())
+        total_n = sum(m.correct + m.incorrect + m.missing_in_extraction for m in agg.values())
+        return total_c / total_n if total_n else 0.0
 
     @property
     def overall_f1(self) -> float:
@@ -172,6 +201,7 @@ class BenchmarkMetrics:
             "valid_json_count": self.valid_json_count,
             "json_validity_rate": self.json_validity_rate,
             "overall_accuracy": self.overall_accuracy,
+            "overall_accuracy_micro": self.overall_accuracy_micro,
             "overall_precision": self.overall_precision,
             "overall_recall": self.overall_recall,
             "overall_f1": self.overall_f1,

@@ -57,13 +57,17 @@ def build_summary(results_root: Path) -> str:
         f"Generated: {datetime.now().isoformat(timespec='seconds')}",
         "",
         "Design: 3 PS × 4 KI = 12 conditions per model. "
-        "Each row uses the most recent run-dir's metrics for that condition; "
-        "KI3/KI4 numbers reflect the 2026-05-01 rerun under the vocab-aligned prompts.",
+        "Each row uses the most recent run-dir's metrics for that condition. "
+        "Both **macro accuracy** (unweighted mean of per-field accuracies — "
+        "sensitive to small-n org slots) and **micro accuracy** (total correct "
+        "cells / total scored cells, sample-weighted) are reported. Micro is "
+        "the standard metric for NLP extraction benchmarks and the recommended "
+        "headline number; macro is shown for completeness.",
         "",
         "## Overall Comparison",
         "",
-        "| Model | PS | KI | JSON Valid | Accuracy | Precision | Recall | F1 | Halluc. | Latency | Source |",
-        "|-------|----|----|------------|----------|-----------|--------|-----|---------|---------|--------|",
+        "| Model | PS | KI | JSON Valid | Acc (macro) | Acc (micro) | Precision | Recall | F1 | Halluc. | Latency | Source |",
+        "|-------|----|----|------------|-------------|-------------|-----------|--------|-----|---------|---------|--------|",
     ]
 
     for _, model_safe, label in models:
@@ -78,6 +82,7 @@ def build_summary(results_root: Path) -> str:
                 f"| {label} | {ps} | {ki} "
                 f"| {m['json_validity_rate']:.0%} "
                 f"| {m['overall_accuracy']:.1%} "
+                f"| {m.get('overall_accuracy_micro', m['overall_accuracy']):.1%} "
                 f"| {m['overall_precision']:.1%} "
                 f"| {m['overall_recall']:.1%} "
                 f"| {m['overall_f1']:.3f} "

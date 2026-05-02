@@ -1,0 +1,336 @@
+{
+  "model": "claude-opus-4-6",
+  "template": "PS1_KI4",
+  "total_samples": 50,
+  "valid_json_count": 50,
+  "json_validity_rate": 1.0,
+  "overall_accuracy": 0.7995370728562218,
+  "overall_precision": 0.910813413575935,
+  "overall_recall": 0.8752924936484966,
+  "overall_f1": 0.8761740630943098,
+  "overall_hallucination_rate": 0.13342696629213482,
+  "avg_latency_seconds": 3.9894457769393923,
+  "field_metrics": {
+    "ai_system.developer": {
+      "accuracy": 0.9,
+      "precision": 1.0,
+      "recall": 0.9,
+      "f1_score": 0.9473684210526316,
+      "correct": 45,
+      "incorrect": 0,
+      "missing": 5,
+      "hallucinated": 0
+    },
+    "ai_system.deployer": {
+      "accuracy": 0.86,
+      "precision": 0.9347826086956522,
+      "recall": 0.9148936170212766,
+      "f1_score": 0.924731182795699,
+      "correct": 43,
+      "incorrect": 2,
+      "missing": 4,
+      "hallucinated": 1
+    },
+    "ai_system.system_type": {
+      "accuracy": 0.84,
+      "precision": 0.84,
+      "recall": 1.0,
+      "f1_score": 0.9130434782608696,
+      "correct": 42,
+      "incorrect": 7,
+      "missing": 0,
+      "hallucinated": 1
+    },
+    "ai_system.name": {
+      "accuracy": 0.9,
+      "precision": 0.9,
+      "recall": 1.0,
+      "f1_score": 0.9473684210526316,
+      "correct": 45,
+      "incorrect": 1,
+      "missing": 0,
+      "hallucinated": 4
+    },
+    "organizations[0].name": {
+      "accuracy": 0.9574468085106383,
+      "precision": 1.0,
+      "recall": 0.9574468085106383,
+      "f1_score": 0.9782608695652174,
+      "correct": 45,
+      "incorrect": 0,
+      "missing": 2,
+      "hallucinated": 0
+    },
+    "organizations[0].role": {
+      "accuracy": 0.7872340425531915,
+      "precision": 0.8222222222222222,
+      "recall": 0.9487179487179487,
+      "f1_score": 0.8809523809523809,
+      "correct": 37,
+      "incorrect": 7,
+      "missing": 2,
+      "hallucinated": 1
+    },
+    "organizations[1].name": {
+      "accuracy": 0.7878787878787878,
+      "precision": 0.9629629629629629,
+      "recall": 0.8125,
+      "f1_score": 0.8813559322033898,
+      "correct": 26,
+      "incorrect": 1,
+      "missing": 6,
+      "hallucinated": 0
+    },
+    "organizations[1].role": {
+      "accuracy": 0.48484848484848486,
+      "precision": 0.5714285714285714,
+      "recall": 0.7619047619047619,
+      "f1_score": 0.6530612244897959,
+      "correct": 16,
+      "incorrect": 12,
+      "missing": 5,
+      "hallucinated": 0
+    },
+    "organizations[2].name": {
+      "accuracy": 0.4666666666666667,
+      "precision": 1.0,
+      "recall": 0.4666666666666667,
+      "f1_score": 0.6363636363636364,
+      "correct": 7,
+      "incorrect": 0,
+      "missing": 8,
+      "hallucinated": 0
+    },
+    "organizations[2].role": {
+      "accuracy": 0.4666666666666667,
+      "precision": 1.0,
+      "recall": 0.4666666666666667,
+      "f1_score": 0.6363636363636364,
+      "correct": 7,
+      "incorrect": 0,
+      "missing": 8,
+      "hallucinated": 0
+    },
+    "event.event_date": {
+      "accuracy": 0.92,
+      "precision": 0.9787234042553191,
+      "recall": 0.9387755102040817,
+      "f1_score": 0.9583333333333333,
+      "correct": 46,
+      "incorrect": 1,
+      "missing": 3,
+      "hallucinated": 0
+    },
+    "event.event_location": {
+      "accuracy": 0.52,
+      "precision": 1.0,
+      "recall": 0.52,
+      "f1_score": 0.6842105263157895,
+      "correct": 26,
+      "incorrect": 0,
+      "missing": 24,
+      "hallucinated": 0
+    },
+    "event.event_type": {
+      "accuracy": 0.92,
+      "precision": 0.92,
+      "recall": 1.0,
+      "f1_score": 0.9583333333333334,
+      "correct": 46,
+      "incorrect": 4,
+      "missing": 0,
+      "hallucinated": 0
+    },
+    "harm.affected_parties": {
+      "accuracy": 0.74,
+      "precision": 0.7872340425531915,
+      "recall": 0.925,
+      "f1_score": 0.8505747126436781,
+      "correct": 37,
+      "incorrect": 10,
+      "missing": 3,
+      "hallucinated": 0
+    },
+    "harm.severity": {
+      "accuracy": 0.68,
+      "precision": 0.723404255319149,
+      "recall": 0.918918918918919,
+      "f1_score": 0.8095238095238095,
+      "correct": 34,
+      "incorrect": 13,
+      "missing": 3,
+      "hallucinated": 0
+    },
+    "harm.harm_type": {
+      "accuracy": 0.76,
+      "precision": 0.7755102040816326,
+      "recall": 0.9743589743589743,
+      "f1_score": 0.8636363636363635,
+      "correct": 38,
+      "incorrect": 11,
+      "missing": 1,
+      "hallucinated": 0
+    },
+    "organizations[h0].name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 5
+    },
+    "organizations[h0].role": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 5
+    },
+    "organizations[h1].name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 13
+    },
+    "organizations[h1].role": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 13
+    },
+    "organizations[h2].name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 17
+    },
+    "organizations[h2].role": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 17
+    },
+    "organizations[h3].name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 7
+    },
+    "organizations[h3].role": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 7
+    },
+    "organizations[3].name": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "correct": 3,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 0
+    },
+    "organizations[3].role": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "correct": 3,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 0
+    },
+    "organizations[4].name": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "correct": 1,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 0
+    },
+    "organizations[4].role": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "correct": 1,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 0
+    },
+    "organizations[h4].name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 1
+    },
+    "organizations[h4].role": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 1
+    },
+    "organizations[h5].name": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 1
+    },
+    "organizations[h5].role": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "correct": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 1
+    }
+  },
+  "error_count": 0
+}
