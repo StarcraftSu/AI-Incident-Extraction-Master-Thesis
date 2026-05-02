@@ -1,0 +1,75 @@
+[
+  {
+    "incident_id": "2026-04-10-eb21",
+    "model": "claude-haiku-4-5-20251001",
+    "condition": "PS1_KI1",
+    "raw_output": "```json\n{\n  \"event_type\": \"Cybersecurity warning\",\n  \"event_date\": \"not stated\",\n  \"event_location\": \"Washington\",\n  \"description\": \"US Treasury Secretary Scott Besant and Federal Reserve Chair Jerome Powell convened an emergency meeting with major bank CEOs to address concerns that Anthropic's new AI model, Mythos, could enable advanced cyberattacks on financial institutions. Authorities urged banks to strengthen cybersecurity in response to the AI system's potential risks.\",\n  \"ai_system_name\": \"Mythos\",\n  \"system_type\": \"AI model\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"Cybersecurity risk, potential for advanced cyberattacks\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": \"Financial institutions, banks\",\n  \"organizations\": [\n    {\n      \"name\": \"US Treasury\",\n      \"role\": \"Government authority issuing warning\"\n    },\n    {\n      \"name\": \"Federal Reserve\",\n      \"role\": \"Government authority issuing warning\"\n    },\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"Developer of AI model\"\n    },\n    {\n      \"name\": \"Major banks\",\n      \"role\": \"Affected parties receiving warning\"\n    }\n  ]\n}\n```",
+    "parsed_output": {
+      "event_type": "Cybersecurity warning",
+      "event_date": "not stated",
+      "event_location": "Washington",
+      "description": "US Treasury Secretary Scott Besant and Federal Reserve Chair Jerome Powell convened an emergency meeting with major bank CEOs to address concerns that Anthropic's new AI model, Mythos, could enable advanced cyberattacks on financial institutions. Authorities urged banks to strengthen cybersecurity in response to the AI system's potential risks.",
+      "ai_system_name": "Mythos",
+      "system_type": "AI model",
+      "developer": "Anthropic",
+      "deployer": "not stated",
+      "harm_type": "Cybersecurity risk, potential for advanced cyberattacks",
+      "severity": "not stated",
+      "affected_parties": "Financial institutions, banks",
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "Government authority issuing warning"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "Government authority issuing warning"
+        },
+        {
+          "name": "Anthropic",
+          "role": "Developer of AI model"
+        },
+        {
+          "name": "Major banks",
+          "role": "Affected parties receiving warning"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 2.084390878677368,
+    "error": null
+  }
+]

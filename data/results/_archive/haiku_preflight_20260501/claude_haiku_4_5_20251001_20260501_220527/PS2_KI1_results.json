@@ -1,0 +1,77 @@
+[
+  {
+    "incident_id": "2026-04-10-eb21",
+    "model": "claude-haiku-4-5-20251001",
+    "condition": "PS2_KI1",
+    "raw_output": "```json\n{\n  \"event\": {\n    \"event_type\": \"AI incident\",\n    \"event_date\": \"not stated\",\n    \"event_location\": \"Washington, United States\",\n    \"description\": \"US Treasury Secretary and Federal Reserve Chair convened emergency meeting with bank CEOs regarding concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions\"\n  },\n  \"ai_system\": {\n    \"name\": \"Mythos\",\n    \"system_type\": \"large language model\",\n    \"developer\": \"Anthropic\",\n    \"deployer\": \"not stated\"\n  },\n  \"harm\": {\n    \"harm_type\": \"cybersecurity risk\",\n    \"severity\": \"significant\",\n    \"affected_parties\": \"financial institutions, banks\"\n  },\n  \"organizations\": [\n    {\"name\": \"Anthropic\", \"role\": \"developer\"},\n    {\"name\": \"US Treasury\", \"role\": \"regulator\"},\n    {\"name\": \"Federal Reserve\", \"role\": \"regulator\"}\n  ]\n}\n```",
+    "parsed_output": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "not stated",
+        "event_location": "Washington, United States",
+        "description": "US Treasury Secretary and Federal Reserve Chair convened emergency meeting with bank CEOs regarding concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "large language model",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "cybersecurity risk",
+        "severity": "significant",
+        "affected_parties": "financial institutions, banks"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 2.8766801357269287,
+    "error": null
+  }
+]
