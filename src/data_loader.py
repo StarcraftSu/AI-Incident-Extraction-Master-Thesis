@@ -140,14 +140,21 @@ def load_dataset(path: str) -> Dataset:
         # companies = row[5]  # available but not used in article_text
         country = str(row[6]).strip() if row[6] else ""
 
-        # Include the OECD AIM-recorded date in the article text so the model
-        # has the same evidence the human annotator did. Without this, every
-        # model correctly returned "not stated" for event_date (epistemically
-        # right but scored 0% against the GT). Date format is YYYY-MM-DD;
-        # for some rows openpyxl returns a datetime, str() produces a
-        # "YYYY-MM-DD HH:MM:SS" prefix that's still parseable.
+        # Include the OECD AIM-recorded date AND country in the article text
+        # so the model has the same evidence the human annotator did. Without
+        # the date, every model correctly returned "not stated" for event_date
+        # (epistemically right, scored 0% against GT). Same pattern would
+        # apply to event_location: GT routinely contains "United States"
+        # (or "<state>, United States") because the annotator used the AIM
+        # `country` column, but Opus etc. refused to invent a country from
+        # an article that didn't mention one. Adding both as metadata
+        # restores parity. Date format is YYYY-MM-DD; openpyxl may yield a
+        # "YYYY-MM-DD HH:MM:SS" string for datetime cells but that's still
+        # parseable. Country is filtered to USA-only at dataset level, but
+        # the column is still loaded per row in case future datasets vary.
         date_line = f"Date: {date}\n" if date else ""
-        article_text = f"{date_line}Title: {title}\nSummary: {summary}\nConcepts: {concepts}"
+        country_line = f"Country: {country}\n" if country else ""
+        article_text = f"{date_line}{country_line}Title: {title}\nSummary: {summary}\nConcepts: {concepts}"
 
         dataset.add(AIIncident(
             id=inc_id,

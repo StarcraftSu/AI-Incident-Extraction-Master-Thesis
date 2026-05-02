@@ -456,7 +456,7 @@
     },
     "ai_system": {
       "name": "not stated",
-      "system_type": "not stated",
+      "system_type": "other",
       "developer": "not stated",
       "deployer": "not stated"
     },
@@ -663,8 +663,8 @@
       "affected_parties": "general public, US airman"
     },
     "organizations": [
-      {"name": "Republican", "role": "not stated"},
-      {"name": "Greg Abbott", "role": "not stated"}
+      {"name": "Republican", "role": "other"},
+      {"name": "Greg Abbott", "role": "other"}
     ]
   },
   {

@@ -38,6 +38,7 @@ ROLE_PREFIX = """You are an expert AI incident analyst. Your task is to extract 
 # ---------------------------------------------------------------------------
 FEW_SHOT_EXAMPLE_1 = {
     "article": """Date: 2024-03-15
+Country: United States
 Title: Tesla Autopilot Involved in Fatal Highway Crash
 Summary: A Tesla Model S crashed into a concrete barrier on Highway 101 while the Autopilot semi-autonomous driving feature was engaged. The 38-year-old driver died in the collision. NHTSA has opened a formal investigation into the incident.
 Concepts: Tesla, Autopilot, autonomous driving, fatal crash, NHTSA, investigation""",
@@ -68,6 +69,7 @@ Concepts: Tesla, Autopilot, autonomous driving, fatal crash, NHTSA, investigatio
 
 FEW_SHOT_EXAMPLE_2 = {
     "article": """Date: 2018-07-26
+Country: United States
 Title: Facial Recognition Software Misidentifies Congress Members as Criminals
 Summary: Amazon's Rekognition facial recognition software incorrectly matched 28 members of Congress to criminal mugshots in a test conducted by the ACLU. The false matches disproportionately affected people of color, raising concerns about racial bias in AI systems used by law enforcement.
 Concepts: Amazon, Rekognition, facial recognition, bias, ACLU, Congress, racial bias, law enforcement""",
@@ -98,6 +100,7 @@ Concepts: Amazon, Rekognition, facial recognition, bias, ACLU, Congress, racial 
 
 FEW_SHOT_EXAMPLE_3 = {
     "article": """Date: 2024-09-12
+Country: United States
 Title: AI-Powered Trading Bot Causes $20 Million Loss for Investors
 Summary: An AI-powered trading algorithm deployed by QuantFund Capital malfunctioned during volatile market conditions, executing thousands of unauthorized trades within minutes. The system, developed by AlgoTech Solutions, caused approximately $20 million in losses for retail investors before manual intervention shut it down.
 Concepts: AI trading, algorithm, financial loss, malfunction, QuantFund Capital, AlgoTech Solutions, investors""",
@@ -105,7 +108,7 @@ Concepts: AI trading, algorithm, financial loss, malfunction, QuantFund Capital,
   "event": {
     "event_type": "AI incident",
     "event_date": "2024-09-12",
-    "event_location": "not stated",
+    "event_location": "United States",
     "description": "AI trading algorithm malfunctioned during volatile conditions, executing unauthorized trades causing $20 million losses"
   },
   "ai_system": {
