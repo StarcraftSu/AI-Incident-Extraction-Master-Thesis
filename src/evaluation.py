@@ -335,7 +335,12 @@ CONSTRAINED_FIELDS = {
 # Fields evaluated with BERTScore (free text, semantic comparison)
 BERTSCORE_FIELDS = {"event_location", "affected_parties"}
 
-# Fields evaluated with exact match (structured open fields)
+# Fields evaluated with exact match (structured open fields).
+# Documentation only: enumerates which fields are *intended* to fall
+# through to the exact-match bucket in `_get_field_type`. The dispatch
+# uses a fallthrough default (anything not in CONSTRAINED/BERTSCORE/
+# EXCLUDED gets "exact"), so this set is not consulted at runtime —
+# adding or removing entries here has no behavioural effect.
 EXACT_MATCH_OPEN_FIELDS = {"event_date", "name", "developer", "deployer"}
 
 # Fields excluded from evaluation
