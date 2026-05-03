@@ -1,18 +1,28 @@
 """
 Independent audit script: re-derives the headline accuracy numbers
-from raw *_results.json files using only stdlib + pandas, without
-importing anything from src/. Use this to verify the canonical
-metrics independently of evaluation.py.
+from raw *_results.json files using only stdlib (no BERTScore, no
+constrained-vocab set-intersection, no taxonomy harm-suffix stripping,
+no best-match organization pairing), without importing anything from
+src/. Use this to verify the canonical metrics independently of
+evaluation.py.
+
+Scope matches the canonical headline (10 scalar fields):
+  event.{event_type, event_date, event_location}
+  ai_system.{name, system_type, developer, deployer}
+  harm.{harm_type, severity, affected_parties}
+
+Description and organizations[*] are excluded (same as canonical).
 
 Logic:
   - For each (model, condition), load the raw results
   - For each incident: walk the GT structure, compare each leaf
-    against the parsed_output's value (case-insensitive)
-  - Substring match for free-text fields, exact match for the rest
-  - Don't try to handle BERTScore — instead, REPORT separately how
-    often the simple substring rule disagrees with the canonical
-    metrics, so you can see how much of the score depends on my
-    eval logic vs simple string matching
+    against the parsed_output's value (case-insensitive substring)
+  - Aggregate to a per-cell micro accuracy
+
+The audit applies a strictly simpler rule set than the canonical, so
+the audit's numbers are a LOWER BOUND on canonical accuracy. Cells
+where the audit and canonical agree closely indicate the canonical
+score is not driven by BERTScore or vocabulary-normalization rules.
 
 Run:
     python src/independent_audit.py
@@ -89,7 +99,20 @@ def normalize_to_nested(p):
 
 
 def score_incident(extracted, gt):
-    """Returns dict {field_path: verdict}. Excludes 'description'."""
+    """Returns dict {field_path: verdict}.
+
+    Scope: the 10 headline scalar fields only.
+      - event.{event_type, event_date, event_location}
+      - ai_system.{name, system_type, developer, deployer}
+      - harm.{harm_type, severity, affected_parties}
+
+    Excludes:
+      - description: not in headline aggregation (free text, no
+        meaningful exact-match scoring).
+      - organizations[*]: treated as a separate sub-task in the
+        canonical evaluator (variable-length, role subjectivity,
+        generic entity prevalence). See evaluation.py.
+    """
     norm = normalize_to_nested(extracted)
     res = {}
     for grp in ("event", "ai_system", "harm"):
@@ -99,13 +122,6 @@ def score_incident(extracted, gt):
             if k == "description":
                 continue
             res[f"{grp}.{k}"] = compare_simple(ex_grp.get(k), gt_grp.get(k))
-    # Organizations: simple positional match (NOT Hungarian/best-match)
-    gt_orgs = gt.get("organizations", []) or []
-    ex_orgs = norm.get("organizations", []) or []
-    for i, org in enumerate(gt_orgs):
-        ex_org = ex_orgs[i] if i < len(ex_orgs) else {}
-        for k in ("name", "role"):
-            res[f"organizations[{i}].{k}"] = compare_simple(ex_org.get(k) if isinstance(ex_org, dict) else None, org.get(k))
     return res
 
 
