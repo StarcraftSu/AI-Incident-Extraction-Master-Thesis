@@ -1,20 +1,24 @@
 # AI Incident Extraction Benchmark Dependencies
 
-# HTTP requests for Ollama API
+# HTTP requests for the Ollama and Anthropic REST APIs.
+# No vendor SDK is used — both clients hit the REST endpoints directly.
 requests>=2.28.0
 
-# .env loader for ANTHROPIC_API_KEY (read at the top of every entry point)
+# Loads ANTHROPIC_API_KEY from .env at every entry point.
 python-dotenv>=1.0.0
 
-# Configuration file parsing
-pyyaml>=6.0
+# Excel reader for the OECD AIM dataset (data/raw/*.xlsx).
+openpyxl>=3.1.0
 
-# Data analysis and visualization (optional)
-pandas>=2.0.0
-matplotlib>=3.7.0
+# BERTScore semantic similarity for free-text fields in evaluation.
+# The version pins below are required on x86_64 macOS; see CLAUDE.md:
+#   - torch 2.2.2 is the maximum wheel that builds on x86_64 macOS
+#   - transformers must be <5 to be compatible with this torch
+#   - numpy must be <2 (bert-score / transformers wheel constraint)
+bert-score>=0.3.12
+torch==2.2.2
+transformers<5
+numpy<2
 
-# Progress bars (optional)
-tqdm>=4.65.0
-
-# Test runner (run `pytest tests/` from the project root)
+# Test runner. Run `pytest tests/` from the project root.
 pytest>=7.0
