@@ -59,20 +59,23 @@ class TestPureHallucinationFiltering:
         # Only the real field counts.
         assert bm.overall_accuracy == pytest.approx(1.0)
 
-    def test_pure_hallucination_rows_still_in_hallucination_rate(self):
-        # The hallucination signal must NOT be lost — that's where it lives.
+    def test_hallucination_rate_uses_in_scope_fields_only(self):
+        # After the orgs-as-sub-task change, hallucination_rate is
+        # computed only over fields that contribute to accuracy
+        # aggregation. Org-pseudo-fields, schema-extras, and the
+        # organizations array proper are all excluded.
         bm = BenchmarkMetrics(model="m", template="t", total_samples=2)
         bm.field_metrics = {
-            "harm.harm_type": _make_field(correct=2),               # 2/2
-            "organizations[h0].name": _make_field(hallucinated=3),  # 3/3 hall
-            "organizations[h0].role": _make_field(hallucinated=3),  # 3/3 hall
-            "event.event_date_quote": _make_field(hallucinated=2),  # 2/2 hall
-            "ai_system.underlying_model": _make_field(hallucinated=1),
+            "ai_system.developer": _make_field(correct=8, hallucinated=2),  # in-scope, 2 halluc
+            "harm.harm_type": _make_field(correct=10),                       # in-scope, 0 halluc
+            "organizations[h0].name": _make_field(hallucinated=3),           # excluded (org)
+            "event.event_date_quote": _make_field(hallucinated=2),           # excluded (pure-halluc)
         }
-        # total_extracted = 2 + 3 + 3 + 2 + 1 = 11
-        # total_hallucinated = 3 + 3 + 2 + 1 = 9
-        # rate = 9/11 ≈ 0.818
-        assert bm.overall_hallucination_rate == pytest.approx(9 / 11)
+        # Only the in-scope rows contribute:
+        # total_extracted = (8+0+2) + (10+0+0) = 20
+        # total_hallucinated = 2 + 0 = 2
+        # rate = 2/20 = 0.1
+        assert bm.overall_hallucination_rate == pytest.approx(0.1)
 
 
 # ---------------------------------------------------------------------------
@@ -143,7 +146,10 @@ class TestMicroFamily:
         assert bm.overall_f1_micro == pytest.approx(2/3)
 
     def test_micro_excludes_pure_halluc_rows(self):
-        # The org-pseudo-field exclusion must apply to the micro family too.
+        # Pure-hallucination rows excluded from accuracy aggregation.
+        # Plus: as of the organizations-as-sub-task change, ALL
+        # organizations[*] rows are excluded from both accuracy AND
+        # hallucination_rate (they are now reported separately).
         bm = BenchmarkMetrics(model="m", template="t", total_samples=10)
         bm.field_metrics = {
             "real": _make_field(correct=8, incorrect=2),
@@ -151,10 +157,37 @@ class TestMicroFamily:
         }
         # Micro should compute over only the real row.
         assert bm.overall_precision_micro == pytest.approx(8/10)
-        assert bm.overall_recall_micro == pytest.approx(1.0)  # 0 missings
-        # But hallucination_rate still includes the org-pseudo-field.
-        # total_extracted = 10 + 5 = 15, total_halluc = 0 + 5 = 5, rate = 1/3
-        assert bm.overall_hallucination_rate == pytest.approx(1/3)
+        assert bm.overall_recall_micro == pytest.approx(1.0)
+        # Hallucination_rate ALSO excludes organizations now.
+        # Only "real" is in scope: total_extracted = 10, halluc = 0.
+        assert bm.overall_hallucination_rate == pytest.approx(0.0)
+
+
+class TestOrganizationsExcludedFromHeadline:
+    """Organizations array is treated as a separate sub-task. All
+    `organizations*` rows are excluded from accuracy/precision/recall/
+    F1/hallucination_rate, but their per-cell data is preserved in
+    field_metrics for supplementary analysis."""
+
+    def test_organizations_data_preserved_but_excluded_from_aggregation(self):
+        bm = BenchmarkMetrics(model="m", template="t", total_samples=10)
+        bm.field_metrics = {
+            "event.event_type": _make_field(correct=10),  # 10/10
+            "organizations[0].name": _make_field(correct=2, incorrect=8),  # 2/10 — would drag mean if included
+            "organizations[0].role": _make_field(hallucinated=8),  # would inflate halluc if included
+            "organizations[h0].name": _make_field(hallucinated=3),
+        }
+        # All headline metrics see only event.event_type (perfect).
+        assert bm.overall_accuracy == pytest.approx(1.0)
+        assert bm.overall_accuracy_micro == pytest.approx(1.0)
+        assert bm.overall_f1_micro == pytest.approx(1.0)
+        # Hallucination on the in-scope fields is 0 (no halluc on event.event_type).
+        assert bm.overall_hallucination_rate == pytest.approx(0.0)
+        # But the org rows are still in field_metrics — accessible for
+        # supplementary analysis.
+        assert "organizations[0].name" in bm.field_metrics
+        assert "organizations[0].role" in bm.field_metrics
+        assert bm.field_metrics["organizations[0].role"].hallucinated == 8
 
 
 # ---------------------------------------------------------------------------

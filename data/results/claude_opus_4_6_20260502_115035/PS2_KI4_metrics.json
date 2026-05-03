@@ -4,26 +4,46 @@
   "total_samples": 50,
   "valid_json_count": 50,
   "json_validity_rate": 1.0,
-  "overall_accuracy": 0.6424429400386847,
-  "overall_accuracy_micro": 0.8097982708933718,
-  "overall_precision": 0.8076854088723391,
-  "overall_precision_micro": 0.878125,
-  "overall_recall": 0.7197280233697407,
-  "overall_recall_micro": 0.9064516129032258,
-  "overall_f1": 0.7266970832434559,
-  "overall_f1_micro": 0.8920634920634921,
-  "overall_hallucination_rate": 0.11420612813370473,
+  "overall_accuracy": 0.858,
+  "overall_accuracy_micro": 0.8649193548387096,
+  "overall_precision": 0.8831317605056206,
+  "overall_precision_micro": 0.8827160493827161,
+  "overall_recall": 0.9687556921295523,
+  "overall_recall_micro": 0.9683972911963883,
+  "overall_f1": 0.9208855703829318,
+  "overall_f1_micro": 0.923573735199139,
+  "overall_hallucination_rate": 0.00823045267489712,
   "avg_latency_seconds": 4.058349709510804,
   "field_metrics": {
-    "ai_system.name": {
-      "accuracy": 0.92,
-      "precision": 0.92,
+    "event.event_location": {
+      "accuracy": 1.0,
+      "precision": 1.0,
       "recall": 1.0,
-      "f1_score": 0.9583333333333334,
-      "correct": 46,
-      "incorrect": 1,
+      "f1_score": 1.0,
+      "correct": 50,
+      "incorrect": 0,
       "missing": 0,
-      "hallucinated": 3
+      "hallucinated": 0
+    },
+    "event.event_type": {
+      "accuracy": 0.88,
+      "precision": 0.88,
+      "recall": 1.0,
+      "f1_score": 0.9361702127659575,
+      "correct": 44,
+      "incorrect": 6,
+      "missing": 0,
+      "hallucinated": 0
+    },
+    "event.event_date": {
+      "accuracy": 0.96,
+      "precision": 0.9795918367346939,
+      "recall": 0.9795918367346939,
+      "f1_score": 0.9795918367346939,
+      "correct": 48,
+      "incorrect": 1,
+      "missing": 1,
+      "hallucinated": 0
     },
     "ai_system.system_type": {
       "accuracy": 0.8,
@@ -44,6 +64,16 @@
       "incorrect": 0,
       "missing": 5,
       "hallucinated": 0
+    },
+    "ai_system.name": {
+      "accuracy": 0.92,
+      "precision": 0.92,
+      "recall": 1.0,
+      "f1_score": 0.9583333333333334,
+      "correct": 46,
+      "incorrect": 1,
+      "missing": 0,
+      "hallucinated": 3
     },
     "ai_system.deployer": {
       "accuracy": 0.88,
@@ -142,36 +172,6 @@
       "f1_score": 0.8764044943820225,
       "correct": 39,
       "incorrect": 11,
-      "missing": 0,
-      "hallucinated": 0
-    },
-    "event.event_date": {
-      "accuracy": 0.96,
-      "precision": 0.9795918367346939,
-      "recall": 0.9795918367346939,
-      "f1_score": 0.9795918367346939,
-      "correct": 48,
-      "incorrect": 1,
-      "missing": 1,
-      "hallucinated": 0
-    },
-    "event.event_type": {
-      "accuracy": 0.88,
-      "precision": 0.88,
-      "recall": 1.0,
-      "f1_score": 0.9361702127659575,
-      "correct": 44,
-      "incorrect": 6,
-      "missing": 0,
-      "hallucinated": 0
-    },
-    "event.event_location": {
-      "accuracy": 1.0,
-      "precision": 1.0,
-      "recall": 1.0,
-      "f1_score": 1.0,
-      "correct": 50,
-      "incorrect": 0,
       "missing": 0,
       "hallucinated": 0
     },

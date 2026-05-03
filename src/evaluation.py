@@ -109,20 +109,33 @@ class BenchmarkMetrics:
 
     def _accuracy_aggregation_fields(self) -> dict:
         """Return only field rows that should contribute to per-field
-        accuracy/precision/recall/F1 averages.
+        accuracy/precision/recall/F1 averages and to hallucination_rate.
 
-        Excludes any field row with no GT signal at all (correct +
-        incorrect + missing == 0). Such rows are pure hallucinations:
-        the model invented a field that does not exist in the schema
-        (e.g. `event.event_date_quote`, `ai_system.underlying_model`,
-        a top-level `incidents` array, or `organizations[hN].*` for
-        extra orgs). They are at 0% accuracy by construction and
-        should not drag the per-field average — the hallucination
-        signal is already preserved by `overall_hallucination_rate`.
+        Two exclusion rules:
+
+        1. **Pure-hallucination rows** (correct + incorrect + missing
+           == 0). The model invented a field that does not exist in
+           the schema (e.g. `event.event_date_quote`,
+           `ai_system.underlying_model`, top-level `incidents`). They
+           are at 0% accuracy by construction.
+
+        2. **Organizations array** (any key starting with
+           `organizations`). The variable-length nested-array nature
+           of `organizations` introduces methodological noise — small-
+           *n* slot rows, role subjectivity (developer vs deployer
+           for self-deploying AI), and generic entity mentions
+           ("users", "Republican") — that is not present in the 10
+           scalar fields. To keep the headline metric on a fixed,
+           reproducible 10-cell-per-incident basis, organizations is
+           treated as a separate sub-task and excluded from headline
+           aggregation. The per-cell organization data is still
+           computed and saved in `*_results.json` for any future
+           supplementary analysis.
         """
         return {
             k: v for k, v in self.field_metrics.items()
             if (v.correct + v.incorrect + v.missing_in_extraction) > 0
+            and not k.startswith("organizations")
         }
 
     @property
@@ -217,13 +230,17 @@ class BenchmarkMetrics:
 
     @property
     def overall_hallucination_rate(self) -> float:
-        # Includes ALL field rows (including organizations[hN]) — that is
-        # where the org-hallucination signal lives.
+        """Hallucination rate over the same 10 scalar fields used for
+        accuracy aggregation. Organizations are excluded because they
+        are reported as a separate sub-task; this also avoids the
+        artifact where ~90% of headline hallucinations on Haiku/Opus
+        were org-related, dominating the metric with a noisy field."""
+        agg = self._accuracy_aggregation_fields()
         total_extracted = sum(
             m.correct + m.incorrect + m.hallucinated
-            for m in self.field_metrics.values()
+            for m in agg.values()
         )
-        total_hallucinated = sum(m.hallucinated for m in self.field_metrics.values())
+        total_hallucinated = sum(m.hallucinated for m in agg.values())
         return total_hallucinated / total_extracted if total_extracted > 0 else 0.0
 
     def to_dict(self) -> dict:

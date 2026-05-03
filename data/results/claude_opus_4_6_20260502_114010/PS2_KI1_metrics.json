@@ -4,26 +4,46 @@
   "total_samples": 50,
   "valid_json_count": 50,
   "json_validity_rate": 1.0,
-  "overall_accuracy": 0.5582114764667956,
-  "overall_accuracy_micro": 0.7161572052401747,
-  "overall_precision": 0.6711356302886136,
-  "overall_precision_micro": 0.7627906976744186,
-  "overall_recall": 0.6991119235834897,
-  "overall_recall_micro": 0.9027522935779817,
-  "overall_f1": 0.6483200435357236,
-  "overall_f1_micro": 0.8268907563025211,
-  "overall_hallucination_rate": 0.14208389715832206,
+  "overall_accuracy": 0.732,
+  "overall_accuracy_micro": 0.7484662576687117,
+  "overall_precision": 0.7491976675036341,
+  "overall_precision_micro": 0.7515400410677618,
+  "overall_recall": 0.9494195009604116,
+  "overall_recall_micro": 0.9656992084432717,
+  "overall_f1": 0.8199734204047806,
+  "overall_f1_micro": 0.8452655889145496,
+  "overall_hallucination_rate": 0.022587268993839837,
   "avg_latency_seconds": 4.14666455745697,
   "field_metrics": {
-    "ai_system.name": {
-      "accuracy": 0.88,
-      "precision": 0.88,
+    "event.event_location": {
+      "accuracy": 1.0,
+      "precision": 1.0,
       "recall": 1.0,
-      "f1_score": 0.9361702127659575,
-      "correct": 44,
+      "f1_score": 1.0,
+      "correct": 50,
+      "incorrect": 0,
+      "missing": 0,
+      "hallucinated": 0
+    },
+    "event.event_type": {
+      "accuracy": 0.7,
+      "precision": 0.7,
+      "recall": 1.0,
+      "f1_score": 0.8235294117647058,
+      "correct": 35,
+      "incorrect": 15,
+      "missing": 0,
+      "hallucinated": 0
+    },
+    "event.event_date": {
+      "accuracy": 0.96,
+      "precision": 0.96,
+      "recall": 1.0,
+      "f1_score": 0.9795918367346939,
+      "correct": 48,
       "incorrect": 2,
       "missing": 0,
-      "hallucinated": 4
+      "hallucinated": 0
     },
     "ai_system.system_type": {
       "accuracy": 0.18,
@@ -44,6 +64,16 @@
       "incorrect": 0,
       "missing": 4,
       "hallucinated": 1
+    },
+    "ai_system.name": {
+      "accuracy": 0.88,
+      "precision": 0.88,
+      "recall": 1.0,
+      "f1_score": 0.9361702127659575,
+      "correct": 44,
+      "incorrect": 2,
+      "missing": 0,
+      "hallucinated": 4
     },
     "ai_system.deployer": {
       "accuracy": 0.78,
@@ -142,36 +172,6 @@
       "f1_score": 0.8636363636363636,
       "correct": 38,
       "incorrect": 12,
-      "missing": 0,
-      "hallucinated": 0
-    },
-    "event.event_date": {
-      "accuracy": 0.96,
-      "precision": 0.96,
-      "recall": 1.0,
-      "f1_score": 0.9795918367346939,
-      "correct": 48,
-      "incorrect": 2,
-      "missing": 0,
-      "hallucinated": 0
-    },
-    "event.event_type": {
-      "accuracy": 0.7,
-      "precision": 0.7,
-      "recall": 1.0,
-      "f1_score": 0.8235294117647058,
-      "correct": 35,
-      "incorrect": 15,
-      "missing": 0,
-      "hallucinated": 0
-    },
-    "event.event_location": {
-      "accuracy": 1.0,
-      "precision": 1.0,
-      "recall": 1.0,
-      "f1_score": 1.0,
-      "correct": 50,
-      "incorrect": 0,
       "missing": 0,
       "hallucinated": 0
     },
