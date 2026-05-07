@@ -161,17 +161,20 @@ class BenchmarkMetrics:
         """Micro accuracy: total correct cells / total scored cells.
 
         Sample-weighted across all field rows that contribute to
-        accuracy aggregation. This is the standard metric in NLP
-        extraction benchmarks and is the recommended headline number
-        for this thesis. Less volatile than `overall_accuracy` (macro)
-        because small-n org slot rows are weighted in proportion to
-        their actual incident count.
+        accuracy aggregation. The denominator includes correct,
+        incorrect, missing, AND hallucinated counts so that
+        hallucinated cells (model invented a value where ground truth
+        was empty) are penalised in accuracy directly, matching the
+        per-field `accuracy` and the macro `overall_accuracy`
+        definitions and ensuring all four micro/macro metrics use the
+        same scoring universe. Hallucination is additionally reported
+        via `overall_hallucination_rate` for direct interpretation.
         """
         agg = self._accuracy_aggregation_fields()
         if not agg:
             return 0.0
         total_c = sum(m.correct for m in agg.values())
-        total_n = sum(m.correct + m.incorrect + m.missing_in_extraction for m in agg.values())
+        total_n = sum(m.correct + m.incorrect + m.missing_in_extraction + m.hallucinated for m in agg.values())
         return total_c / total_n if total_n else 0.0
 
     @property
