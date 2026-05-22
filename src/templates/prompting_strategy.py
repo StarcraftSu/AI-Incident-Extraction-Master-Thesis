@@ -203,18 +203,24 @@ def build_ps3_extraction_prompt(ki_component: str, article_text: str) -> str:
     return build_ps1_prompt(ki_component, article_text)
 
 
-def build_ps3_verification_prompt(article_text: str, extracted_json: dict) -> str:
+def build_ps3_verification_prompt(
+    ki_component: str, article_text: str, extracted_json: dict
+) -> str:
     """
-    PS3 step 2: Verify each field against the source text.
+    PS3 step 2: Verify each field against the source text under schema constraints.
 
     Uses quote-grounding: the model must cite the relevant passage
     before confirming or rejecting each field. This prevents the model
     from simply rubber-stamping its own prior output.
 
-    IMPORTANT: This prompt does NOT include the extracted values.
+    IMPORTANT: This prompt does NOT include the extracted values from step 1.
     It only asks the model to independently find each field's value
     from the article. This independence is the key mechanism by which
     CoVe reduces hallucination. (Dhuliawala et al., 2023)
+
+    The KI component IS included so that the final JSON respects the same
+    schema / taxonomy / ontology constraints as step 1 — without leaking
+    step 1's values, which would break Dhuliawala's independence principle.
     """
     # Collect field names only — NOT their values
     field_names = []
@@ -236,12 +242,16 @@ def build_ps3_verification_prompt(article_text: str, extracted_json: dict) -> st
 
     return f"""{ROLE_PREFIX}
 
-You are independently extracting information from the source article below.
+You are independently verifying information from the source article below.
 For each field listed, determine whether the article explicitly states the information.
 
 <article>
 {article_text}
 </article>
+
+<schema>
+{ki_component}
+</schema>
 
 <verification_tasks>
 For each field below, search the article for relevant information.
@@ -251,10 +261,9 @@ Do NOT guess or infer — only extract what is explicitly stated.
 </verification_tasks>
 
 <instructions>
-Based on your verification above, output a complete JSON with the same structure.
-- For fields where the article provides the information, write the value.
-- For fields where the article does NOT provide the information, write "not stated".
+Based on your verification above, output a complete JSON respecting the schema.
 - Use the nested JSON structure: event, ai_system, harm, organizations.
+- For fields where the article does NOT provide the information, write "not stated".
 </instructions>
 
 Return ONLY valid JSON."""

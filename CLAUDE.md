@@ -32,7 +32,7 @@ build_condition_prompt(ps, ki, article) → LLM call → parse JSON → evaluate
 ## Critical Design Decisions
 
 1. **KI levels are cumulative.** KI4 includes KI3 includes KI2. Changing KI2 affects KI3 and KI4.
-2. **PS3 verification step does NOT receive the KI component.** Only step 1 (extraction) does. Step 2 (verification) gets a generic field list with quote-grounding instructions. Intentional — follows Dhuliawala et al. (2023).
+2. **PS3 step 2 receives the KI component, but NOT step 1's extracted values.** Both steps see the same schema/taxonomy/ontology constraints (injected in a `<schema>` block in step 2) so the final JSON respects the same vocabulary as step 1. Step 2 does NOT see step 1's output — the model independently re-answers per-field quote-grounding questions. This preserves Dhuliawala et al. (2023)'s independence principle while letting structured-extraction constraints flow through to the final output. (Earlier versions stripped the KI from step 2, which collapsed PS3 across KI levels — see commit log.)
 3. **Flat-to-nested normalization** (`_normalize_to_nested`). Models without schema (especially PS1×KI1) produce flat JSON. The evaluator maps flat keys to nested GT paths before comparison; without this, flat outputs get double-counted as both "missing" (nested path) and "hallucinated" (flat path).
 4. **Constrained fields use set intersection** for multi-value matching. Both extracted and GT can be comma-separated; any-pair-overlap counts as correct.
 5. **Date and country are prepended to `article_text`** at load time. Without this, models returned `"not stated"` for `event_date` and `event_location` even when the values were in the OECD AIM metadata. Pre-fix runs preserved in `data/results/_archive/`.

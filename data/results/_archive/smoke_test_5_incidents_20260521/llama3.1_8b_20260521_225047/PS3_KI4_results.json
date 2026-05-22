@@ -1,0 +1,327 @@
+[
+  {
+    "incident_id": "2026-04-10-eb21",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI4",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI hazard\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"US officials warned banks of AI model 'Mythos' cybersecurity risks.\",\n  \"ai_system_name\": \"Mythos\",\n  \"system_type\": \"generative AI\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"economic\",\n  \"severity\": \"significant\",\n  \"affected_parties\": \"banks\",\n  \"organizations\": [\n    {\n      \"name\": \"US Treasury\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Federal Reserve\",\n      \"role\": \"regulator\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event_type\": \"AI hazard\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"US Officials Warn Banks of AI Model 'Mythos' Cybersecurity Risks\",\n  \"ai_system_name\": \"Mythos\",\n  \"system_type\": \"not stated\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"economic\",\n  \"severity\": \"significant\",\n  \"affected_parties\": \"banks, financial institutions\",\n  \"organizations\": [\n    {\n      \"name\": \"US Treasury\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Federal Reserve\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"developer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event_type": "AI hazard",
+      "event_date": "2026-04-10",
+      "event_location": "United States",
+      "description": "US Officials Warn Banks of AI Model 'Mythos' Cybersecurity Risks",
+      "ai_system_name": "Mythos",
+      "system_type": "not stated",
+      "developer": "Anthropic",
+      "deployer": "not stated",
+      "harm_type": "economic",
+      "severity": "significant",
+      "affected_parties": "banks, financial institutions",
+      "organizations": [
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        },
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 29.89681315422058,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-10-0818",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI4",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI hazard\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"Surging electricity demand from AI-powered data centers has led to policy rollbacks and emergency orders keeping coal plants operational, worsening air quality in St. Louis.\",\n  \"ai_system_name\": \"not stated\",\n  \"system_type\": \"other\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"Ameren\",\n  \"harm_type\": \"environmental\",\n  \"severity\": \"significant\",\n  \"affected_parties\": \"marginalized communities near coal facilities\",\n  \"organizations\": [\n    {\n      \"name\": \"United States Department of Energy\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"United States Environmental Protection Agency\",\n      \"role\": \"regulator\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"AI hazard\",\n    \"date\": \"2026-04-10\",\n    \"location\": \"United States\"\n  },\n  \"ai_system\": {\n    \"name\": \"not stated\"\n  },\n  \"harm\": [\n    {\n      \"type\": \"environmental\",\n      \"severity\": \"significant\",\n      \"description\": \"reversed clean-air progress, increased pollution, and harmed public health, especially in marginalized communities near coal facilities.\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Ameren\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"United States Department of Energy\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"United States Environmental Protection Agency\",\n      \"role\": \"regulator\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "AI hazard",
+        "date": "2026-04-10",
+        "location": "United States"
+      },
+      "ai_system": {
+        "name": "not stated"
+      },
+      "harm": [
+        {
+          "type": "environmental",
+          "severity": "significant",
+          "description": "reversed clean-air progress, increased pollution, and harmed public health, especially in marginalized communities near coal facilities."
+        }
+      ],
+      "organizations": [
+        {
+          "name": "Ameren",
+          "role": "deployer"
+        },
+        {
+          "name": "United States Department of Energy",
+          "role": "regulator"
+        },
+        {
+          "name": "United States Environmental Protection Agency",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-10",
+        "event_location": "St. Louis, United States",
+        "description": "AI data center electricity demand led to policy rollbacks keeping coal plants operational, reversing clean-air progress and harming public health"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "other",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "environmental",
+        "severity": "significant",
+        "affected_parties": "marginalized communities near coal facilities"
+      },
+      "organizations": []
+    },
+    "is_valid_json": true,
+    "latency_seconds": 19.844799995422363,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-10-2b35",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI4",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI incident\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"The AI manager Luna, powered by Anthropic and Google models, autonomously ran store operations at Andon Market in San Francisco, causing misinformation, privacy concerns, and operational issues.\",\n  \"ai_system_name\": \"Luna\",\n  \"system_type\": \"decision support\",\n  \"developer\": \"Anthropic and Google\",\n  \"deployer\": \"Andon Market\",\n  \"harm_type\": [\n    {\n      \"type\": \"rights violation\",\n      \"severity\": \"significant\"\n    },\n    {\n      \"type\": \"reputational\",\n      \"severity\": \"minor\"\n    }\n  ],\n  \"affected_parties\": \"employees and customers of Andon Market\",\n  \"organizations\": [\n    {\n      \"name\": \"Andon Market\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"Anthropic and Google\",\n      \"role\": \"developer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"AI incident\",\n    \"date\": \"2026-04-10\",\n    \"location\": \"San Francisco, United States\"\n  },\n  \"ai_system\": {\n    \"name\": \"Luna\",\n    \"system_type\": \"other\"  },\n  \"harm\": [\n    {\n      \"type\": \"rights violation\",\n      \"severity\": \"significant\",\n      \"description\": \"misinformation, privacy concerns, and operational issues\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"Google\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"Andon Market\",\n      \"role\": \"deployer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "AI incident",
+        "date": "2026-04-10",
+        "location": "San Francisco, United States"
+      },
+      "ai_system": {
+        "name": "Luna",
+        "system_type": "other"
+      },
+      "harm": [
+        {
+          "type": "rights violation",
+          "severity": "significant",
+          "description": "misinformation, privacy concerns, and operational issues"
+        }
+      ],
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "Google",
+          "role": "developer"
+        },
+        {
+          "name": "Andon Market",
+          "role": "deployer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-10",
+        "event_location": "San Francisco, United States",
+        "description": "AI store manager Luna lied about store actions, surveilled employees, and attempted to hire someone in Afghanistan due to system errors"
+      },
+      "ai_system": {
+        "name": "Luna",
+        "system_type": "ai agent",
+        "developer": "Anthropic, Google",
+        "deployer": "Andon Market"
+      },
+      "harm": {
+        "harm_type": "rights violation",
+        "severity": "moderate",
+        "affected_parties": "Andon Market employees"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "Google",
+          "role": "developer"
+        },
+        {
+          "name": "Andon Market",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 20.753515243530273,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-10-9248",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI4",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI hazard\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"Meta Platforms must face a lawsuit in Massachusetts alleging its AI-driven features on Instagram and Facebook deliberately foster addiction and mental health harm in young users.\",\n  \"ai_system_name\": \"not stated\",\n  \"system_type\": \"recommendation system\",\n  \"developer\": \"Meta Platforms\",\n  \"deployer\": \"Meta Platforms\",\n  \"harm_type\": \"psychological\",\n  \"severity\": \"significant\",\n  \"affected_parties\": \"young users\",\n  \"organizations\": [\n    {\n      \"name\": \"Meta Platforms\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"Massachusetts court\",\n      \"role\": \"regulator\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event_type\": \"AI incident\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"Meta Platforms must face a lawsuit in Massachusetts alleging its AI-driven features on Instagram and Facebook deliberately foster addiction and mental health harm in young users.\",\n  \"ai_system_name\": \"not stated\",\n  \"system_type\": \"not stated\",\n  \"developer\": \"Meta Platforms\",\n  \"deployer\": \"Meta Platforms\",\n  \"harm_type\": \"psychological\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": \"young users\",\n  \"organizations\": [\n    {\n      \"name\": \"Meta Platforms\",\n      \"role\": \"deployer\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event_type": "AI incident",
+      "event_date": "2026-04-10",
+      "event_location": "United States",
+      "description": "Meta Platforms must face a lawsuit in Massachusetts alleging its AI-driven features on Instagram and Facebook deliberately foster addiction and mental health harm in young users.",
+      "ai_system_name": "not stated",
+      "system_type": "not stated",
+      "developer": "Meta Platforms",
+      "deployer": "Meta Platforms",
+      "harm_type": "psychological",
+      "severity": "not stated",
+      "affected_parties": "young users",
+      "organizations": [
+        {
+          "name": "Meta Platforms",
+          "role": "deployer"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-10",
+        "event_location": "Massachusetts, United States",
+        "description": "Meta faces lawsuit alleging its AI-driven features on Instagram and Facebook deliberately foster addiction and mental health harm in youth"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "recommendation system",
+        "developer": "Meta Platforms",
+        "deployer": "Meta Platforms"
+      },
+      "harm": {
+        "harm_type": "psychological",
+        "severity": "significant",
+        "affected_parties": "adolescents"
+      },
+      "organizations": [
+        {
+          "name": "Meta Platforms",
+          "role": "developer"
+        },
+        {
+          "name": "Meta Platforms",
+          "role": "deployer"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 18.643216609954834,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-09-257d",
+    "model": "llama3.1:8b",
+    "condition": "PS3_KI4",
+    "raw_output": "--- STEP 1 ---\n{\n  \"event_type\": \"AI incident\",\n  \"event_date\": \"2026-04-09\",\n  \"event_location\": \"United States\",\n  \"description\": \"Florida Attorney General James Uthmeier has launched an investigation into OpenAI, citing allegations that ChatGPT was used to assist a mass shooting at Florida State University.\",\n  \"ai_system_name\": \"ChatGPT\",\n  \"system_type\": \"generative AI\",\n  \"developer\": \"OpenAI\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": [\n    {\n      \"type\": \"rights violation\",\n      \"severity\": \"significant\"\n    },\n    {\n      \"type\": \"psychological\",\n      \"severity\": \"significant\"\n    }\n  ],\n  \"affected_parties\": \"students at Florida State University and possibly others\",\n  \"organizations\": [\n    {\n      \"name\": \"Florida Attorney General's office\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"developer\"\n    }\n  ]\n}\n--- STEP 2 ---\n{\n  \"event\": {\n    \"type\": \"AI incident\",\n    \"date\": \"2026-04-09\",\n    \"location\": \"United States\"\n  },\n  \"ai_system\": {\n    \"name\": \"ChatGPT\",\n    \"type\": \"generative AI\"\n  },\n  \"harm\": [\n    {\n      \"type\": \"rights violation\",\n      \"severity\": \"not stated\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"name\": \"OpenAI\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"Florida Attorney General's office\",\n      \"role\": \"regulator\"\n    }\n  ]\n}",
+    "parsed_output": {
+      "event": {
+        "type": "AI incident",
+        "date": "2026-04-09",
+        "location": "United States"
+      },
+      "ai_system": {
+        "name": "ChatGPT",
+        "type": "generative AI"
+      },
+      "harm": [
+        {
+          "type": "rights violation",
+          "severity": "not stated"
+        }
+      ],
+      "organizations": [
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "Florida Attorney General's office",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-09",
+        "event_location": "Florida, United States",
+        "description": "Florida Attorney General investigates OpenAI over allegations that ChatGPT was used to assist a mass shooting at Florida State University and links to criminal behavior and self-harm"
+      },
+      "ai_system": {
+        "name": "ChatGPT",
+        "system_type": "chatbot",
+        "developer": "OpenAI",
+        "deployer": "OpenAI"
+      },
+      "harm": {
+        "harm_type": "physical",
+        "severity": "severe",
+        "affected_parties": "Florida State University"
+      },
+      "organizations": [
+        {
+          "name": "OpenAI",
+          "role": "developer"
+        },
+        {
+          "name": "Florida Attorney General",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 19.55206799507141,
+    "error": null
+  }
+]

@@ -196,7 +196,9 @@ class ExperimentRunner:
                 )
 
             # Step 2: Verify
-            verification_prompt = build_ps3_verification_prompt(article_text, parsed1)
+            verification_prompt = build_ps3_verification_prompt(
+                KI_COMPONENTS[ki], article_text, parsed1
+            )
             response2 = self._call_llm(model_key, verification_prompt)
             parsed2, is_valid2 = parse_json_output(response2.text)
 
