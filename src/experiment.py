@@ -41,7 +41,10 @@ try:
         KI_LABELS,
         PS_LABELS,
     )
-    from templates.prompting_strategy import build_ps3_verification_prompt
+    from templates.prompting_strategy import (
+        build_ps3_verification_questions_prompt,
+        build_ps3_revision_prompt,
+    )
 except ImportError:
     from .templates import (
         build_condition_prompt,
@@ -50,7 +53,10 @@ except ImportError:
         KI_LABELS,
         PS_LABELS,
     )
-    from .templates.prompting_strategy import build_ps3_verification_prompt
+    from .templates.prompting_strategy import (
+        build_ps3_verification_questions_prompt,
+        build_ps3_revision_prompt,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -175,7 +181,10 @@ class ExperimentRunner:
             )
 
         elif ps == "PS3":
-            # Two-call CoVe strategy
+            # Three-call CoVe strategy (Dhuliawala 2023):
+            #   Step 1: extract draft (PS1-style with KI)
+            #   Step 2: independent per-field verification (does NOT see draft values)
+            #   Step 3: revise draft using verification evidence
             # Step 1: Extract
             extraction_prompt = build_condition_prompt(ps, ki, article_text)
             response1 = self._call_llm(model_key, extraction_prompt)
@@ -195,24 +204,39 @@ class ExperimentRunner:
                     error=response1.error or "Step 1 extraction failed",
                 )
 
-            # Step 2: Verify
-            verification_prompt = build_ps3_verification_prompt(
+            # Step 2: Independent verification (no draft values shown)
+            verification_prompt = build_ps3_verification_questions_prompt(
                 KI_COMPONENTS[ki], article_text, parsed1
             )
             response2 = self._call_llm(model_key, verification_prompt)
-            parsed2, is_valid2 = parse_json_output(response2.text)
+            verifications_text = response2.text
 
-            total_latency = response1.latency_seconds + response2.latency_seconds
+            # Step 3: Revise using draft + verifications
+            revision_prompt = build_ps3_revision_prompt(
+                KI_COMPONENTS[ki], article_text, parsed1, verifications_text
+            )
+            response3 = self._call_llm(model_key, revision_prompt)
+            parsed3, is_valid3 = parse_json_output(response3.text)
 
-            # Use verified output if valid, otherwise fall back to initial
-            final_parsed = parsed2 if is_valid2 and parsed2 else parsed1
-            final_valid = is_valid2 if parsed2 else is_valid1
+            total_latency = (
+                response1.latency_seconds
+                + response2.latency_seconds
+                + response3.latency_seconds
+            )
+
+            # Use revised output if valid, otherwise fall back to initial draft
+            final_parsed = parsed3 if is_valid3 and parsed3 else parsed1
+            final_valid = is_valid3 if parsed3 else is_valid1
 
             return ExtractionResult(
                 incident_id=incident_id,
                 model=model_key,
                 template=condition,
-                raw_output=f"--- STEP 1 ---\n{response1.text}\n--- STEP 2 ---\n{response2.text}",
+                raw_output=(
+                    f"--- STEP 1 EXTRACT ---\n{response1.text}\n"
+                    f"--- STEP 2 VERIFY ---\n{response2.text}\n"
+                    f"--- STEP 3 REVISE ---\n{response3.text}"
+                ),
                 parsed_output=final_parsed,
                 ground_truth=ground_truth,
                 is_valid_json=final_valid,

@@ -1,0 +1,131 @@
+[
+  {
+    "incident_id": "2026-04-10-eb21",
+    "model": "claude-haiku-4-5-20251001",
+    "condition": "PS3_KI4",
+    "raw_output": "--- STEP 1 EXTRACT ---\n```json\n{\n  \"event_type\": \"AI hazard\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"US Treasury Secretary and Federal Reserve Chair convened an emergency meeting with major bank CEOs to address cybersecurity risks posed by Anthropic's AI model Mythos, which could potentially enable advanced cyberattacks on financial institutions.\",\n  \"ai_system_name\": \"Mythos\",\n  \"system_type\": \"other\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"economic\",\n  \"severity\": \"significant\",\n  \"affected_parties\": \"Financial institutions and banks\",\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"US Treasury\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Federal Reserve\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Major banks\",\n      \"role\": \"victim\"\n    }\n  ]\n}\n```\n--- STEP 2 VERIFY ---\n```json\n{\n  \"event.event_type\": {\n    \"quote\": \"US officials warn banks of AI model 'Mythos' cybersecurity risks\",\n    \"value\": \"AI hazard\"\n  },\n  \"event.event_date\": {\n    \"quote\": \"Date: 2026-04-10\",\n    \"value\": \"2026-04-10\"\n  },\n  \"event.event_location\": {\n    \"quote\": \"US Treasury Secretary Scott Besant and Federal Reserve Chair Jerome Powell convened an emergency meeting with major bank CEOs in Washington\",\n    \"value\": \"United States\"\n  },\n  \"event.description\": {\n    \"quote\": \"US Treasury Secretary Scott Besant and Federal Reserve Chair Jerome Powell convened an emergency meeting with major bank CEOs in Washington to address concerns that Anthropic's new AI model, Mythos, could enable advanced cyberattacks on financial institutions.\",\n    \"value\": \"US officials convened an emergency meeting with bank CEOs to address concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions.\"\n  },\n  \"ai_system.ai_system_name\": {\n    \"quote\": \"Anthropic's new AI model, Mythos\",\n    \"value\": \"Mythos\"\n  },\n  \"ai_system.system_type\": {\n    \"value\": \"other\"\n  },\n  \"ai_system.developer\": {\n    \"quote\": \"Anthropic's new AI model, Mythos\",\n    \"value\": \"Anthropic\"\n  },\n  \"ai_system.deployer\": {\n    \"value\": \"not stated\"\n  },\n  \"harm.harm_type\": {\n    \"quote\": \"could enable advanced cyberattacks on financial institutions\",\n    \"value\": \"economic\"\n  },\n  \"harm.severity\": {\n    \"value\": \"not stated\"\n  },\n  \"harm.affected_parties\": {\n    \"quote\": \"major bank CEOs\",\n    \"value\": \"financial institutions and banks\"\n  },\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"US Treasury\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Federal Reserve\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Banks\",\n      \"role\": \"victim\"\n    }\n  ]\n}\n```\n--- STEP 3 REVISE ---\n```json\n{\n  \"event_type\": \"AI hazard\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"US officials convened an emergency meeting with bank CEOs to address concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions.\",\n  \"ai_system_name\": \"Mythos\",\n  \"system_type\": \"other\",\n  \"developer\": \"Anthropic\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"economic\",\n  \"severity\": \"not stated\",\n  \"affected_parties\": \"Financial institutions and banks\",\n  \"organizations\": [\n    {\n      \"name\": \"Anthropic\",\n      \"role\": \"developer\"\n    },\n    {\n      \"name\": \"US Treasury\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Federal Reserve\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"Banks\",\n      \"role\": \"victim\"\n    }\n  ]\n}\n```",
+    "parsed_output": {
+      "event_type": "AI hazard",
+      "event_date": "2026-04-10",
+      "event_location": "United States",
+      "description": "US officials convened an emergency meeting with bank CEOs to address concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions.",
+      "ai_system_name": "Mythos",
+      "system_type": "other",
+      "developer": "Anthropic",
+      "deployer": "not stated",
+      "harm_type": "economic",
+      "severity": "not stated",
+      "affected_parties": "Financial institutions and banks",
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        },
+        {
+          "name": "Banks",
+          "role": "victim"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI hazard",
+        "event_date": "2026-04-10",
+        "event_location": "Washington, United States",
+        "description": "US officials convened emergency meeting with bank CEOs over concerns that Anthropic's AI model Mythos could enable advanced cyberattacks on financial institutions"
+      },
+      "ai_system": {
+        "name": "Mythos",
+        "system_type": "generative AI",
+        "developer": "Anthropic",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "economic",
+        "severity": "significant",
+        "affected_parties": "financial institutions"
+      },
+      "organizations": [
+        {
+          "name": "Anthropic",
+          "role": "developer"
+        },
+        {
+          "name": "US Treasury",
+          "role": "regulator"
+        },
+        {
+          "name": "Federal Reserve",
+          "role": "regulator"
+        }
+      ]
+    },
+    "is_valid_json": true,
+    "latency_seconds": 9.15377163887024,
+    "error": null
+  },
+  {
+    "incident_id": "2026-04-10-0818",
+    "model": "claude-haiku-4-5-20251001",
+    "condition": "PS3_KI4",
+    "raw_output": "--- STEP 1 EXTRACT ---\n```json\n{\n  \"event_type\": \"AI hazard\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"United States\",\n  \"description\": \"Surging electricity demand from AI-powered data centers has led to policy rollbacks keeping coal plants operational, increasing air pollution and harming public health in marginalized communities.\",\n  \"ai_system_name\": \"not stated\",\n  \"system_type\": \"other\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"environmental\",\n  \"severity\": \"significant\",\n  \"affected_parties\": \"Marginalized communities near coal facilities in North St. Louis\",\n  \"organizations\": [\n    {\n      \"name\": \"Ameren\",\n      \"role\": \"other\"\n    },\n    {\n      \"name\": \"United States Department of Energy\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"United States Environmental Protection Agency\",\n      \"role\": \"regulator\"\n    }\n  ]\n}\n```\n--- STEP 2 VERIFY ---\n```json\n{\n  \"event_type\": {\n    \"quote\": \"Surging electricity demand from AI-powered data centers in the U.S. has led to policy rollbacks and emergency orders keeping coal plants operational, notably in North St. Louis. This has reversed clean-air progress, increased pollution, and harmed public health, especially in marginalized communities near coal facilities.\",\n    \"value\": \"AI incident\"\n  },\n  \"event_date\": {\n    \"quote\": \"Date: 2026-04-10\",\n    \"value\": \"2026-04-10\"\n  },\n  \"event_location\": {\n    \"quote\": \"Title: AI Data Center Boom Drives Coal Revival, Worsening Air Quality in St. Louis\",\n    \"value\": \"St. Louis, United States\"\n  },\n  \"description\": {\n    \"quote\": \"Surging electricity demand from AI-powered data centers in the U.S. has led to policy rollbacks and emergency orders keeping coal plants operational, notably in North St. Louis, reversing clean-air progress and increasing pollution that harms public health in marginalized communities.\",\n    \"value\": \"AI-powered data centers' electricity demand led to coal plant reactivation and policy rollbacks, causing increased air pollution and harming public health in marginalized communities near coal facilities.\"\n  },\n  \"ai_system_name\": {\n    \"value\": \"not stated\"\n  },\n  \"system_type\": {\n    \"value\": \"not stated\"\n  },\n  \"developer\": {\n    \"value\": \"not stated\"\n  },\n  \"deployer\": {\n    \"value\": \"not stated\"\n  },\n  \"harm_type\": {\n    \"quote\": \"This has reversed clean-air progress, increased pollution, and harmed public health, especially in marginalized communities near coal facilities.\",\n    \"value\": \"environmental\"\n  },\n  \"severity\": {\n    \"quote\": \"This has reversed clean-air progress, increased pollution, and harmed public health, especially in marginalized communities near coal facilities.\",\n    \"value\": \"significant\"\n  },\n  \"affected_parties\": {\n    \"quote\": \"harmed public health, especially in marginalized communities near coal facilities\",\n    \"value\": \"marginalized communities near coal facilities in North St. Louis\"\n  },\n  \"organizations\": {\n    \"value\": [\n      {\n        \"name\": \"Ameren\",\n        \"role\": \"deployer\"\n      },\n      {\n        \"name\": \"United States Department of Energy\",\n        \"role\": \"regulator\"\n      },\n      {\n        \"name\": \"United States Environmental Protection Agency\",\n        \"role\": \"regulator\"\n      }\n    ]\n  }\n}\n```\n--- STEP 3 REVISE ---\n```json\n{\n  \"event_type\": \"AI incident\",\n  \"event_date\": \"2026-04-10\",\n  \"event_location\": \"St. Louis, United States\",\n  \"description\": \"AI-powered data centers' electricity demand led to coal plant reactivation and policy rollbacks, causing increased air pollution and harming public health in marginalized communities near coal facilities.\",\n  \"ai_system_name\": \"not stated\",\n  \"system_type\": \"not stated\",\n  \"developer\": \"not stated\",\n  \"deployer\": \"not stated\",\n  \"harm_type\": \"environmental\",\n  \"severity\": \"significant\",\n  \"affected_parties\": \"marginalized communities near coal facilities in North St. Louis\",\n  \"organizations\": [\n    {\n      \"name\": \"Ameren\",\n      \"role\": \"deployer\"\n    },\n    {\n      \"name\": \"United States Department of Energy\",\n      \"role\": \"regulator\"\n    },\n    {\n      \"name\": \"United States Environmental Protection Agency\",\n      \"role\": \"regulator\"\n    }\n  ]\n}\n```",
+    "parsed_output": {
+      "event_type": "AI incident",
+      "event_date": "2026-04-10",
+      "event_location": "St. Louis, United States",
+      "description": "AI-powered data centers' electricity demand led to coal plant reactivation and policy rollbacks, causing increased air pollution and harming public health in marginalized communities near coal facilities.",
+      "ai_system_name": "not stated",
+      "system_type": "not stated",
+      "developer": "not stated",
+      "deployer": "not stated",
+      "harm_type": "environmental",
+      "severity": "significant",
+      "affected_parties": "marginalized communities near coal facilities in North St. Louis",
+      "organizations": [
+        {
+          "name": "Ameren",
+          "role": "deployer"
+        },
+        {
+          "name": "United States Department of Energy",
+          "role": "regulator"
+        },
+        {
+          "name": "United States Environmental Protection Agency",
+          "role": "regulator"
+        }
+      ]
+    },
+    "ground_truth": {
+      "event": {
+        "event_type": "AI incident",
+        "event_date": "2026-04-10",
+        "event_location": "St. Louis, United States",
+        "description": "AI data center electricity demand led to policy rollbacks keeping coal plants operational, reversing clean-air progress and harming public health"
+      },
+      "ai_system": {
+        "name": "not stated",
+        "system_type": "other",
+        "developer": "not stated",
+        "deployer": "not stated"
+      },
+      "harm": {
+        "harm_type": "environmental",
+        "severity": "significant",
+        "affected_parties": "marginalized communities near coal facilities"
+      },
+      "organizations": []
+    },
+    "is_valid_json": true,
+    "latency_seconds": 9.465675830841064,
+    "error": null
+  }
+]

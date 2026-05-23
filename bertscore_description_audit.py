@@ -47,13 +47,11 @@ def model_label(dir_name: str) -> str:
 
 
 def is_post_fix_ps3(dir_name: str) -> bool:
-    """Return True for post-fix PS3 directories (created 2026-05-21+)."""
-    # Llama post-fix: llama3.1_8b_20260521_2* (after fix at 22:50)
-    # Haiku post-fix: claude_haiku_4_5_20251001_20260522_*
-    # Opus post-fix: claude_opus_4_6_20260522_*
-    if "20260522" in dir_name:
-        return True
-    if "llama" in dir_name and "20260521_2" in dir_name:
+    """Return True for post-fix PS3 directories.
+    Updated 2026-05-23: now matches the 3-call CoVe sweep on 2026-05-23.
+    Earlier 2-call PS3 runs (2026-05-21, 2026-05-22) are archived and not used.
+    """
+    if "20260523" in dir_name:
         return True
     return False
 
