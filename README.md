@@ -14,7 +14,7 @@ Benchmark LLM-based structured extraction from AI incident news using a factoria
 |-----------|----------|-------------|
 | PS1 | Zero-shot | Task instruction + KI component + article |
 | PS2 | Few-shot | Three worked examples + KI component + article |
-| PS3 | Verification (CoVe) | Two-step: extract then independently verify each field |
+| PS3 | Verification (CoVe) | Three-call: extract draft → independently verify each field → revise under instructions to prefer "not stated" over weak inference |
 
 **Factor B: Knowledge Injection (KI)** — cumulative hierarchy
 
@@ -36,47 +36,57 @@ Benchmark LLM-based structured extraction from AI incident news using a factoria
 ## Project Structure
 
 ```
-ai_incident_extraction/
+.
+├── README.md                                  # This file
+├── CLAUDE.md                                  # Working notes for AI assistants
+├── requirements.txt                           # Pinned deps (torch 2.2.2, transformers<5, numpy<2)
+├── .env.example                               # Template — copy to .env and set ANTHROPIC_API_KEY
+├── run_test.py                                # Quick setup smoke test (1 LLM call)
+├── bertscore_description_audit.py             # Offline BERTScore audit on the description field
+├── configs/
+│   └── config.yaml                            # Experiment configuration (PS / KI / model registry)
 ├── data/
 │   ├── raw/
 │   │   └── experimental_incidents_50.xlsx     # 50 OECD AIM incident records
 │   ├── annotated/
 │   │   └── ground_truth_50.json               # Manual annotations (12 fields per incident)
+│   ├── test/                                  # Small fixtures used by the pytest suite
 │   └── results/                               # Per-condition outputs (36 dirs after a full run)
 │       ├── <model>_<timestamp>/
 │       │   ├── PS<i>_KI<j>_results.json       # Raw model outputs + GT pairs
 │       │   └── PS<i>_KI<j>_metrics.json       # Computed BenchmarkMetrics
 │       └── _archive/                          # Pre-fix runs (kept as diff targets)
 ├── src/
+│   ├── __init__.py
 │   ├── templates/
 │   │   ├── __init__.py                        # build_condition_prompt(ps, ki, article)
 │   │   ├── knowledge_injection.py             # KI1-KI4 prompt components
 │   │   └── prompting_strategy.py              # PS1-PS3 prompt builders
+│   ├── prompts.py                             # Pre-templates legacy prompt registry (kept for back-ref)
 │   ├── llm_client.py                          # Ollama + Anthropic REST clients (no SDK)
 │   ├── data_loader.py                         # Excel/JSON dataset loading; prepends Date+Country to article_text
 │   ├── evaluation.py                          # Field-level comparison + BenchmarkMetrics aggregation
 │   ├── experiment.py                          # ExperimentRunner — loops models × conditions × incidents
 │   ├── reevaluate.py                          # Re-score saved *_results.json without re-calling LLMs
 │   ├── generate_summary.py                    # Cross-condition summary tables (feeds Chapter 4)
-│   └── independent_audit.py                   # Confirmability check — stdlib-only recompute
-├── tests/                                     # 76-test pytest suite guarding evaluation logic
-│   ├── test_aggregation.py
-│   ├── test_compare_values.py
-│   ├── test_evaluate_extraction.py
-│   └── test_normalize_to_nested.py
-├── run_test.py                                # Quick setup smoke test (1 LLM call)
-├── requirements.txt                           # Pinned deps (torch 2.2.2, transformers<5, numpy<2)
-├── .venv/                                     # Python 3.12 virtual environment
-├── CLAUDE.md                                  # Working notes for AI assistants
-└── README.md
+│   ├── independent_audit.py                   # Confirmability check — stdlib-only recompute
+│   └── _archive/historical_runners/           # Earlier per-model sweep scripts (superseded by full_ps3_sweep.py)
+└── tests/                                     # 76-test pytest suite guarding evaluation logic
+    ├── conftest.py
+    ├── test_aggregation.py
+    ├── test_compare_values.py
+    ├── test_evaluate_extraction.py
+    ├── test_normalize_to_nested.py
+    └── test_parse_json_output.py
 ```
 
 ## Setup
 
-### 1. Create virtual environment and install dependencies
+### 1. Clone and create virtual environment
 
 ```bash
-cd ai_incident_extraction
+git clone https://github.com/StarcraftSu/AI-Incident-Extraction-Master-Thesis.git
+cd AI-Incident-Extraction-Master-Thesis
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -192,7 +202,7 @@ Each scored field is classified as one of: **correct**, **incorrect**, **missing
 | Accuracy (micro) | sum(correct) / sum(scored) over all fields × incidents | **Primary headline metric** |
 | Accuracy (macro) | mean(per-field accuracy) | Reported in `*_metrics.json` for sensitivity |
 | Precision | correct / (correct + incorrect + hallucinated) | |
-| Recall | correct / (correct + incorrect + missing) | |
+| Recall | correct / (correct + missing) | |
 | F1 Score | harmonic mean of precision and recall | Both micro and macro variants |
 | Hallucination rate | hallucinated / (correct + incorrect + hallucinated) | Computed over in-scope fields only |
 | JSON Validity | % of outputs parseable as valid JSON | 100 % across all 36 cells in the locked benchmark |
@@ -201,7 +211,7 @@ Each scored field is classified as one of: **correct**, **incorrect**, **missing
 
 - **Headline scope = 10 scalar fields.** The variable-length `organizations` array is excluded from headline aggregation because its small per-slot row counts, role-coding subjectivity, and prevalence of generic entity mentions ("users", "Republican") would put ~28 % weight on the noisiest sub-task. Per-cell organization data is preserved in `*_results.json` for future supplementary analysis. The `description` field is excluded because exact-match scoring of free-text summaries is not meaningful (BERTScore at the standard threshold saturates near 100 % on Haiku and Opus).
 - **Date and country are prepended to the article text** at load time (`data_loader.py`). Without this, models often returned `"not stated"` for `event_date` and `event_location` even when the values were available in the OECD AIM metadata — see `_archive/no_date_in_input_*` and `_archive/no_country_in_input_*` for the pre-fix runs.
-- **PS3 verification step does NOT receive the KI component.** Only step 1 (extraction) gets the KI prompt. Step 2 (verification) gets a generic field list with quote-grounding instructions. This is intentional: it follows the chain-of-verification design (Dhuliawala et al., 2023) where the verifier independently re-derives values without seeing the first call's output.
+- **PS3 has three sequential calls: extract, verify, revise.** Step 1 (extract) uses the same prompt structure as PS1. Step 2 (verify) sees the article and the KI schema, plus per-field open-ended what/when/where questions, but does NOT see step 1's draft values — the verifier independently re-answers each question from the article. Step 3 (revise) sees both the draft and the verification answers, and produces the final JSON under instructions to treat the draft as potentially incorrect and to prefer `"not stated"` over weak inference. This preserves the independence principle from chain-of-verification (Dhuliawala et al., 2023) while letting the schema/taxonomy/ontology constraints flow through to the final output.
 - **BERTScore model**: `distilbert-base-uncased` with `rescale_with_baseline=True`, threshold 0.5 on F1. The substring shortcut at the top of the BERTScore branch in `evaluation.py` short-circuits the common cases (e.g., `"United States"` ⊂ `"California, United States"`) before the threshold is consulted.
 - **Reproducibility.** The Llama tier is exactly reproducible (open weights, Ollama with `format: "json"`, temperature 0.0). The proprietary tiers are pinned via the snapshot ID `claude-haiku-4-5-20251001` (dated snapshot) and the alias `claude-opus-4-6` (no dated snapshot was available at the time of the runs); Anthropic's API may evolve the alias over time.
 
@@ -209,7 +219,7 @@ Each scored field is classified as one of: **correct**, **incorrect**, **missing
 
 50 incidents from the [OECD AI Incidents Monitor](https://oecd.ai/en/incidents):
 - Country filter: USA
-- Downloaded: 12 April 2026
+- Downloaded: 12 April 2026, with one replacement on 17 April: `2026-04-08-d905` (a successful AI-assisted rescue with no harm or hazard) was swapped for `2026-04-17-f5bd` (an AI-related security hazard)
 - Each record: title + summary + concepts + date + country (OECD AIM fields)
 - Ground truth: 50 manually annotated records using the constrained vocabulary above
 
@@ -225,4 +235,4 @@ The only valid values, used in both ground truth and the evaluator's set-interse
 
 ## Audit Trail
 
-The evaluation pipeline went through ~12 bug-fix and design-change commits during data preparation. The pre-fix runs are preserved in `data/results/_archive/` with READMEs documenting why each was superseded. Each evaluator change ships with a regression test in `tests/`. The full commit range is `0b01c2f` (initial pipeline) through the current `master`. See Discussion §5.3 of the thesis for the confirmability story.
+The evaluation pipeline went through ~12 bug-fix and design-change commits during data preparation. The pre-fix runs are preserved in `data/results/_archive/` with READMEs documenting why each was superseded. Each evaluator change ships with a regression test in `tests/`. The full commit range is `af4b2dc` (initial pipeline) through the current `main`. See Discussion §5.3 of the thesis for the confirmability story.

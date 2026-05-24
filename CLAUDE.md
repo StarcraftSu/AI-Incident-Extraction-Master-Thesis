@@ -88,13 +88,13 @@ pytest tests/ -q                                # 76-test regression suite
 
 The evaluator and data pipeline went through ~12 bug-fix and design-change commits during data preparation. Highlights:
 
-- `0b01c2f` — initial pipeline
-- `abcb707`, `789322b` — date and country added to `article_text` (event_date/event_location went from 0 % to 90+ %)
+- `af4b2dc` — initial pipeline
+- `a0b2e52`, `26260af` — date and country added to `article_text` (event_date/event_location went from 0 % to 90+ %)
 - bug_003 through bug_011 — evaluator fixes (flat-to-nested, set intersection, harm-suffix stripping, empty-{} as missing, hallucination rate scope, etc.)
-- `692e508` — added 76-test pytest suite
-- `842b1e7` — dropped organizations from headline; treat as separate sub-task
-- `c282d63` — fixed `requirements.txt` (5 missing deps added, 4 unused dropped)
-- `0489a74` — realigned `independent_audit.py` with the post-org-exclusion canonical scope
+- `6f6344d` — added 76-test pytest suite
+- `504bdaa` — dropped organizations from headline; treat as separate sub-task
+- `f6048c8` — fixed `requirements.txt` (5 missing deps added, 4 unused dropped)
+- `3650ca6` — realigned `independent_audit.py` with the post-org-exclusion canonical scope
 
 Pre-fix runs preserved in `data/results/_archive/` with READMEs explaining why each was superseded. Discussion §5.3 cites this audit trail as part of the study's confirmability.
 
