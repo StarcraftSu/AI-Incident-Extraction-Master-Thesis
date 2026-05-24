@@ -19,7 +19,7 @@ build_condition_prompt(ps, ki, article) → LLM call → parse JSON → evaluate
 ```
 
 - `templates/knowledge_injection.py` — KI1-KI4 prompt components (cumulative: KI3 = KI2 + taxonomy, KI4 = KI3 + ontology)
-- `templates/prompting_strategy.py` — PS1 (zero-shot), PS2 (few-shot, 3 examples), PS3 (two-step verification / CoVe)
+- `templates/prompting_strategy.py` — PS1 (zero-shot), PS2 (few-shot, 3 examples), PS3 (3-call CoVe: extract, verify, revise)
 - `evaluation.py` — field-level comparison (constrained / bertscore / exact / excluded), flat-to-nested normalization, BenchmarkMetrics aggregation (micro + macro)
 - `experiment.py` — `ExperimentRunner`: loops models × conditions × incidents, saves per-condition `*_results.json` + `*_metrics.json`
 - `llm_client.py` — Ollama (local, JSON mode) and Anthropic (REST, no SDK) clients

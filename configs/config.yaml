@@ -37,13 +37,13 @@ prompting_strategies:
 
   - id: PS2
     label: "Few-shot"
-    description: "Two worked examples prepended to the prompt."
+    description: "Three worked examples prepended to the prompt."
     calls: 1
 
   - id: PS3
     label: "Verification (CoVe)"
-    description: "Two-step: extract then verify each field against source."
-    calls: 2
+    description: "Three calls: extract, independently verify each field, revise."
+    calls: 3
 
 # ---------------------------------------------------------------------------
 # Knowledge Injection (KI)

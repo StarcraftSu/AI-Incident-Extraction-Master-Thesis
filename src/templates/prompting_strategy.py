@@ -6,7 +6,7 @@ Prompting Strategy (PS) wrappers for prompt construction.
 
 Three strategies that wrap around any KI component:
   PS1: Zero-shot — task instruction + KI + article
-  PS2: Few-shot — two worked examples + KI + article
+  PS2: Few-shot — three worked examples + KI + article
   PS3: Verification (CoVe) — three-step: extract, verify independently, revise
 
 All prompts share a common structure following prompt engineering
@@ -197,7 +197,7 @@ Now extract from the article above. Return ONLY valid JSON in the same format as
 
 
 # ---------------------------------------------------------------------------
-# PS3: Verification (CoVe) — returns TWO prompts
+# PS3: Verification (CoVe) — three calls: extract, verify, revise (three builders below)
 # ---------------------------------------------------------------------------
 def build_ps3_extraction_prompt(ki_component: str, article_text: str) -> str:
     """PS3 step 1: Extract using the KI component (same structure as PS1)."""
@@ -403,7 +403,7 @@ def _flatten_dict(d: dict, prefix: str = "") -> dict:
 PS_BUILDERS = {
     "PS1": build_ps1_prompt,
     "PS2": build_ps2_prompt,
-    "PS3": None,  # PS3 uses two-step; handled specially in experiment runner
+    "PS3": None,  # PS3 uses three calls; handled specially in experiment runner
 }
 
 PS_LABELS = {
