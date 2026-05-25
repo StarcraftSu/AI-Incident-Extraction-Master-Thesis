@@ -58,27 +58,39 @@ class ExtractionResult:
 
 @dataclass
 class FieldMetrics:
-    """Metrics for a single field."""
+    """Metrics for a single field.
+
+    Uses the classical IR confusion matrix:
+      - correct           = TP  (model matched a non-empty GT)
+      - true_negative     = TN  (both model output and GT are empty / "not stated")
+      - incorrect         = FP_incorrect    (GT non-empty, model returned a different non-empty value)
+      - hallucinated      = FP_hallucinated (GT empty, model returned a value)
+      - missing_in_extraction = FN (GT non-empty, model returned empty / "not stated")
+    """
     field_name: str
     correct: int = 0
     incorrect: int = 0
     missing_in_extraction: int = 0
     hallucinated: int = 0
+    true_negative: int = 0
     total: int = 0
 
     @property
     def accuracy(self) -> float:
-        return self.correct / self.total if self.total > 0 else 0.0
+        """Accuracy = (TP + TN) / (TP + TN + FP + FN)."""
+        return (self.correct + self.true_negative) / self.total if self.total > 0 else 0.0
 
     @property
     def precision(self) -> float:
-        """Precision = TP / (TP + FP). TP = correct, FP = incorrect + hallucinated."""
+        """Precision = TP / (TP + FP). TP = correct, FP = incorrect + hallucinated.
+        TN is NOT included in either numerator or denominator."""
         tp_fp = self.correct + self.incorrect + self.hallucinated
         return self.correct / tp_fp if tp_fp > 0 else 0.0
 
     @property
     def recall(self) -> float:
-        """Recall = TP / (TP + FN). TP = correct, FN = missing."""
+        """Recall = TP / (TP + FN). TP = correct, FN = missing.
+        TN is NOT included."""
         tp_fn = self.correct + self.missing_in_extraction
         return self.correct / tp_fn if tp_fn > 0 else 0.0
 
@@ -134,7 +146,7 @@ class BenchmarkMetrics:
         """
         return {
             k: v for k, v in self.field_metrics.items()
-            if (v.correct + v.incorrect + v.missing_in_extraction) > 0
+            if (v.correct + v.incorrect + v.missing_in_extraction + v.true_negative) > 0
             and not k.startswith("organizations")
         }
 
@@ -158,24 +170,25 @@ class BenchmarkMetrics:
 
     @property
     def overall_accuracy_micro(self) -> float:
-        """Micro accuracy: total correct cells / total scored cells.
+        """Micro accuracy: (TP + TN) / (TP + TN + FP + FN), aggregated globally.
 
         Sample-weighted across all field rows that contribute to
-        accuracy aggregation. The denominator includes correct,
-        incorrect, missing, AND hallucinated counts so that
-        hallucinated cells (model invented a value where ground truth
-        was empty) are penalised in accuracy directly, matching the
-        per-field `accuracy` and the macro `overall_accuracy`
-        definitions and ensuring all four micro/macro metrics use the
-        same scoring universe. Hallucination is additionally reported
-        via `overall_hallucination_rate` for direct interpretation.
+        accuracy aggregation. Numerator includes both correct (TP) and
+        true_negative (TN); denominator includes all scored cells.
+        Hallucinated cells (FP_hallucinated) are penalised in accuracy
+        directly via the denominator. Hallucination is additionally
+        reported via `overall_hallucination_rate` for direct
+        interpretation.
         """
         agg = self._accuracy_aggregation_fields()
         if not agg:
             return 0.0
-        total_c = sum(m.correct for m in agg.values())
-        total_n = sum(m.correct + m.incorrect + m.missing_in_extraction + m.hallucinated for m in agg.values())
-        return total_c / total_n if total_n else 0.0
+        total_correct = sum(m.correct + m.true_negative for m in agg.values())
+        total_n = sum(
+            m.correct + m.true_negative + m.incorrect + m.missing_in_extraction + m.hallucinated
+            for m in agg.values()
+        )
+        return total_correct / total_n if total_n else 0.0
 
     @property
     def overall_precision_micro(self) -> float:
@@ -270,6 +283,7 @@ class BenchmarkMetrics:
                     "recall": m.recall,
                     "f1_score": m.f1_score,
                     "correct": m.correct,
+                    "true_negative": m.true_negative,
                     "incorrect": m.incorrect,
                     "missing": m.missing_in_extraction,
                     "hallucinated": m.hallucinated,
@@ -408,7 +422,14 @@ def _get_field_type(field_path: str) -> str:
 def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> str:
     """
     Compare extracted value with ground truth.
-    Returns: 'correct', 'incorrect', 'missing', 'hallucinated', or 'excluded'
+    Returns: 'correct', 'true_negative', 'incorrect', 'missing', 'hallucinated', or 'excluded'
+
+    Classical IR mapping:
+      - correct        = TP (model matched a non-empty GT)
+      - true_negative  = TN (both model output and GT are empty / "not stated")
+      - incorrect      = FP_incorrect    (GT non-empty, model returned a different non-empty value)
+      - hallucinated   = FP_hallucinated (GT empty, model returned a value)
+      - missing        = FN              (GT non-empty, model returned empty / "not stated")
     """
     field_type = _get_field_type(field_path)
 
@@ -419,9 +440,9 @@ def compare_values(extracted: Any, ground_truth: Any, field_path: str = "") -> s
     ext_empty = _is_empty(extracted)
     gt_empty = _is_empty(ground_truth)
 
-    # Both empty = correct (both agree info is not stated)
+    # Both empty = true negative (both agree info is not stated)
     if ext_empty and gt_empty:
-        return "correct"
+        return "true_negative"
 
     # Ground truth has value but extraction is empty = missing
     if ext_empty and not gt_empty:
@@ -782,6 +803,8 @@ def calculate_metrics(results: list) -> BenchmarkMetrics:
 
                 if comparison == "correct":
                     fm.correct += 1
+                elif comparison == "true_negative":
+                    fm.true_negative += 1
                 elif comparison == "incorrect":
                     fm.incorrect += 1
                 elif comparison == "missing":
@@ -839,8 +862,8 @@ if __name__ == "__main__":
     print("  Constrained exact match: OK")
 
     # Test not stated
-    assert compare_values("not stated", "not stated", "ai_system.deployer") == "correct"
-    assert compare_values(None, "not stated", "ai_system.deployer") == "correct"
+    assert compare_values("not stated", "not stated", "ai_system.deployer") == "true_negative"
+    assert compare_values(None, "not stated", "ai_system.deployer") == "true_negative"
     assert compare_values("not stated", "OpenAI", "ai_system.deployer") == "missing"
     assert compare_values("OpenAI", "not stated", "ai_system.deployer") == "hallucinated"
     print("  Not stated handling: OK")
@@ -997,10 +1020,11 @@ if __name__ == "__main__":
     assert abs(bm.overall_accuracy - 1.0) < 1e-9, (
         f"pure-hallucination rows must not drag accuracy; got {bm.overall_accuracy}"
     )
-    # Hallucination rate must still see all 9 hallucinated extractions.
-    # total_extracted = 2 + 2 + 3 + 3 + 2 + 1 = 13; halluc = 9; rate = 9/13 ≈ 0.692.
-    assert abs(bm.overall_hallucination_rate - 9/13) < 1e-6, (
-        f"hallucination_rate must include all rows; got {bm.overall_hallucination_rate}"
+    # Hallucination rate is computed only over in-scope fields (no orgs,
+    # no pure-halluc rows). Only the two real fields qualify here, and
+    # neither has hallucinations, so the rate is 0.
+    assert abs(bm.overall_hallucination_rate - 0.0) < 1e-9, (
+        f"hallucination_rate over in-scope fields only; got {bm.overall_hallucination_rate}"
     )
     print("  Pure-hallucination rows excluded from accuracy: OK")
 

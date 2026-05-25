@@ -127,10 +127,11 @@ class TestExcluded:
 
 
 class TestEmptyHandling:
-    def test_both_empty_is_correct(self):
-        assert compare_values("not stated", "not stated", "ai_system.deployer") == "correct"
-        assert compare_values(None, None, "ai_system.deployer") == "correct"
-        assert compare_values("not stated", None, "ai_system.deployer") == "correct"
+    def test_both_empty_is_true_negative(self):
+        # Classical IR: both model output and GT empty ⇒ TN, not TP.
+        assert compare_values("not stated", "not stated", "ai_system.deployer") == "true_negative"
+        assert compare_values(None, None, "ai_system.deployer") == "true_negative"
+        assert compare_values("not stated", None, "ai_system.deployer") == "true_negative"
 
     def test_extracted_empty_when_gt_has_value_is_missing(self):
         assert compare_values("not stated", "OpenAI", "ai_system.deployer") == "missing"
